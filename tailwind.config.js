@@ -4,9 +4,8 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        lato: ['Lato', 'sans-serif'],
-        nunito: ['Nunito', 'sans-serif'],
-        quicksand: ['Quicksand', 'sans-serif']
+        inter: ['Inter', 'sans-serif'],
+        poppins: ['Poppins', 'sans-serif']
       },
       screens: {
         sm: '640px',
@@ -14,15 +13,9 @@ export default {
         lg: '1024px',
         xl: '1280px',
         '2xl': '1536px'
-      },
-      colors: {
-        darkBlue: '#0a0f19',
-        midnightBlue: '#0e1727',
-        softMidnightBlue: '#26334F',
-        softBlue: '#a4c1e1',
-        mutedBlue: '#87a0bc'
       }
     }
   },
-  plugins: [require('preline/plugin')]
+
+  plugins: [require('@tailwindcss/forms'), require('preline/plugin')]
 }
