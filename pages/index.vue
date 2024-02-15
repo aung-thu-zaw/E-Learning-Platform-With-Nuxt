@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Your Code
+useHead({ title: 'Home' })
 </script>
 
 <template>

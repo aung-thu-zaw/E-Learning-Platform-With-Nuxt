@@ -11,7 +11,9 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
       aria-label="Global"
     >
       <div class="flex items-center justify-between md:w-auto min-w-[200px] w-full">
-        <a class="flex-none text-xl font-bold text-gray-800" href="#"> E-Learning Platform </a>
+        <NuxtLink to="/" class="flex-none text-xl font-bold text-gray-800">
+          E-Learning Platform
+        </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
           <button
             class="flex font-bold text-xs bg-yellow-500 border-2 shadow border-yellow-200 p-3 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"
@@ -75,11 +77,11 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
         class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow md:block"
       >
         <div
-          class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md"
+          class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md md:space-x-4"
         >
           <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Learning Path</a>
           <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Quick Tips</a>
-          <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Blogs</a>
+          <NuxtLink to="/blogs" class="font-bold text-gray-800 hover:text-gray-600">Blogs</NuxtLink>
           <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Pricing</a>
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
             <button
@@ -104,7 +106,7 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
             </button>
 
             <div
-              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-72 top-16 sm:w-[50rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
+              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-[28rem] top-16 sm:w-[50rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
             >
               <div class="sm:grid sm:grid-cols-3 gap-5">
                 <div
@@ -223,13 +225,13 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
           <div
             class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
           >
-            <button
-              type="button"
+            <NuxtLink
+              to="/auth/sign-in"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
-              <i class="fa-solid fa-user"></i>
-              Login
-            </button>
+              <i class="fa-solid fa-right-to-bracket mr-1"></i>
+              Sign In
+            </NuxtLink>
 
             <button
               type="button"

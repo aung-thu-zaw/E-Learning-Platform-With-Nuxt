@@ -2,6 +2,8 @@
 import HorizontalBlogCard from '~/components/Cards/HorizontalBlogCard.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogPagination from '~/components/Paginations/BlogPagination.vue'
+
+// useHead({ title: 'Home' })
 </script>
 
 <template>

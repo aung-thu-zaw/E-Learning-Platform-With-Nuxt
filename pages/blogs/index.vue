@@ -2,6 +2,8 @@
 import BlogHero from '~/components/Headers/BlogHero.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
+
+useHead({ title: 'Blogs' })
 </script>
 
 <template>

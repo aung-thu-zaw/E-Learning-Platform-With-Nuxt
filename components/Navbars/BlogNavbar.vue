@@ -11,7 +11,9 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
       aria-label="Global"
     >
       <div class="flex items-center justify-between md:w-auto min-w-[200px] w-full">
-        <a class="flex-none text-xl font-bold text-gray-800" href="#"> Learning Blog </a>
+        <NuxtLink to="/blogs" class="flex-none text-xl font-bold text-gray-800">
+          Learning Blog
+        </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
           <button
             class="flex font-bold text-xs bg-gray-300 p-3 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"

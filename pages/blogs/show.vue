@@ -2,6 +2,8 @@
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import RecommendedCourseCard from '~/components/Cards/RecommendedCourseCard.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
+
+// useHead({ title: 'Home' })
 </script>
 
 <template>
