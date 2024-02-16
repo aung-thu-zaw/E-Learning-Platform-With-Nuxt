@@ -54,8 +54,9 @@ defineExpose({ focus: () => textarea.value.focus() })
     </div>
 
     <textarea
-      :name="name"
       :id="name"
+      ref="textarea"
+      :name="name"
       rows="7"
       class="block w-full p-4 font-semibold text-sm outline-none text-gray-800 bg-gray-50 transition-all focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400"
       :class="{
@@ -63,12 +64,11 @@ defineExpose({ focus: () => textarea.value.focus() })
         'rounded-md': !rounded,
         'pl-12': icon
       }"
-      ref="textarea"
       :value="modelValue"
-      @input="$emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       :disabled="disabled"
       :required="required"
+      @input="$emit('update:modelValue', $event.target.value)"
     ></textarea>
   </div>
 </template>

@@ -66,17 +66,17 @@ const optionLabel = (option) => {
     </div>
 
     <select
-      :name="name"
       :id="name"
+      :name="name"
       class="block w-full p-4 font-semibold text-sm text-gray-800 bg-gray-50 transition-all outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400"
       :class="{
         'rounded-full': rounded,
         'rounded-md': !rounded,
         'pl-12': icon
       }"
-      @change="$emit('update:modelValue', $event.target.value)"
       :disabled="disabled"
       :required="required"
+      @change="$emit('update:modelValue', $event.target.value)"
     >
       <option value="" :selected="modelValue === ''" disabled>{{ placeholder }}</option>
       <option

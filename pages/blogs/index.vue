@@ -2,12 +2,13 @@
 import BlogHero from '~/components/Headers/BlogHero.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
+import BlogLayout from '~/layouts/BlogLayout.vue'
 
 useHead({ title: 'Blogs' })
 </script>
 
 <template>
-  <NuxtLayout name="blog-layout">
+  <BlogLayout>
     <BlogHero />
 
     <BlogAdvertisement />
@@ -24,5 +25,5 @@ useHead({ title: 'Blogs' })
         <BlogCard />
       </div>
     </section>
-  </NuxtLayout>
+  </BlogLayout>
 </template>

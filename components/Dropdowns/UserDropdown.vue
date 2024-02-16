@@ -9,6 +9,13 @@
       type="button"
       class="hs-dropdown-toggle py-2.5 inline-flex items-center gap-x-2 text-sm font-bold text-gray-800 hover:text-gray-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
     >
+      <div class="w-10 h-10 rounded-full overflow-hidden">
+        <img
+          src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+          alt="user-avatar"
+          class="w-full h-full object-cover"
+        />
+      </div>
       Aung Thu Zaw
       <svg
         class="hs-dropdown-open:rotate-180 w-4 h-4"
@@ -34,15 +41,29 @@
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
       >
-        <i class="fa-solid fa-heart"></i>
+        <i class="fa-solid fa-book"></i>
         My Courses
       </a>
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
       >
-        <i class="fa-solid fa-comment"></i>
-        My Comments
+        <i class="fa-solid fa-address-card"></i>
+        My Profile
+      </a>
+      <a
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        href="#"
+      >
+        <i class="fa-solid fa-gear"></i>
+        Account Settings
+      </a>
+      <a
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        href="#"
+      >
+        <i class="fa-solid fa-share"></i>
+        Refer a Friend
       </a>
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
@@ -55,15 +76,15 @@
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
       >
-        <i class="fa-solid fa-gear"></i>
-        Account Setting
+        <i class="fa-solid fa-circle-question"></i>
+        Help
       </a>
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
       >
         <i class="fa-solid fa-right-from-bracket"></i>
-        Logout
+        Sign Out
       </a>
     </div>
   </div>

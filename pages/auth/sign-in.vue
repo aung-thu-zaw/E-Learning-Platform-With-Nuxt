@@ -2,16 +2,16 @@
 import FormButton from '~/components/Buttons/FormButton.vue'
 import SocialAuthButtons from '~/components/Buttons/SocialAuthButtons.vue'
 import Checkbox from '~/components/Forms/Fields/Checkbox.vue'
-import AppLayout from '~/layouts/AppLayout.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-import InputError from '~/components/Forms/Fields/InputError.vue'
+// import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 useHead({ title: 'Sign In' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="py-10 pb-16">
       <div class="min-w-[300px] max-w-[600px] w-auto mx-auto">
         <div class="flex w-full h-full items-center">
@@ -101,5 +101,5 @@ useHead({ title: 'Sign In' })
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

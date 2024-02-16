@@ -4,11 +4,12 @@ import VideoPagination from '~/components/Paginations/VideoPagination.vue'
 import BrowseCourseSearchBox from '~/components/Filters/BrowseCourseSearchBox.vue'
 import BrowseCourseFilterBy from '~/components/Filters/BrowseCourseFilterBy.vue'
 import BrowseCourseSortBy from '~/components/Filters/BrowseCourseSortBy.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="py-12">
       <div class="flex flex-col md:flex-row items-start container mx-auto md:space-x-5">
         <div class="w-full md:w-3/12 p-5 space-y-5">
@@ -219,5 +220,5 @@ import BrowseCourseSortBy from '~/components/Filters/BrowseCourseSortBy.vue'
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

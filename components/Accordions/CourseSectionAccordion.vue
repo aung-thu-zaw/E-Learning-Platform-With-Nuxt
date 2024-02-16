@@ -2,7 +2,7 @@
 
 <template>
   <div class="hs-accordion-group">
-    <div class="hs-accordion" id="hs-basic-with-arrow-heading-one">
+    <div id="hs-basic-with-arrow-heading-one" class="hs-accordion">
       <button
         class="hs-accordion-toggle hs-accordion-active:text-yellow-600 py-3 inline-flex flex-col items-start justify-between gap-x-3 w-full font-semibold text-start text-white disabled:opacity-50 disabled:pointer-events-none"
         aria-controls="hs-basic-with-arrow-collapse-one"
@@ -55,9 +55,9 @@
           <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
             <div class="flex">
               <input
+                id="hs-checked-checkbox"
                 type="checkbox"
                 class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
                 checked
               />
             </div>
@@ -76,9 +76,9 @@
           <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
             <div class="flex">
               <input
+                id="hs-checked-checkbox"
                 type="checkbox"
                 class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
                 checked
               />
             </div>
@@ -97,135 +97,9 @@
           <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
             <div class="flex">
               <input
+                id="hs-checked-checkbox"
                 type="checkbox"
                 class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
-                checked
-              />
-            </div>
-            <div>
-              <p class="line-clamp-2 font-semibold text-[0.8rem]">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis? Qui id, animi doloribus hic dolor soluta, at sapiente
-                voluptatibus assumenda facere non iste debitis.
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-300">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                24min
-              </span>
-            </div>
-          </div>
-          <div class="p-3 hover:bg-slate-700 rounded-md flex items-start space-x-3 transition-all">
-            <div class="flex">
-              <input
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                id="hs-checked-checkbox"
                 checked
               />
             </div>

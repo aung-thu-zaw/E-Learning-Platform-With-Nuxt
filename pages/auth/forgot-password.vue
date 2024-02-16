@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import FormButton from '~/components/Buttons/FormButton.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-import InputError from '~/components/Forms/Fields/InputError.vue'
+// import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 
 useHead({ title: 'Forgot Password' })

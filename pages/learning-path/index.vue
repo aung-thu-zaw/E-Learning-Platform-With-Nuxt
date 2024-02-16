@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectionCard.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section>
       <div class="px-5 md:px-28 text-left bg-white py-10 md:py-16 space-y-5">
         <h4 class="font-bold text-xl text-yellow-500">Learning Paths</h4>
@@ -37,5 +38,5 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

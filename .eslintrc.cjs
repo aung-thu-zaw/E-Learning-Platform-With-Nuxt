@@ -6,11 +6,12 @@ module.exports = {
     browser: true,
     node: true
   },
-  parser: '@typescript-eslint/parser',
+  parser: 'vue-eslint-parser',
   parserOptions: {
     project: './tsconfig.json',
     ecmaVersion: 2020,
-    sourceType: 'module'
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser'
   },
   extends: [
     '@nuxt/eslint-config',

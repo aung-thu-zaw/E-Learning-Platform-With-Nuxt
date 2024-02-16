@@ -58,9 +58,10 @@ defineExpose({ focus: () => input.value.focus() })
     </div>
 
     <input
+      :id="name"
+      ref="input"
       :type="type"
       :name="name"
-      :id="name"
       class="block w-full p-4 font-semibold text-sm text-gray-800 bg-gray-50 outline-none transition-all focus:ring-2 focus:ring-yellow-200 border border-gray-300 focus:border-yellow-400"
       :class="{
         'rounded-full': rounded,
@@ -68,11 +69,10 @@ defineExpose({ focus: () => input.value.focus() })
         'pl-12': icon
       }"
       :value="modelValue"
-      ref="input"
-      @input="$emit('update:modelValue', $event.target.value)"
       :placeholder="placeholder"
       :disabled="disabled"
       :required="required"
+      @input="$emit('update:modelValue', $event.target.value)"
     />
   </div>
 </template>

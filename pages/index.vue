@@ -5,12 +5,13 @@ import RecommendedLearningPathSection from '~/components/Sections/RecommendedLea
 import RecommendedCourseSection from '~/components/Sections/RecommendedCourseSection.vue'
 import NewAndPopularCourseSection from '~/components/Sections/NewAndPopularCourseSection.vue'
 import CourseBasedOnYourInterestSection from '~/components/Sections/CourseBasedOnYourInterestSection.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <HeaderCarousel />
 
     <ExploreYourCreativeInterestSection />
@@ -22,5 +23,5 @@ useHead({ title: 'Home' })
     <NewAndPopularCourseSection />
 
     <CourseBasedOnYourInterestSection />
-  </NuxtLayout>
+  </AppLayout>
 </template>

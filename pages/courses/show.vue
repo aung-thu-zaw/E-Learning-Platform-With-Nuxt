@@ -4,12 +4,13 @@ import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 import CourseProgressBar from '~/components/ProgressBars/CourseProgressBar.vue'
 import CourseSectionAccordion from '~/components/Accordions/CourseSectionAccordion.vue'
 import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="bg-[#1e293b]">
       <header class="pt-5 mt-10 md:mt-0 px-5">
         <div class="">
@@ -64,9 +65,9 @@ useHead({ title: 'Home' })
         <div class="container mx-auto px-20">
           <nav class="flex space-x-10" aria-label="Tabs" role="tablist">
             <button
+              id="tabs-with-underline-item-1"
               type="button"
               class="hs-tab-active:font-semibold hs-tab-active:border-yellow-600 hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-sm font-bold whitespace-nowrap text-gray-700 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none active"
-              id="tabs-with-underline-item-1"
               data-hs-tab="#tabs-with-underline-1"
               aria-controls="tabs-with-underline-1"
               role="tab"
@@ -74,9 +75,9 @@ useHead({ title: 'Home' })
               About
             </button>
             <button
+              id="tabs-with-underline-item-2"
               type="button"
               class="hs-tab-active:font-semibold hs-tab-active:border-yellow-600 hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none text-sm text-gray-700 font-bold"
-              id="tabs-with-underline-item-2"
               data-hs-tab="#tabs-with-underline-2"
               aria-controls="tabs-with-underline-2"
               role="tab"
@@ -84,9 +85,9 @@ useHead({ title: 'Home' })
               Projects & Resources
             </button>
             <button
+              id="tabs-with-underline-item-3"
               type="button"
               class="hs-tab-active:font-semibold hs-tab-active:border-yellow-600 hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none text-sm text-gray-700 font-bold"
-              id="tabs-with-underline-item-3"
               data-hs-tab="#tabs-with-underline-3"
               aria-controls="tabs-with-underline-3"
               role="tab"
@@ -94,9 +95,9 @@ useHead({ title: 'Home' })
               Reviews
             </button>
             <button
+              id="tabs-with-underline-item-4"
               type="button"
               class="hs-tab-active:font-semibold hs-tab-active:border-yellow-600 hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent whitespace-nowrap hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none text-sm text-gray-700 font-bold"
-              id="tabs-with-underline-item-4"
               data-hs-tab="#tabs-with-underline-4"
               aria-controls="tabs-with-underline-4"
               role="tab"
@@ -226,5 +227,5 @@ useHead({ title: 'Home' })
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

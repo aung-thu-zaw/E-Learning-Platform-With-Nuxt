@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
-// import VideoPagination from '~/components/Paginations/VideoPagination.vue'
-// import BrowseCourseSearchBox from '~/components/Filters/BrowseCourseSearchBox.vue'
-import CourseTypeFilter from '~/components/Filters/CourseTypeFilter.vue'
-import CourseSortBy from '~/components/Filters/CourseSortBy.vue'
+// import CourseTypeFilter from '~/components/Filters/CourseTypeFilter.vue'
+// import CourseSortBy from '~/components/Filters/CourseSortBy.vue'
 import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectionCard.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="py-12">
       <div class="container mx-auto px-5 space-y-10">
         <div class="flex flex-col items-start">
@@ -114,5 +113,5 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

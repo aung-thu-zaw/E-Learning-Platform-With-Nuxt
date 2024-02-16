@@ -32,8 +32,8 @@
           <i class="fa-solid fa-circle-xmark"></i>
         </button>
         <input
-          type="text"
           id="default-search"
+          type="text"
           class="block w-full p-4 pl-10 text-xs text-gray-700 rounded-md bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400 font-semibold"
           placeholder="Search courses about animation"
           required

@@ -2,12 +2,13 @@
 import HorizontalBlogCard from '~/components/Cards/HorizontalBlogCard.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogPagination from '~/components/Paginations/BlogPagination.vue'
+import BlogLayout from '~/layouts/BlogLayout.vue'
 
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="blog-layout">
+  <BlogLayout>
     <section>
       <div class="bg-white py-16 space-y-6">
         <h1 class="font-bold text-center">
@@ -52,5 +53,5 @@ import BlogPagination from '~/components/Paginations/BlogPagination.vue'
     </section>
 
     <BlogAdvertisement />
-  </NuxtLayout>
+  </BlogLayout>
 </template>

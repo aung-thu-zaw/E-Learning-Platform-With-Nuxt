@@ -3,12 +3,13 @@ import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
 import CourseTypeFilter from '~/components/Filters/CourseTypeFilter.vue'
 import CourseSortBy from '~/components/Filters/CourseSortBy.vue'
 import CourseFilterSidebar from '~/components/Filters/CourseFilterSidebar.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="py-12">
       <div class="container mx-auto px-5 mb-10">
         <div class="flex flex-col items-start">
@@ -48,5 +49,5 @@ import CourseFilterSidebar from '~/components/Filters/CourseFilterSidebar.vue'
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

@@ -2,12 +2,13 @@
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import RecommendedCourseCard from '~/components/Cards/RecommendedCourseCard.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
+import BlogLayout from '~/layouts/BlogLayout.vue'
 
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="blog-layout">
+  <BlogLayout>
     <section>
       <!-- Hero -->
       <div class="relative overflow-hidden">
@@ -266,5 +267,5 @@ import BlogCard from '~/components/Cards/BlogCard.vue'
     </section>
 
     <BlogAdvertisement />
-  </NuxtLayout>
+  </BlogLayout>
 </template>

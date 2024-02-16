@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import CourseInformationCard from '~/components/Cards/CourseInformationCard.vue'
 import CourseTimeline from '~/components/CourseTimeline.vue'
+import AppLayout from '~/layouts/AppLayout.vue'
 
 // useHead({ title: 'Home' })
 </script>
 
 <template>
-  <NuxtLayout name="app-layout">
+  <AppLayout>
     <section class="">
       <div
         class="px-5 md:px-28 text-left bg-white py-20 md:py-36 space-y-5"
@@ -46,5 +47,5 @@ import CourseTimeline from '~/components/CourseTimeline.vue'
         </div>
       </div>
     </section>
-  </NuxtLayout>
+  </AppLayout>
 </template>

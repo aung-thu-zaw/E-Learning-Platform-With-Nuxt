@@ -7,7 +7,10 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint --ext .js,.vue,.ts .",
+    "lint:fix": "eslint --ext .js,.vue,.ts --fix .",
+    "format": "prettier --write \"**/*.+(js|jsx|json|css|scss|ts|tsx|md|html)\""
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
@@ -20,6 +23,7 @@
     "preline": "^2.0.3",
     "sweetalert2": "^11.10.5",
     "vue": "^3.4.15",
+    "vue-eslint-parser": "^9.4.2",
     "vue-router": "^4.2.5",
     "vue3-toastify": "^0.2.1"
   },

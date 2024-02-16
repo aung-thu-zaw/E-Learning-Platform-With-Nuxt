@@ -100,7 +100,7 @@
             />
           </div>
           <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
-            <span class="block text-sm font-semibold text-gray-600">Short ( < 1 Hour )</span>
+            <span class="block text-sm font-semibold text-gray-600">Short ( Under 1 Hour )</span>
           </label>
         </div>
 
@@ -132,7 +132,7 @@
             />
           </div>
           <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
-            <span class="block text-sm font-semibold text-gray-600">Long ( > 3 Hours)</span>
+            <span class="block text-sm font-semibold text-gray-600">Long ( Over 3 Hours)</span>
           </label>
         </div>
       </div>

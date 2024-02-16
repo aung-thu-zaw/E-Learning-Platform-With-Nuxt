@@ -42,8 +42,8 @@ const onFileChange = (event) => {
 <template>
   <div>
     <input
-      :name="name"
       :id="name"
+      :name="name"
       class="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 file:disabled:opacity-50 file:disabled:pointer-events-none outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400"
       :class="{
         'rounded-full': rounded,
@@ -54,11 +54,11 @@ const onFileChange = (event) => {
       aria-describedby="file_input_help"
       type="file"
       multiple
-      @change="onFileChange"
       :disabled="disabled"
       :required="required"
+      @change="onFileChange"
     />
-    <p v-show="text" class="mt-1 text-xs font-bold text-gray-600" :id="name + '-help'">
+    <p v-show="text" :id="name + '-help'" class="mt-1 text-xs font-bold text-gray-600">
       {{ text }}
     </p>
   </div>

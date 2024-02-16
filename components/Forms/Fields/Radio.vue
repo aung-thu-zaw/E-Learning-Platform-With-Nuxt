@@ -28,10 +28,10 @@ const proxyChecked = computed({
 
 <template>
   <input
+    id="hs-checked-radio"
+    v-model="proxyChecked"
     type="radio"
     class="shrink-0 mt-0.5 border-gray-300 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-    id="hs-checked-radio"
     :value="value"
-    v-model="proxyChecked"
   />
 </template>

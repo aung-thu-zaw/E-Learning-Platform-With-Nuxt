@@ -225,7 +225,7 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
           <div
             class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
           >
-            <NuxtLink
+            <!-- <NuxtLink
               to="/auth/sign-in"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
@@ -239,9 +239,9 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
             >
               <i class="fa-solid fa-crown"></i>
               Join Premium
-            </button>
+            </button> -->
 
-            <!-- <UserDropdown /> -->
+            <UserDropdown />
           </div>
         </div>
       </div>
