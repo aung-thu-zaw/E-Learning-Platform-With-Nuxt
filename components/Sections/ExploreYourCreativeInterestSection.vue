@@ -7,7 +7,11 @@ import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5 mb-10">
         <div class="space-y-3">
-          <h1 class="font-bold text-gray-800 text-3xl">Explore Your Creative Interests</h1>
+          <h1
+            class="font-bold text-gray-800 text-3xl [text-shadow:_1.5px_0.5px_1.5px_rgb(0_0_0_/_40%)]"
+          >
+            Explore Your Creative Interests
+          </h1>
           <p class="text-sm font-medium text-gray-600">
             Discover and customize your learning journey by adding tags that reflect your creative
             interests.

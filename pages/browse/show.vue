@@ -2,8 +2,8 @@
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
 import VideoPagination from '~/components/Paginations/VideoPagination.vue'
 import BrowseCourseSearchBox from '~/components/Filters/BrowseCourseSearchBox.vue'
-import CourseFilterBy from '~/components/Filters/CourseFilterBy.vue'
-import CourseSortBy from '~/components/Filters/CourseSortBy.vue'
+import BrowseCourseFilterBy from '~/components/Filters/BrowseCourseFilterBy.vue'
+import BrowseCourseSortBy from '~/components/Filters/BrowseCourseSortBy.vue'
 // useHead({ title: 'Home' })
 </script>
 
@@ -193,8 +193,8 @@ import CourseSortBy from '~/components/Filters/CourseSortBy.vue'
             <BrowseCourseSearchBox />
 
             <div class="flex items-center space-x-3">
-              <CourseSortBy />
-              <CourseFilterBy />
+              <BrowseCourseSortBy />
+              <BrowseCourseFilterBy />
             </div>
           </div>
 
