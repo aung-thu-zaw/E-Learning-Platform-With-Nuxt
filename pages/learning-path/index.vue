@@ -11,7 +11,7 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
         <h4 class="font-bold text-xl text-yellow-500">Learning Paths</h4>
 
         <h1 class="font-bold text-2xl md:text-4xl text-gray-800 max-w-[600px]">
-          Reach Your Learning Goals With Hand-Picked, Sequential Classes
+          Reach Your Learning Goals With Hand-Picked, Sequential Courses
         </h1>
         <p class="font-semibold text-sm text-gray-700 mx-auto">
           Focus your creative journey with our platform Learning Paths. Deepen your skillset with a
