@@ -4,7 +4,7 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
 
 <template>
   <div
-    class="sticky top-0 bg-white flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 border-b"
+    class="sticky top-0 flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 border-b bg-white"
   >
     <nav
       class="max-w-[85rem] w-full mx-auto px-4 md:flex md:items-center md:justify-between"
