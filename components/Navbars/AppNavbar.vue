@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
+
+const route = useRoute()
 </script>
 
 <template>
@@ -79,10 +81,32 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
         <div
           class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md md:space-x-4"
         >
-          <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Learning Path</a>
-          <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Quick Tips</a>
-          <NuxtLink to="/blogs" class="font-bold text-gray-800 hover:text-gray-600">Blogs</NuxtLink>
-          <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Pricing</a>
+          <NuxtLink
+            to="/learning-paths"
+            class="font-bold text-gray-800 hover:text-gray-600 duration-200"
+            :class="{
+              'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/learning-paths')
+            }"
+          >
+            Learning Paths
+          </NuxtLink>
+
+          <a class="font-bold text-gray-800 hover:text-gray-600 duration-200" href="#">
+            Quick Tips
+          </a>
+
+          <NuxtLink
+            to="/blogs"
+            class="font-bold text-gray-800 hover:text-gray-600 duration-200"
+            :class="{
+              'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/blogs')
+            }"
+          >
+            Blogs
+          </NuxtLink>
+
+          <a class="font-bold text-gray-800 hover:text-gray-600" href="#"> Pricing </a>
+
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
             <button
               type="button"
@@ -106,7 +130,7 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
             </button>
 
             <div
-              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-[28rem] top-16 sm:w-[50rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
+              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-[20rem] top-20 sm:w-[50rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
             >
               <div class="sm:grid sm:grid-cols-3 gap-5">
                 <div

@@ -7,7 +7,7 @@
     <button
       id="hs-dropdown-slideup-animation"
       type="button"
-      class="flex font-bold text-md p-3 text-gray-700 rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-gray-200 transition-all"
+      class="flex font-bold text-md p-3 text-gray-700 rounded-full w-10 h-10 items-center justify-center hover:cursor-pointer hover:bg-gray-200 transition-all"
     >
       <i class="fa-solid fa-globe"></i>
     </button>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Your Code
+const route = useRoute()
 </script>
 
 <template>
@@ -16,7 +16,16 @@
           class="w-full h-full object-cover"
         />
       </div>
-      Aung Thu Zaw
+
+      <div class="flex flex-col items-start">
+        <span> Aung Thu Zaw </span>
+        <span
+          v-show="route.fullPath.startsWith('/admin')"
+          class="text-[.65rem] font-semibold text-yellow-500"
+        >
+          Super Admin
+        </span>
+      </div>
       <svg
         class="hs-dropdown-open:rotate-180 w-4 h-4"
         xmlns="http://www.w3.org/2000/svg"
@@ -37,13 +46,21 @@
       class="hs-dropdown-menu font-semibold hs-dropdown-open:opacity-100 duration opacity-0 hidden z-10 transition-[margin,opacity] duration-300 mt-2 min-w-[15rem] rounded-lg p-2 bg-white border divide-gray-700 w-auto"
       aria-labelledby="hs-dropdown-slideup-animation"
     >
-      <a
+      <NuxtLink
+        to="/admin/dashboard"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
+      >
+        <i class="fa-solid fa-tv"></i>
+        Go To Admin Dashboard
+      </NuxtLink>
+
+      <NuxtLink
+        to="/my-courses/saved-courses"
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-book"></i>
         My Courses
-      </a>
+      </NuxtLink>
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
