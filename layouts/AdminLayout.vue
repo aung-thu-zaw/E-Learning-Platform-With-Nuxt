@@ -16,8 +16,8 @@ const collapseShow = ref(true)
       <AdminDashboardSidebar :collapse="collapseShow" />
 
       <div
-        :class="{ '-ml-64': !collapseShow }"
-        class="w-full min-h-screen transition-margin duration-500 ml-3"
+        :class="{ '-ml-80': !collapseShow }"
+        class="w-full min-h-screen transition-margin duration-500"
       >
         <main class="px-5 py-10">
           <slot />

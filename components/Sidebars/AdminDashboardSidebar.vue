@@ -1,4 +1,3 @@
-import type { NuxtLink } from '#build/components';
 <script setup lang="ts">
 defineProps({
   collapse: {
@@ -9,7 +8,7 @@ defineProps({
 
 const route = useRoute()
 
-const getSidebarMenuActiveColor: string = (targetRoute: string) => {
+const getSidebarMenuActiveColor = (targetRoute: string): string => {
   return route.path.startsWith(targetRoute)
     ? 'text-yellow-500 hover:text-yellow-600 duration-200'
     : 'text-gray-700 hover:text-gray-600 duration-200'
@@ -19,18 +18,18 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
 <template>
   <aside
     :class="{ 'translate-x-0': collapse, '-translate-x-full': !collapse }"
-    class="bg-white text-gray-700 shadow-md h-full overflow-y-scroll min-w-60 w-64 z-10 py-4 px-6 transition-transform duration-500 border-r border-gray-200 scrollbar"
+    class="bg-white text-gray-700 shadow-md h-screen overflow-y-scroll w-80 z-10 px-3.5 py-5 transition-transform duration-500 border-r border-gray-200 scrollbar"
   >
     <div
       class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center md:justify-between w-full mx-auto"
     >
       <!-- Collapse -->
       <div
-        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:shadow-none absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded px-3.5 md:px-0"
+        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:shadow-none absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 py-5 md:py-0 rounded px-3.5 md:px-0"
       >
         <!-- Heading -->
         <h6
-          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline"
+          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
           Platform Administration
         </h6>
@@ -42,7 +41,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/admin/dashboard"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/dashboard')"
             >
               <div class="py-3 block">
@@ -56,7 +55,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/analytics')"
             >
               <div class="py-3 block">
@@ -70,7 +69,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/nav-banner')"
             >
               <div class="py-3 block">
@@ -84,7 +83,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/sliders')"
             >
               <div class="py-3 block">
@@ -98,7 +97,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/coupons')"
             >
               <div class="py-3 block">
@@ -112,7 +111,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/categories')"
             >
               <div class="py-3 block">
@@ -122,11 +121,25 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
             </NuxtLink>
           </li>
 
+          <!-- Skills -->
+          <li class="items-center">
+            <NuxtLink
+              to="/"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
+              :class="getSidebarMenuActiveColor('/admin/skills')"
+            >
+              <div class="py-3 block">
+                <i class="fas fa-tag mr-2" />
+                Skill Tags
+              </div>
+            </NuxtLink>
+          </li>
+
           <!-- Courses -->
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/courses')"
             >
               <div class="py-3 block">
@@ -146,7 +159,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/learning-paths')"
             >
               <div class="py-3 block">
@@ -160,7 +173,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/rating-and-reviews')"
             >
               <div class="py-3 block">
@@ -174,9 +187,9 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li id="newsletter-accordion" class="hs-accordion items-center">
             <button
               type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
-              <span>
+              <span class="">
                 <i class="fa-solid fa-envelope-open-text mr-2"></i>
                 Newsletter
               </span>
@@ -231,7 +244,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/subscribers')"
                   >
                     Subscribers
@@ -240,7 +253,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/send-newsletter')"
                   >
                     Send Newsletter
@@ -254,7 +267,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li id="blog-management-accordion" class="hs-accordion items-center">
             <button
               type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
               <span>
                 <i class="fa-solid fa-file-pen mr-2"></i>
@@ -311,7 +324,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/blog-categories')"
                   >
                     Categories
@@ -320,7 +333,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/blog-contents')"
                   >
                     Contents
@@ -334,7 +347,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/support-chat')"
             >
               <div class="py-3 block">
@@ -353,7 +366,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
 
         <hr class="my-4 md:min-w-full" />
         <h6
-          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline"
+          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
           Subscription Management
         </h6>
@@ -365,7 +378,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/subscription-plans')"
             >
               <div class="py-3 block">
@@ -379,7 +392,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/user-subscriptions')"
             >
               <div class="py-3 block">
@@ -393,7 +406,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/payment-processing')"
             >
               <div class="py-3 block">
@@ -407,7 +420,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/tracking-and-reporting')"
             >
               <div class="py-3 block">
@@ -421,7 +434,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li class="items-center">
             <NuxtLink
               to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/renewal-and-cancellation')"
             >
               <div class="py-3 block">
@@ -430,92 +443,12 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
               </div>
             </NuxtLink>
           </li>
-
-          <!-- Subscriptions -->
-          <!-- <li id="subscription-management-accordion" class="hs-accordion items-center">
-            <button
-              type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
-            >
-              <span>
-                <i class="fa-solid fa-sync-alt mr-2"></i>
-                Subscriptions
-              </span>
-              <span>
-                <svg
-                  class="hs-accordion-active:block ms-auto hidden w-4 h-4 text-gray-600 group-hover:text-gray-500"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="m18 15-6-6-6 6" />
-                </svg>
-
-                <svg
-                  class="hs-accordion-active:hidden ms-auto block w-4 h-4 text-gray-600 group-hover:text-gray-500"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                  ></path>
-                </svg>
-              </span>
-            </button>
-
-            <div
-              id="subscription-management-accordion"
-              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
-              :class="{
-                block:
-                  route.fullPath.startsWith('/admin/plans') ||
-                  route.fullPath.startsWith('/admin/subscribed-plans'),
-                hidden: !(
-                  route.fullPath.startsWith('/admin/plans') ||
-                  route.fullPath.startsWith('/admin/subscribed-plans')
-                )
-              }"
-            >
-              <ul class="pl-8">
-                <li class="items-center">
-                  <NuxtLink
-                    to="/"
-                    class="py-3 font-bold block"
-                    :class="getSidebarMenuActiveColor('/admin/plans')"
-                  >
-                    Plans
-                  </NuxtLink>
-                </li>
-                <li class="items-center">
-                  <NuxtLink
-                    to="/"
-                    class="py-3 font-bold block"
-                    :class="getSidebarMenuActiveColor('/admin/subscribed-plans')"
-                  >
-                    Subscribed Plans
-                  </NuxtLink>
-                </li>
-              </ul>
-            </div>
-          </li> -->
         </ul>
 
         <hr class="my-4 md:min-w-full" />
 
         <h6
-          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline"
+          class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
           Management And Oversight
         </h6>
@@ -527,7 +460,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li id="instructor-management-accordion" class="hs-accordion items-center">
             <button
               type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
               <span>
                 <i class="fa-solid fa-chalkboard-teacher mr-2"></i>
@@ -584,7 +517,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/claims-as-a-instructor')"
                   >
                     Claims as a Instructors
@@ -593,7 +526,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/instructors')"
                   >
                     Instructors
@@ -607,7 +540,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li id="authority-management-accordion" class="hs-accordion items-center">
             <button
               type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
               <span>
                 <i class="fa-solid fa-shield mr-2"></i>
@@ -666,7 +599,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/permissions')"
                   >
                     Permissions
@@ -675,7 +608,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/roles')"
                   >
                     Roles
@@ -684,7 +617,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/assign-role-permissions')"
                   >
                     Assign Role Permissions
@@ -698,7 +631,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <li id="account-management-accordion" class="hs-accordion items-center">
             <button
               type="button"
-              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
               <span>
                 <i class="fa-solid fa-user-gear mr-2"></i>
@@ -755,7 +688,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/registered-accounts')"
                   >
                     Registered Accounts
@@ -764,7 +697,7 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
                 <li class="items-center">
                   <NuxtLink
                     to="/"
-                    class="py-3 font-bold block"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/admin-manage')"
                   >
                     Admin Manage
@@ -777,8 +710,8 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <!-- Settings -->
           <li class="items-center">
             <NuxtLink
-              to="/admin/settings"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              to="/"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/settings')"
             >
               <div class="py-3 block">
@@ -791,8 +724,8 @@ const getSidebarMenuActiveColor: string = (targetRoute: string) => {
           <!-- Database Backup -->
           <li class="items-center">
             <NuxtLink
-              to="/admin/database-backup"
-              class="flex h-12 cursor-pointer items-center truncate rounded-[5px] py-3 outline-none"
+              to="/"
+              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/database-backup')"
             >
               <div class="py-3 block">
