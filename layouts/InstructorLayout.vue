@@ -1,10 +1,19 @@
 <script setup lang="ts">
-// Your Code
+import InstructorDashboardNavbar from '~/components/Navbars/InstructorDashboardNavbar.vue'
+import AdminDashboardSidebar from '~/components/Sidebars/AdminDashboardSidebar.vue'
+import { ref } from 'vue'
+
+const collapseShow = ref(true)
 </script>
 
 <template>
-  <div>
-    <!-- Your Code -->
+  <div class="font-inter bg-gray-100">
+    <!-- Navbar -->
+    <InstructorDashboardNavbar @update-collapse-show="collapseShow = !collapseShow" />
+    <!-- Navbar -->
+    <main class="px-5 py-10 min-h-screen">
+      <slot />
+    </main>
   </div>
 </template>
 
