@@ -1,8 +1,11 @@
 <script setup lang="ts">
 import InstructorDashboardNavbar from '~/components/Navbars/InstructorDashboardNavbar.vue'
-import { ref } from 'vue'
+import { useAuthStore } from '~/stores/auth'
 
+const store = useAuthStore()
 const collapseShow = ref(true)
+
+onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>

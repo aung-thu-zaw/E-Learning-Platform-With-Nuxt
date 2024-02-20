@@ -43,7 +43,7 @@ const { user } = storeToRefs(store)
     </button>
 
     <div
-      class="hs-dropdown-menu font-semibold hs-dropdown-open:opacity-100 duration opacity-0 hidden z-10 transition-[margin,opacity] duration-300 mt-2 min-w-[15rem] rounded-lg p-2 bg-white border divide-gray-700 w-auto"
+      class="hs-dropdown-menu font-semibold hs-dropdown-open:opacity-100 duration opacity-0 hidden z-50 transition-[margin,opacity] duration-300 mt-2 min-w-[15rem] rounded-lg p-2 bg-white border divide-gray-700 w-auto"
       aria-labelledby="hs-dropdown-slideup-animation"
     >
       <NuxtLink

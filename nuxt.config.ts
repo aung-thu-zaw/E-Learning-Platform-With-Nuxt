@@ -5,7 +5,8 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
-    '@formkit/auto-animate/nuxt'
+    '@formkit/auto-animate/nuxt',
+    '@nuxtjs/i18n'
   ],
   pinia: {
     storesDirs: ['./stores/**']
@@ -16,7 +17,10 @@ export default defineNuxtConfig({
     '~/plugins/axios.ts',
     '~/plugins/toastify.ts',
     '~/plugins/sweetalert.ts',
-    '~/plugins/recaptcha.ts'
+    '~/plugins/recaptcha.ts',
+    '~/plugins/can.ts',
+    '~/plugins/translations.ts',
+    '~/plugins/translations.script.ts'
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -57,6 +61,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       backendBaseUrl: process.env.BACKEND_BASEURL,
+      backendApiBaseUrl: process.env.BACKEND_API_BASEURL,
       recaptcha: {
         siteKey: process.env.GOOGLE_RECAPTCHA_SITE_KEY
       }

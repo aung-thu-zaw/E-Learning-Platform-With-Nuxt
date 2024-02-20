@@ -1,4 +1,4 @@
-import 'preline'
+import 'preline/preline'
 import { type IStaticMethods } from 'preline/preline'
 declare global {
   interface Window {

@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import BlogNavbar from '~/components/Navbars/BlogNavbar.vue'
 import AppFooter from '~/components/Footers/AppFooter.vue'
+import { useAuthStore } from '~/stores/auth'
+
+const store = useAuthStore()
+
+onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>

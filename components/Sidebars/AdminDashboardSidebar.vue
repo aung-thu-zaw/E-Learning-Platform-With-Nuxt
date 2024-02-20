@@ -107,18 +107,84 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             </NuxtLink>
           </li>
 
-          <!-- Categories -->
-          <li class="items-center">
-            <NuxtLink
-              to="/"
-              class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
-              :class="getSidebarMenuActiveColor('/admin/categories')"
+          <!-- Manage catalogues -->
+          <li id="category-management-accordion" class="hs-accordion items-center">
+            <button
+              type="button"
+              class="hs-accordion-toggle text-gray-700 hover:text-gray-600 duration-200 py-3.5 flex items-center justify-between w-full hover:bg-gray-200 rounded-lg px-3"
             >
-              <div class="py-3 block">
+              <span>
                 <i class="fas fa-th-large mr-2" />
-                Categories
-              </div>
-            </NuxtLink>
+                Catalogues
+              </span>
+              <span>
+                <svg
+                  class="hs-accordion-active:block ms-auto hidden w-4 h-4 text-gray-600 group-hover:text-gray-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="m18 15-6-6-6 6" />
+                </svg>
+
+                <svg
+                  class="hs-accordion-active:hidden ms-auto block w-4 h-4 text-gray-600 group-hover:text-gray-500"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  ></path>
+                </svg>
+              </span>
+            </button>
+
+            <div
+              id="category-management-accordion"
+              class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
+              :class="{
+                block:
+                  route.fullPath.startsWith('/admin/categories') ||
+                  route.fullPath.startsWith('/admin/subcategories'),
+                hidden: !(
+                  route.fullPath.startsWith('/admin/categories') ||
+                  route.fullPath.startsWith('/admin/subcategories')
+                )
+              }"
+            >
+              <ul class="pl-8">
+                <li class="items-center">
+                  <NuxtLink
+                    to="/"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
+                    :class="getSidebarMenuActiveColor('/admin/categories')"
+                  >
+                    Categories
+                  </NuxtLink>
+                </li>
+                <li class="items-center">
+                  <NuxtLink
+                    to="/"
+                    class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
+                    :class="getSidebarMenuActiveColor('/admin/subcategories')"
+                  >
+                    Subcategories
+                  </NuxtLink>
+                </li>
+              </ul>
+            </div>
           </li>
 
           <!-- Skills -->
@@ -454,6 +520,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
         </h6>
 
         <ul
+          v-show="can('admin')"
           class="hs-accordion-group md:flex-col md:min-w-full flex flex-col list-none text-[13px] font-bold"
         >
           <!-- Manage Instructors -->
