@@ -113,6 +113,8 @@ const form: Form = reactive({
                       </div>
                     </div>
 
+                    <InputError :message="errors?.captcha_token" />
+
                     <FormButton> Sign In </FormButton>
                   </div>
                 </form>

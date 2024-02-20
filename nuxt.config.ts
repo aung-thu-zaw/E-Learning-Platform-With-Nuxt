@@ -4,7 +4,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss',
     '@pinia/nuxt',
-    '@nuxtjs/turnstile',
     '@vee-validate/nuxt',
     '@formkit/auto-animate/nuxt'
   ],
@@ -16,7 +15,8 @@ export default defineNuxtConfig({
     '~/plugins/preline.client.ts',
     '~/plugins/axios.ts',
     '~/plugins/toastify.ts',
-    '~/plugins/sweetalert.ts'
+    '~/plugins/sweetalert.ts',
+    '~/plugins/recaptcha.ts'
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },
@@ -54,14 +54,12 @@ export default defineNuxtConfig({
     }
   },
 
-  turnstile: {
-    siteKey: process.env.TURNSTILE_SITE_KEY,
-    addValidateEndpoint: true
-  },
-
   runtimeConfig: {
-    turnstile: {
-      secretKey: process.env.TURNSTILE_SECRET_KEY
+    public: {
+      backendBaseUrl: process.env.BACKEND_BASEURL,
+      recaptcha: {
+        siteKey: process.env.GOOGLE_RECAPTCHA_SITE_KEY
+      }
     }
   }
 })

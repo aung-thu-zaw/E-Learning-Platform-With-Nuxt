@@ -152,6 +152,8 @@ const handleRegister = async () => {
                       </div>
                     </div>
 
+                    <InputError :message="errors?.captcha_token" />
+
                     <FormButton> Create Account </FormButton>
                   </div>
                 </form>

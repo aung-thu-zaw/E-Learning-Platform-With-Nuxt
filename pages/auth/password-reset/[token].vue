@@ -95,6 +95,8 @@ const form: Form = reactive({
                     />
                   </div>
 
+                  <InputError :message="errors?.captcha_token" />
+
                   <FormButton> Reset Password </FormButton>
                 </div>
               </form>

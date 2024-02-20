@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia'
-import { toast } from 'vue3-toastify'
-import 'vue3-toastify/dist/index.css'
+import { useToken } from '~/composables/useToken'
 
 interface RegisterForm {
   display_name: string
@@ -59,28 +58,27 @@ interface ErrorResponse {
   username: string | null
   password: string | null
   email: string | null
+  captcha_token: string | null
 }
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
-  const { $axios } = useNuxtApp()
   const user = ref<User | null>(null)
   const errors = ref<ErrorResponse | null>(null)
   const status = ref<string>(null)
-
-  const getCsrfCookie = async (): void => {
-    try {
-      await $axios.get('/sanctum/csrf-cookie')
-    } catch (error) {
-      console.error('Failed to get CSRF cookie:', error)
-    }
-  }
+  const { generateCsrfToken, generateCaptchaToken } = useToken()
+  const { $axios, $toast } = useNuxtApp()
 
   const forgotPassword = async (email: string): void => {
     try {
-      await getCsrfCookie()
+      await generateCsrfToken()
 
-      const response = await $axios.post('/forgot-password', { email })
+      const captchaToken = await generateCaptchaToken('forgot_password')
+
+      const response = await $axios.post('/forgot-password', {
+        email,
+        captcha_token: captchaToken
+      })
 
       if (!response) throw new Error('Response Not Found!')
 
@@ -92,6 +90,8 @@ export const useAuthStore = defineStore('auth', () => {
 
   const resetPassword = async (form: ResetPasswordForm): void => {
     try {
+      form.captcha_token = await generateCaptchaToken('reset_password')
+
       const response = await $axios.post('/reset-password', { ...form })
 
       if (!response) throw new Error('Response Not Found!')
@@ -106,11 +106,12 @@ export const useAuthStore = defineStore('auth', () => {
 
   const changePassword = async (form: ChangePasswordForm): void => {
     try {
+      form.captcha_token = await generateCaptchaToken('change_password')
       const response = await $axios.put('/password', { ...form })
 
       if (!response) throw new Error('Response Not Found!')
 
-      toast.success(response.data?.message, { autoClose: 2000 })
+      $toast.success(response.data?.message, { autoClose: 2000 })
     } catch (error) {
       if (error?.response?.status === 422) {
         errors.value = error.response?.data?.errors
@@ -134,7 +135,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const getAuthenticatedUser = async (): void => {
     try {
-      await getCsrfCookie()
+      await generateCsrfToken()
       const { data } = await $axios.get('api/v1/user')
 
       if (data.permissions.length > 0) {
@@ -155,7 +156,9 @@ export const useAuthStore = defineStore('auth', () => {
     form: RegisterForm | LoginForm
   ): void => {
     try {
-      await getCsrfCookie()
+      await generateCsrfToken()
+
+      form.captcha_token = await generateCaptchaToken('authenticate')
 
       const { data } = await $axios[action](endpoint, { ...form })
 
@@ -176,21 +179,27 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const logout = async (): void => {
-    await performAuthAction('post', '/logout')
+    await $axios.post('/logout')
     user.value = null
     router.push({ path: '/' })
+  }
+
+  const authenticateWithSocial = (service: string) => {
+    const { backendBaseUrl } = useRuntimeConfig().public
+
+    window.location.href = `${backendBaseUrl}/auth/redirect/${service}`
   }
 
   return {
     user,
     errors,
     status,
-    getCsrfCookie,
     forgotPassword,
     resetPassword,
     changePassword,
     sendVerificationEmail,
     getAuthenticatedUser,
+    authenticateWithSocial,
     register,
     login,
     logout

@@ -19,7 +19,7 @@ const collapseShow = ref(true)
 <style>
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
 }
 
 .page-enter-from,

@@ -57,6 +57,8 @@ const { errors, status } = storeToRefs(store)
                     <InputError :message="errors?.email" />
                   </div>
 
+                  <InputError :message="errors?.captcha_token" />
+
                   <FormButton> Submit </FormButton>
                 </div>
               </form>

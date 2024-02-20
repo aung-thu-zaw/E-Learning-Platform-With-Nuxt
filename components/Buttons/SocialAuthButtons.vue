@@ -1,10 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+
+const store = useAuthStore()
+</script>
 
 <template>
   <div class="flex items-center justify-between space-x-5">
     <button
       type="button"
       class="w-full px-4 py-[18px] inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border shadow-sm disabled:opacity-50 disabled:pointer-events-none bg-white border-gray-300 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 focus:border-yellow-400"
+      @click="store.authenticateWithSocial('google')"
     >
       <svg class="w-5 h-auto" width="46" height="47" viewBox="0 0 46 47" fill="none">
         <path
@@ -30,6 +35,7 @@
     <button
       type="button"
       class="w-full p-4 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-lg border shadow-sm disabled:opacity-50 disabled:pointer-events-none bg-white border-gray-300 text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-yellow-200 focus:border-yellow-400"
+      @click="store.authenticateWithSocial('facebook')"
     >
       <svg
         class="w-6 h-auto"
