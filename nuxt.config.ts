@@ -8,6 +8,25 @@ export default defineNuxtConfig({
     '@formkit/auto-animate/nuxt',
     '@nuxtjs/i18n'
   ],
+  i18n: {
+    lazy: true,
+    langDir: 'lang',
+    strategy: 'prefix_except_default',
+    locales: [
+      { flag: '🇺🇸', code: 'en', iso: 'en', name: 'English', file: 'en.json' },
+      { flag: '🇲🇲', code: 'mm', iso: 'mm', name: 'မြန်မာ', file: 'mm.json' },
+      { flag: '🇪🇸', code: 'es', iso: 'es', name: 'Española', file: 'es.json' },
+      { flag: '🇸🇦', code: 'ar', iso: 'ar', name: 'عربي', file: 'ar.json' },
+      { flag: '🇫🇷', code: 'fr', iso: 'fr', name: 'Français', file: 'fr.json' }
+    ],
+    // switchLocalePath: '/:lang/:route',
+    defaultLocale: 'en',
+    vueI18n: './config/nuxt-i18n.ts',
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: 'i18n_redirected'
+    }
+  },
   pinia: {
     storesDirs: ['./stores/**']
   },
@@ -19,8 +38,7 @@ export default defineNuxtConfig({
     '~/plugins/sweetalert.ts',
     '~/plugins/recaptcha.ts',
     '~/plugins/can.ts',
-    '~/plugins/translations.ts',
-    '~/plugins/translations.script.ts'
+    '~/plugins/translations.ts'
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },

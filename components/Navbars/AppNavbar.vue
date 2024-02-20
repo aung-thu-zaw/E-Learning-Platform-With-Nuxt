@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
 import { useAuthStore } from '~/stores/auth'
+import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
 
 const route = useRoute()
 const { user } = storeToRefs(useAuthStore())
+const localPath = useLocalePath()
 </script>
 
 <template>
@@ -15,7 +17,7 @@ const { user } = storeToRefs(useAuthStore())
       aria-label="Global"
     >
       <div class="flex items-center justify-between md:w-auto min-w-[200px] w-full">
-        <NuxtLink to="/" class="flex-none text-xl font-bold text-gray-800">
+        <NuxtLink :to="localPath('/')" class="flex-none text-xl font-bold text-gray-800">
           E-Learning Platform
         </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
@@ -106,8 +108,6 @@ const { user } = storeToRefs(useAuthStore())
           >
             Blogs
           </NuxtLink>
-
-          <a class="font-bold text-gray-800 hover:text-gray-600" href="#"> Pricing </a>
 
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
             <button
@@ -240,11 +240,21 @@ const { user } = storeToRefs(useAuthStore())
             </div>
           </div>
 
-          <button
-            class="hidden lg:flex font-bold text-xs bg-yellow-500 border-2 shadow border-yellow-200 p-3 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <div class="flex items-center space-x-3">
+            <button
+              class="flex font-bold p-3 text-gray-700 rounded-full w-10 h-10 items-center justify-center hover:cursor-pointer hover:bg-gray-200 transition-all"
+            >
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            <LanguageDropdown />
+
+            <button
+              class="flex font-bold p-3 text-gray-700 rounded-full w-10 h-10 items-center justify-center hover:cursor-pointer hover:bg-gray-200 transition-all"
+            >
+              <i class="fa-solid fa-bell"></i>
+            </button>
+          </div>
 
           <span class="hidden md:block border h-5 border-yellow-500"></span>
 
@@ -262,13 +272,13 @@ const { user } = storeToRefs(useAuthStore())
 
             <UserDropdown v-if="user" />
 
-            <button
+            <!-- <button
               type="button"
               class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
             >
               <i class="fa-solid fa-crown"></i>
               Join Premium
-            </button>
+            </button> -->
           </div>
         </div>
       </div>

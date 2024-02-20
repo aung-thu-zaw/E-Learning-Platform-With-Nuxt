@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Your Code
+const { locales, locale, setLocale } = useI18n()
 </script>
 
 <template>
@@ -11,24 +11,24 @@
     >
       <i class="fa-solid fa-globe"></i>
     </button>
-
     <div
       class="hs-dropdown-menu font-semibold hs-dropdown-open:opacity-100 duration opacity-0 hidden z-10 transition-[margin,opacity] duration-300 mt-2 min-w-[5rem] rounded-lg p-2 bg-white border divide-gray-700 w-auto"
       aria-labelledby="hs-dropdown-slideup-animation"
     >
-      <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
+      <button
+        v-for="(definedLocal, index) in locales"
+        :key="index"
+        class="flex items-center gap-x-2 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 w-full"
+        @click="setLocale(definedLocal.code)"
       >
-        English
-      </a>
-
-      <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
-      >
-        Myanmar
-      </a>
+        <span class="text-lg">
+          {{ definedLocal?.flag }}
+        </span>
+        <span>
+          {{ definedLocal?.name }}
+          <i v-show="definedLocal.code === locale" class="fa-solid fa-circle-check mr-1"></i>
+        </span>
+      </button>
     </div>
   </div>
 </template>
