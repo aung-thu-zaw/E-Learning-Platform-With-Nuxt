@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import InstructorDashboardNavbar from '~/components/Navbars/InstructorDashboardNavbar.vue'
-import AdminDashboardSidebar from '~/components/Sidebars/AdminDashboardSidebar.vue'
 import { ref } from 'vue'
 
 const collapseShow = ref(true)

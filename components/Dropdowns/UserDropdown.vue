@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+
 const route = useRoute()
+const store = useAuthStore()
+const { user } = storeToRefs(store)
 </script>
 
 <template>
@@ -10,15 +14,11 @@ const route = useRoute()
       class="hs-dropdown-toggle py-2.5 inline-flex items-center gap-x-2 text-sm font-bold text-gray-800 hover:text-gray-600 rounded-lg disabled:opacity-50 disabled:pointer-events-none"
     >
       <div class="w-10 h-10 rounded-full overflow-hidden">
-        <img
-          src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-          alt="user-avatar"
-          class="w-full h-full object-cover"
-        />
+        <img :src="user?.avatar" alt="user-avatar" class="w-full h-full object-cover" />
       </div>
 
       <div class="flex flex-col items-start">
-        <span> Aung Thu Zaw </span>
+        <span> {{ user?.display_name }} </span>
         <span
           v-show="route.fullPath.startsWith('/admin')"
           class="text-[.65rem] font-semibold text-yellow-500"
@@ -96,13 +96,14 @@ const route = useRoute()
         <i class="fa-solid fa-circle-question"></i>
         Help
       </a>
-      <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
+      <button
+        type="button"
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 w-full"
+        @click="store.logout()"
       >
         <i class="fa-solid fa-right-from-bracket"></i>
         Sign Out
-      </a>
+      </button>
     </div>
   </div>
 </template>

@@ -3,11 +3,40 @@ import FormButton from '~/components/Buttons/FormButton.vue'
 import SocialAuthButtons from '~/components/Buttons/SocialAuthButtons.vue'
 import Checkbox from '~/components/Forms/Fields/Checkbox.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-// import InputError from '~/components/Forms/Fields/InputError.vue'
+import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import AppLayout from '~/layouts/AppLayout.vue'
+import { useAuthStore } from '~/stores/auth'
 
 useHead({ title: 'Sign Up' })
+
+const store = useAuthStore()
+const { $toast } = useNuxtApp()
+const { errors } = storeToRefs(store)
+
+interface Form {
+  display_name: string
+  email: string
+  password: string
+  password_confirmation: string
+}
+
+const acceptTerms = ref<boolean>(false)
+
+const form: Form = reactive({
+  display_name: '',
+  email: '',
+  password: '',
+  password_confirmation: ''
+})
+
+const handleRegister = async () => {
+  if (acceptTerms.value) {
+    await store.register(form)
+  } else {
+    $toast.warning('You Need To Accept Terms And Conditions!')
+  }
+}
 </script>
 
 <template>
@@ -40,13 +69,14 @@ useHead({ title: 'Sign Up' })
                 </div>
 
                 <!-- Form -->
-                <form>
+                <form @submit.prevent="handleRegister">
                   <div class="space-y-5">
                     <!-- Username / Name -->
                     <div>
-                      <InputLabel label="Username / Name" required />
+                      <InputLabel label="Display Name" required />
 
                       <InputField
+                        v-model="form.display_name"
                         type="text"
                         name="your-name"
                         icon="fa-user"
@@ -54,7 +84,7 @@ useHead({ title: 'Sign Up' })
                         required
                       />
 
-                      <!-- <InputError message="" /> -->
+                      <InputError :message="errors?.display_name" />
                     </div>
 
                     <!-- Email Input -->
@@ -62,6 +92,7 @@ useHead({ title: 'Sign Up' })
                       <InputLabel label="Email Address" required />
 
                       <InputField
+                        v-model="form.email"
                         type="email"
                         name="your-email"
                         icon="fa-envelope"
@@ -69,7 +100,7 @@ useHead({ title: 'Sign Up' })
                         required
                       />
 
-                      <!-- <InputError message="" /> -->
+                      <InputError :message="errors?.email" />
                     </div>
 
                     <!-- Password Input -->
@@ -77,6 +108,7 @@ useHead({ title: 'Sign Up' })
                       <InputLabel label="Password" required />
 
                       <InputField
+                        v-model="form.password"
                         type="password"
                         name="your-password"
                         icon="fa-lock"
@@ -84,7 +116,7 @@ useHead({ title: 'Sign Up' })
                         required
                       />
 
-                      <!-- <InputError message="" /> -->
+                      <InputError :message="errors?.password" />
                     </div>
 
                     <!-- Confirm Password Input -->
@@ -92,21 +124,20 @@ useHead({ title: 'Sign Up' })
                       <InputLabel label="Confirm Password" required />
 
                       <InputField
+                        v-model="form.password_confirmation"
                         type="password"
                         name="confirm-password"
                         icon="fa-lock"
                         placeholder="Re-type Password"
                         required
                       />
-
-                      <!-- <InputError message="" /> -->
                     </div>
 
                     <!-- Remember me and Forgot Password -->
                     <div class="flex items-center justify-between mb-5">
                       <div>
                         <label class="flex items-center text-sm">
-                          <Checkbox />
+                          <Checkbox v-model:checked="acceptTerms" />
                           <span class="text-gray-600 ml-3"> I accept the</span>
 
                           &nbsp;

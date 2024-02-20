@@ -8,7 +8,9 @@ const toggle = () => emit('updateCollapseShow')
 </script>
 
 <template>
-  <nav class="bg-white border-b w-full py-2 flex items-center justify-between pl-5 pr-8">
+  <nav
+    class="sticky top-0 z-50 bg-white border-b w-full py-2 flex items-center justify-between pl-5 pr-8"
+  >
     <div class="flex items-center space-x-10 w-full">
       <NuxtLink
         to="/"

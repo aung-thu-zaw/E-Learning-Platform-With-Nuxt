@@ -3,11 +3,27 @@ import FormButton from '~/components/Buttons/FormButton.vue'
 import SocialAuthButtons from '~/components/Buttons/SocialAuthButtons.vue'
 import Checkbox from '~/components/Forms/Fields/Checkbox.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-// import InputError from '~/components/Forms/Fields/InputError.vue'
+import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import AppLayout from '~/layouts/AppLayout.vue'
+import { useAuthStore } from '~/stores/auth'
 
 useHead({ title: 'Sign In' })
+
+const store = useAuthStore()
+const { errors, status } = storeToRefs(store)
+
+interface Form {
+  email: string
+  password: string
+  remember: boolean
+}
+
+const form: Form = reactive({
+  email: '',
+  password: '',
+  remember: false
+})
 </script>
 
 <template>
@@ -28,6 +44,10 @@ useHead({ title: 'Sign In' })
                     Sign up here
                   </NuxtLink>
                 </p>
+
+                <p class="text-sm font-medium text-green-600 text-center">
+                  {{ status }}
+                </p>
               </div>
 
               <div class="mt-5">
@@ -40,13 +60,14 @@ useHead({ title: 'Sign In' })
                 </div>
 
                 <!-- Form -->
-                <form>
+                <form @submit.prevent="store.login(form)">
                   <div class="space-y-5">
                     <!-- Email Input -->
                     <div>
                       <InputLabel label="Email Address" required />
 
                       <InputField
+                        v-model="form.email"
                         type="email"
                         name="your-email"
                         icon="fa-envelope"
@@ -54,7 +75,7 @@ useHead({ title: 'Sign In' })
                         required
                       />
 
-                      <!-- <InputError message="" /> -->
+                      <InputError :message="errors?.email" />
                     </div>
 
                     <!-- Password Input -->
@@ -62,6 +83,7 @@ useHead({ title: 'Sign In' })
                       <InputLabel label="Password" required />
 
                       <InputField
+                        v-model="form.password"
                         type="password"
                         name="your-password"
                         icon="fa-lock"
@@ -69,14 +91,14 @@ useHead({ title: 'Sign In' })
                         required
                       />
 
-                      <!-- <InputError message="" /> -->
+                      <InputError :message="errors?.password" />
                     </div>
 
                     <!-- Remember me and Forgot Password -->
                     <div class="flex items-center justify-between mb-5">
                       <div>
                         <label class="flex items-center">
-                          <Checkbox />
+                          <Checkbox v-model:checked="form.remember" />
                           <span class="ml-2 text-sm text-slate-600"> Remember Me</span>
                         </label>
                       </div>

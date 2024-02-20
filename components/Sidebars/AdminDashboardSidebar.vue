@@ -82,7 +82,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Sliders -->
           <li class="items-center">
             <NuxtLink
-              to="/"
+              to="/admin/sliders"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/sliders')"
             >

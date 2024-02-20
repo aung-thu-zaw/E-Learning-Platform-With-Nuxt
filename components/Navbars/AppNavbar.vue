@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
+import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
+const { user } = storeToRefs(useAuthStore())
 </script>
 
 <template>
@@ -249,7 +251,8 @@ const route = useRoute()
           <div
             class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
           >
-            <!-- <NuxtLink
+            <NuxtLink
+              v-if="!user"
               to="/auth/sign-in"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
@@ -257,15 +260,15 @@ const route = useRoute()
               Sign In
             </NuxtLink>
 
+            <UserDropdown v-if="user" />
+
             <button
               type="button"
               class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
             >
               <i class="fa-solid fa-crown"></i>
               Join Premium
-            </button> -->
-
-            <UserDropdown />
+            </button>
           </div>
         </div>
       </div>

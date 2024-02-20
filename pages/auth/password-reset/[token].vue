@@ -1,10 +1,29 @@
 <script setup lang="ts">
 import FormButton from '~/components/Buttons/FormButton.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-// import InputError from '~/components/Forms/Fields/InputError.vue'
+import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
+import { useAuthStore } from '~/stores/auth'
 
 useHead({ title: 'Reset Password' })
+
+const route = useRoute()
+const store = useAuthStore()
+const { errors } = storeToRefs(store)
+
+interface Form {
+  token: string
+  email: string
+  password: string
+  password_confirmation: string
+}
+
+const form: Form = reactive({
+  token: route.params.token ? route.params.token.toString() : '',
+  email: route.query.email ? route.query.email.toString() : '',
+  password: '',
+  password_confirmation: ''
+})
 </script>
 
 <template>
@@ -28,13 +47,14 @@ useHead({ title: 'Reset Password' })
 
             <div class="mt-5">
               <!-- Form -->
-              <form>
+              <form @submit.prevent="store.resetPassword(form)">
                 <div class="space-y-5">
                   <!-- Email Input -->
                   <div>
                     <InputLabel label="Email Address" required />
 
                     <InputField
+                      v-model="form.email"
                       type="email"
                       name="your-email"
                       icon="fa-envelope"
@@ -42,7 +62,7 @@ useHead({ title: 'Reset Password' })
                       required
                     />
 
-                    <!-- <InputError message="" /> -->
+                    <InputError :message="errors?.email || undefined" />
                   </div>
 
                   <!-- Password Input -->
@@ -50,6 +70,7 @@ useHead({ title: 'Reset Password' })
                     <InputLabel label="New Password" required />
 
                     <InputField
+                      v-model="form.password"
                       type="password"
                       name="your-password"
                       icon="fa-lock"
@@ -57,7 +78,7 @@ useHead({ title: 'Reset Password' })
                       required
                     />
 
-                    <!-- <InputError message="" /> -->
+                    <InputError :message="errors?.password || undefined" />
                   </div>
 
                   <!-- Confirm Password Input -->
@@ -65,14 +86,13 @@ useHead({ title: 'Reset Password' })
                     <InputLabel label="Confirm Password" required />
 
                     <InputField
+                      v-model="form.password_confirmation"
                       type="password"
                       name="confirm-password"
                       icon="fa-lock"
                       placeholder="Re-type Password"
                       required
                     />
-
-                    <!-- <InputError message="" /> -->
                   </div>
 
                   <FormButton> Reset Password </FormButton>

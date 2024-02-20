@@ -38,10 +38,10 @@ const proxyChecked = computed({
     </label>
 
     <input
-      id="hs-xs-switch"
+      id="hs-small-switch"
       v-model="proxyChecked"
       type="checkbox"
-      class="relative w-[35px] h-[21px] bg-gray-200 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-blue-600 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-blue-600 checked:border-blue-600 focus:checked:border-blue-600 before:inline-block before:w-4 before:h-4 before:bg-white checked:before:bg-blue-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
+      class="relative w-11 h-6 p-px bg-gray-200 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:ring-0 focus:border-0 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-yellow-600 checked:border-yellow-600 focus:checked:border-yellow-600 before:inline-block before:size-5 before:bg-white checked:before:bg-yellow-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
       :value="value"
       :checked="checked"
     />
