@@ -95,11 +95,11 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Teacher Stats') }} </a>
+              <a href="#"> {{ $t('Stats') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Earning Breakdown') }} </a>
+              <a href="#"> {{ $t('Earning') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
@@ -107,11 +107,11 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Post Announcements') }} </a>
+              <a href="#"> {{ $t('Announcements') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#">{{ $t('Teacher Help') }}</a>
+              <a href="#">{{ $t('Help') }}</a>
             </li>
 
             <li class="md:hidden">

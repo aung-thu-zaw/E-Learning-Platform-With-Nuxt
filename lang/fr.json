@@ -88,5 +88,10 @@
     "Enter Password": "Entrez votre mot de passe",
     "Reset Password": "Réinitialiser le mot de passe",
     "New Password": "Nouveau mot de passe",
-    "Admin Manage": "Administrateur Gérer"
+    "Admin Manage": "Administrateur Gérer",
+    "Overview": "Vue d'ensemble",
+    "Stats": "Statistiques",
+    "Earning": "Gains",
+    "Announcements": "Annonces",
+    "Help": "Aide"
 }

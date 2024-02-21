@@ -88,5 +88,10 @@
     "Enter Password": "أدخل كلمة المرور",
     "Reset Password": "إعادة تعيين كلمة المرور",
     "New Password": "كلمة مرور جديدة",
-    "Admin Manage": "إدارة المشرف"
+    "Admin Manage": "إدارة المشرف",
+    "Overview": "نظرة عامة",
+    "Stats": "إحصائيات",
+    "Earning": "الأرباح",
+    "Announcements": "الإعلانات",
+    "Help": "مساعدة"
 }

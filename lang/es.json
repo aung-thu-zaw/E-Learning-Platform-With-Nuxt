@@ -88,5 +88,10 @@
     "Enter Password": "Ingresa tu contraseña",
     "Reset Password": "Restablecer contraseña",
     "New Password": "Nueva contraseña",
-    "Admin Manage": "Administrador Administrar"
+    "Admin Manage": "Administrador Administrar",
+    "Overview": "Visión general",
+    "Stats": "Estadísticas",
+    "Earning": "Ganancias",
+    "Announcements": "Anuncios",
+    "Help": "Ayuda"
 }

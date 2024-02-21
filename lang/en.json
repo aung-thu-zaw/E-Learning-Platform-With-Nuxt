@@ -88,5 +88,10 @@
     "Enter Password": "Enter Password",
     "Reset Password": "Reset Password",
     "New Password": "New Password",
-    "Admin Manage": "Admin Manage"
+    "Admin Manage": "Admin Manage",
+    "Overview": "Overview",
+    "Stats": "Stats",
+    "Earning": "Earning",
+    "Announcements": "Announcements",
+    "Help": "Help"
 }
