@@ -11,9 +11,9 @@ import TableDataCell from '~/components/Tables/TableCells/TableDataCell.vue'
 import TableImageCell from '~/components/Tables/TableCells/TableImageCell.vue'
 import TableActionCell from '~/components/Tables/TableCells/TableActionCell.vue'
 import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
-import NoTableData from '~/components/Tables/NoTableData.vue'
+// import NoTableData from '~/components/Tables/NoTableData.vue'
 import NormalButton from '~/components/Buttons/NormalButton.vue'
-import Pagination from '~/components/Paginations/DashboardPagination.vue'
+// import Pagination from '~/components/Paginations/DashboardPagination.vue'
 
 useHead({ title: 'Sliders' })
 </script>
@@ -66,7 +66,7 @@ useHead({ title: 'Sliders' })
             </template>
 
             <!-- Table Body -->
-            <template #table-data="{ item }">
+            <template #table-data="{}">
               <TableDataCell> 1 </TableDataCell>
 
               <TableImageCell

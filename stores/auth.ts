@@ -66,6 +66,7 @@ export const useAuthStore = defineStore('auth', () => {
   const user = ref<User | null>(null)
   const errors = ref<ErrorResponse | null>(null)
   const status = ref<string>(null)
+  const isAuthenticated = ref<boolean>(false)
   const { generateCsrfToken, generateCaptchaToken } = useToken()
   const { $axios, $toast } = useNuxtApp()
 
@@ -145,6 +146,8 @@ export const useAuthStore = defineStore('auth', () => {
       } else {
         user.value = data
       }
+
+      isAuthenticated.value = true
     } catch (error) {
       console.error('Failed to get authenticated user:', error)
     }
@@ -164,6 +167,8 @@ export const useAuthStore = defineStore('auth', () => {
 
       if (!data) throw new Error('Response Data Not Found!')
 
+      isAuthenticated.value = true
+
       router.push({ path: '/' })
     } catch (error) {
       errors.value = error.response?.data?.errors
@@ -172,15 +177,20 @@ export const useAuthStore = defineStore('auth', () => {
 
   const register = async (form: RegisterForm): void => {
     await performAuthAction('post', '/register', { ...form })
+
+    isAuthenticated.value = true
   }
 
   const login = async (form: LoginForm): void => {
     await performAuthAction('post', '/login', { ...form })
+
+    isAuthenticated.value = true
   }
 
   const logout = async (): void => {
     await $axios.post('/logout')
     user.value = null
+    isAuthenticated.value = false
     router.push({ path: '/' })
   }
 
@@ -192,6 +202,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return {
     user,
+    isAuthenticated,
     errors,
     status,
     forgotPassword,

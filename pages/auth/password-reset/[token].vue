@@ -7,6 +7,8 @@ import { useAuthStore } from '~/stores/auth'
 
 useHead({ title: 'Reset Password' })
 
+definePageMeta({ middleware: 'guest' })
+
 const route = useRoute()
 const store = useAuthStore()
 const localPath = useLocalePath()

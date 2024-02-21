@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import AdminDashboardNavbar from '~/components/Navbars/AdminDashboardNavbar.vue'
 import AdminDashboardSidebar from '~/components/Sidebars/AdminDashboardSidebar.vue'
-import { ref } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 
 const store = useAuthStore()
-const collapseShow = ref(true)
+const collapseShow = ref<boolean>(true)
 
 onMounted(async () => await store.getAuthenticatedUser())
 </script>

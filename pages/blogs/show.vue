@@ -2,13 +2,13 @@
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import RecommendedCourseCard from '~/components/Cards/RecommendedCourseCard.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
-import BlogLayout from '~/layouts/BlogLayout.vue'
 
 // useHead({ title: 'Home' })
+definePageMeta({ layout: 'blog-layout' })
 </script>
 
 <template>
-  <BlogLayout>
+  <div>
     <section>
       <!-- Hero -->
       <div class="relative overflow-hidden">
@@ -267,5 +267,5 @@ import BlogLayout from '~/layouts/BlogLayout.vue'
     </section>
 
     <BlogAdvertisement />
-  </BlogLayout>
+  </div>
 </template>

@@ -4,13 +4,13 @@ import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 import CourseProgressBar from '~/components/ProgressBars/CourseProgressBar.vue'
 import CourseSectionAccordion from '~/components/Accordions/CourseSectionAccordion.vue'
 import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
-import AppLayout from '~/layouts/AppLayout.vue'
 
 useHead({ title: 'Home' })
+definePageMeta({ layout: 'app-layout' })
 </script>
 
 <template>
-  <AppLayout>
+  <div>
     <section class="bg-[#1e293b]">
       <header class="pt-5 mt-10 md:mt-0 px-5">
         <div class="">
@@ -227,5 +227,5 @@ useHead({ title: 'Home' })
         </div>
       </div>
     </section>
-  </AppLayout>
+  </div>
 </template>

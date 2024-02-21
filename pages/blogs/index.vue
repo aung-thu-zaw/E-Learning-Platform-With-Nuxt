@@ -2,13 +2,13 @@
 import BlogHero from '~/components/Headers/BlogHero.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
-import BlogLayout from '~/layouts/BlogLayout.vue'
 
 useHead({ title: 'Blogs' })
+definePageMeta({ layout: 'blog-layout' })
 </script>
 
 <template>
-  <BlogLayout>
+  <div>
     <BlogHero />
 
     <BlogAdvertisement />
@@ -25,5 +25,5 @@ useHead({ title: 'Blogs' })
         <BlogCard />
       </div>
     </section>
-  </BlogLayout>
+  </div>
 </template>

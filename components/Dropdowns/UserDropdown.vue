@@ -3,6 +3,7 @@ import { useAuthStore } from '~/stores/auth'
 
 const route = useRoute()
 const store = useAuthStore()
+const localePath = useLocalePath()
 const { user } = storeToRefs(store)
 </script>
 
@@ -47,7 +48,8 @@ const { user } = storeToRefs(store)
       aria-labelledby="hs-dropdown-slideup-animation"
     >
       <NuxtLink
-        to="/admin/dashboard"
+        v-show="user?.role === 'admin'"
+        :to="localePath('/admin/dashboard')"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-tv"></i>

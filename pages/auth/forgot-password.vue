@@ -6,6 +6,8 @@ import InputField from '~/components/Forms/Fields/InputField.vue'
 
 useHead({ title: 'Forgot Password' })
 
+definePageMeta({ middleware: 'guest' })
+
 const email = ref<string>('')
 const store = useAuthStore()
 const localPath = useLocalePath()

@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
+
+const localPath = useLocalePath()
 </script>
 
 <template>
@@ -108,12 +110,14 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
             <div
               class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
             >
-              <button
+              <NuxtLink
+                :to="localPath('/')"
                 type="button"
                 class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
               >
-                Try Platform For Free
-              </button>
+                <i class="fa-solid fa-home mr-1"></i>
+                Go Back To Home
+              </NuxtLink>
             </div>
           </div>
         </div>

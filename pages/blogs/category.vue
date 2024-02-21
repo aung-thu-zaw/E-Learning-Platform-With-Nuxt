@@ -2,13 +2,12 @@
 import HorizontalBlogCard from '~/components/Cards/HorizontalBlogCard.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogPagination from '~/components/Paginations/BlogPagination.vue'
-import BlogLayout from '~/layouts/BlogLayout.vue'
 
-// useHead({ title: 'Home' })
+definePageMeta({ layout: 'blog-layout' })
 </script>
 
 <template>
-  <BlogLayout>
+  <div>
     <section>
       <div class="bg-white py-16 space-y-6">
         <h1 class="font-bold text-center">
@@ -53,5 +52,5 @@ import BlogLayout from '~/layouts/BlogLayout.vue'
     </section>
 
     <BlogAdvertisement />
-  </BlogLayout>
+  </div>
 </template>
