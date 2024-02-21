@@ -21,64 +21,74 @@
         <!-- End Col -->
 
         <div class="col-span-1 text-center">
-          <h4 class="font-semibold text-gray-100">Courses</h4>
+          <h4 class="font-semibold text-gray-100">{{ $t('Courses') }}</h4>
 
           <div class="mt-3 grid space-y-3">
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">All Courses</a>
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('All Courses') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#"
-                >Free Courses</a
-              >
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Free Courses') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#"
-                >Premium Courses</a
-              >
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Premium Courses') }}
+              </a>
             </p>
           </div>
         </div>
         <!-- End Col -->
 
         <div class="col-span-1 text-center">
-          <h4 class="font-semibold text-gray-100">Community</h4>
+          <h4 class="font-semibold text-gray-100">{{ $t('Community') }}</h4>
 
           <div class="mt-3 grid space-y-3">
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">Podcast</a>
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Podcast') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">Youtube</a>
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Youtube') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">Discord</a>
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Discord') }}
+              </a>
             </p>
           </div>
         </div>
         <!-- End Col -->
 
         <div class="col-span-1 text-center">
-          <h4 class="font-semibold text-gray-100">Company</h4>
+          <h4 class="font-semibold text-gray-100">{{ $t('Company') }}</h4>
 
           <div class="mt-3 grid space-y-3">
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">About us</a>
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('About us') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#"
-                >Terms & Conditions</a
-              >
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Terms & Conditions') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#"
-                >Privacy & Policy</a
-              >
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Privacy & Policy') }}
+              </a>
             </p>
             <p>
-              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#"
-                >Support Center</a
-              >
+              <a class="inline-flex gap-x-2 text-white hover:text-gray-200" href="#">
+                {{ $t('Support Center') }}
+              </a>
             </p>
           </div>
         </div>

@@ -8,6 +8,7 @@ useHead({ title: 'Forgot Password' })
 
 const email = ref<string>('')
 const store = useAuthStore()
+const localPath = useLocalePath()
 const { errors, status } = storeToRefs(store)
 </script>
 
@@ -25,14 +26,14 @@ const { errors, status } = storeToRefs(store)
         <div class="mt-7 border rounded-xl shadow-sm bg-white border-gray-300 w-full mx-auto">
           <div class="p-4 sm:p-7">
             <div class="text-center">
-              <h1 class="block text-2xl font-bold text-gray-700">Forgot password?</h1>
+              <h1 class="block text-2xl font-bold text-gray-700">{{ $t('Forgot password?') }}</h1>
               <p class="mt-2 text-sm text-gray-500">
-                Remember your password?
+                {{ $t('Remember your password?') }}
                 <NuxtLink
-                  to="/auth/sign-in"
+                  :to="localPath('/auth/sign-in')"
                   class="text-yellow-500 decoration-2 hover:underline font-medium"
                 >
-                  Sign in here
+                  {{ $t('Sign in here') }}
                 </NuxtLink>
               </p>
             </div>
@@ -59,7 +60,7 @@ const { errors, status } = storeToRefs(store)
 
                   <InputError :message="errors?.captcha_token" />
 
-                  <FormButton> Submit </FormButton>
+                  <FormButton> {{ $t('Submit') }} </FormButton>
                 </div>
               </form>
               <!-- End Form -->

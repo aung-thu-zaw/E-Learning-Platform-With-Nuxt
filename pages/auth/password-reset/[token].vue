@@ -9,6 +9,7 @@ useHead({ title: 'Reset Password' })
 
 const route = useRoute()
 const store = useAuthStore()
+const localPath = useLocalePath()
 const { errors } = storeToRefs(store)
 
 interface Form {
@@ -35,12 +36,12 @@ const form: Form = reactive({
             <div class="text-center">
               <h1 class="block text-2xl font-bold text-gray-700">E-Learning Platform</h1>
               <p class="mt-2 text-sm text-gray-500">
-                Remember your password?
+                {{ $t('Remember your password?') }}
                 <NuxtLink
-                  to="/auth/sign-in"
+                  :to="localPath('/auth/sign-in')"
                   class="text-yellow-500 decoration-2 hover:underline font-medium"
                 >
-                  Sign in here
+                  {{ $t('Sign in here') }}
                 </NuxtLink>
               </p>
             </div>

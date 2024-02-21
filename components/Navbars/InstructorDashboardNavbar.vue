@@ -91,27 +91,27 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
             <li
               class="text-yellow-500 md:border-b-[3px] md:border-b-yellow-500 h-full flex items-center justify-center"
             >
-              <a href="#"> Overview </a>
+              <a href="#"> {{ $t('Overview') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> Teacher Stats </a>
+              <a href="#"> {{ $t('Teacher Stats') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> Earning Breakdown </a>
+              <a href="#"> {{ $t('Earning Breakdown') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> Courses </a>
+              <a href="#"> {{ $t('Courses') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> Post Announcements </a>
+              <a href="#"> {{ $t('Post Announcements') }} </a>
             </li>
 
             <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#">Teacher Help</a>
+              <a href="#">{{ $t('Teacher Help') }}</a>
             </li>
 
             <li class="md:hidden">

@@ -11,6 +11,7 @@ import { useAuthStore } from '~/stores/auth'
 useHead({ title: 'Sign Up' })
 
 const store = useAuthStore()
+const localPath = useLocalePath()
 const { $toast } = useNuxtApp()
 const { errors } = storeToRefs(store)
 
@@ -47,14 +48,16 @@ const handleRegister = async () => {
           <div class="mt-7 border rounded-xl shadow-sm bg-white border-gray-300 w-full mx-auto">
             <div class="p-4 sm:p-7">
               <div class="text-center">
-                <h1 class="block text-2xl font-bold text-gray-700">Create an account</h1>
+                <h1 class="block text-2xl font-bold text-gray-700">
+                  {{ $t('Create an account') }}
+                </h1>
                 <p class="mt-2 text-sm text-gray-500">
-                  Already have an account?
+                  {{ $t('Already have an account?') }}
                   <NuxtLink
-                    to="/auth/sign-in"
+                    :to="localPath('/auth/sign-in')"
                     class="text-yellow-500 decoration-2 hover:underline font-medium"
                   >
-                    Sign in here
+                    {{ $t('Sign in here') }}
                   </NuxtLink>
                 </p>
               </div>
@@ -146,7 +149,7 @@ const handleRegister = async () => {
                             href="#"
                             class="text-yellow-500 decoration-2 hover:underline font-medium"
                           >
-                            Terms and Conditions
+                            {{ $t('Terms & Conditions') }}
                           </a>
                         </label>
                       </div>
@@ -154,7 +157,7 @@ const handleRegister = async () => {
 
                     <InputError :message="errors?.captcha_token" />
 
-                    <FormButton> Create Account </FormButton>
+                    <FormButton> {{ $t('Create Account') }} </FormButton>
                   </div>
                 </form>
                 <!-- End Form -->

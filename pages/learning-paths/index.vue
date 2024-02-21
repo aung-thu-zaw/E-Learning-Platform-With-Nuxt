@@ -2,22 +2,24 @@
 import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectionCard.vue'
 import AppLayout from '~/layouts/AppLayout.vue'
 
-// useHead({ title: 'Home' })
+useHead({ title: 'Learning Paths' })
 </script>
 
 <template>
   <AppLayout>
     <section>
       <div class="px-5 md:px-28 text-left bg-white py-10 md:py-16 space-y-5">
-        <h4 class="font-bold text-xl text-yellow-500">Learning Paths</h4>
+        <h4 class="font-bold text-xl text-yellow-500">{{ $t('Learning Paths') }}</h4>
 
         <h1 class="font-bold text-2xl md:text-4xl text-gray-800 max-w-[600px]">
-          Reach Your Learning Goals With Hand-Picked, Sequential Courses
+          {{ $t('Reach Your Learning Goals With Hand-Picked, Sequential Courses') }}
         </h1>
         <p class="font-semibold text-sm text-gray-700 mx-auto">
-          Focus your creative journey with our platform Learning Paths. Deepen your skillset with a
-          set of curated courses that build on one another, reinforcing lessons. Available in a
-          range of experience levels from beginner to advanced.
+          {{
+            $t(
+              'Focus your creative journey with our platform Learning Paths. Deepen your skillset with a set of curated courses that build on one another, reinforcing lessons. Available in a range of experience levels from beginner to advanced.'
+            )
+          }}
         </p>
       </div>
 

@@ -10,10 +10,14 @@ import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
           <h1
             class="font-bold text-gray-800 text-3xl [text-shadow:_1.5px_0.5px_1.5px_rgb(0_0_0_/_40%)]"
           >
-            Recommended Courses For You
+            {{ $t('Recommended Courses For You') }}
           </h1>
           <p class="text-sm font-medium text-gray-600">
-            Advance towards your learning objectives with expertly selected, step-by-step courses.
+            {{
+              $t(
+                'Advance towards your learning objectives with expertly selected, step-by-step courses.'
+              )
+            }}
           </p>
         </div>
       </div>

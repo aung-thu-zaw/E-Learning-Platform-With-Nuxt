@@ -31,7 +31,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
         <h6
           class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
-          Platform Administration
+          {{ $t('Platform Administration') }}
         </h6>
 
         <ul
@@ -46,7 +46,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-tv mr-2" />
-                Dashboard
+                {{ $t('Dashboard') }}
               </div>
             </NuxtLink>
           </li>
@@ -60,7 +60,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-chart-line mr-2" />
-                Analytics
+                {{ $t('Analytics') }}
               </div>
             </NuxtLink>
           </li>
@@ -74,7 +74,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-ad mr-2"></i>
-                Nav Banner
+                {{ $t('Nav Banner') }}
               </div>
             </NuxtLink>
           </li>
@@ -88,7 +88,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-sliders-h mr-2"></i>
-                Sliders
+                {{ $t('Sliders') }}
               </div>
             </NuxtLink>
           </li>
@@ -102,7 +102,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-ticket mr-2"></i>
-                Coupons
+                {{ $t('Coupons') }}
               </div>
             </NuxtLink>
           </li>
@@ -115,7 +115,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span>
                 <i class="fas fa-th-large mr-2" />
-                Catalogues
+                {{ $t('Catalogues') }}
               </span>
               <span>
                 <svg
@@ -171,7 +171,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/categories')"
                   >
-                    Categories
+                    {{ $t('Categories') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -180,7 +180,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/subcategories')"
                   >
-                    Subcategories
+                    {{ $t('Subcategories') }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -196,7 +196,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-tag mr-2" />
-                Skill Tags
+                {{ $t('Skill Tags') }}
               </div>
             </NuxtLink>
           </li>
@@ -210,7 +210,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-graduation-cap mr-2"></i>
-                Courses
+                {{ $t('Courses') }}
               </div>
 
               <span
@@ -230,7 +230,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-book-open mr-2" />
-                Learning Paths
+                {{ $t('Learning Paths') }}
               </div>
             </NuxtLink>
           </li>
@@ -244,7 +244,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-star mr-2"></i>
-                Rating & Reviews
+                {{ $t('Rating & Reviews') }}
               </div>
             </NuxtLink>
           </li>
@@ -257,7 +257,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span class="">
                 <i class="fa-solid fa-envelope-open-text mr-2"></i>
-                Newsletter
+                {{ $t('Newsletter') }}
               </span>
               <span>
                 <svg
@@ -337,7 +337,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span>
                 <i class="fa-solid fa-file-pen mr-2"></i>
-                Manage Blogs
+                {{ $t('Manage Blog') }}
               </span>
               <span>
                 <svg
@@ -393,7 +393,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/blog-categories')"
                   >
-                    Categories
+                    {{ $t('Categories') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -402,7 +402,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/blog-contents')"
                   >
-                    Contents
+                    {{ $t('Contents') }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -418,7 +418,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-comment-alt mr-2"></i>
-                Support Chat
+                {{ $t('Support Chat') }}
               </div>
 
               <span
@@ -434,7 +434,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
         <h6
           class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
-          Subscription Management
+          {{ $t('Subscription Management') }}
         </h6>
 
         <ul
@@ -449,7 +449,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-money-bill-wave mr-2" />
-                Subscription Plans
+                {{ $t('Subscription Plans') }}
               </div>
             </NuxtLink>
           </li>
@@ -463,7 +463,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-users-cog mr-2" />
-                User Subscriptions
+                {{ $t('User Subscriptions') }}
               </div>
             </NuxtLink>
           </li>
@@ -477,7 +477,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-money-check-alt mr-2" />
-                Payment Processing
+                {{ $t('Payment Processing') }}
               </div>
             </NuxtLink>
           </li>
@@ -491,7 +491,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-chart-line mr-2" />
-                Tracking And Reporting
+                {{ $t('Tracking And Reporting') }}
               </div>
             </NuxtLink>
           </li>
@@ -505,7 +505,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-sync-alt mr-2" />
-                Renewal and Cancellation
+                {{ $t('Renewal and Cancellation') }}
               </div>
             </NuxtLink>
           </li>
@@ -516,11 +516,10 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
         <h6
           class="md:min-w-full text-gray-700 [text-shadow:_1px_0.5px_1px_rgb(0_0_0_/_30%)] text-xs font-bold block pt-1 pb-4 no-underline px-3"
         >
-          Management And Oversight
+          {{ $t('Management And Oversight') }}
         </h6>
 
         <ul
-          v-show="can('admin')"
           class="hs-accordion-group md:flex-col md:min-w-full flex flex-col list-none text-[13px] font-bold"
         >
           <!-- Manage Instructors -->
@@ -531,7 +530,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span>
                 <i class="fa-solid fa-chalkboard-teacher mr-2"></i>
-                Manage Instructors
+                {{ $t('Manage Instructors') }}
               </span>
               <span>
                 <svg
@@ -587,7 +586,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/claims-as-a-instructor')"
                   >
-                    Claims as a Instructors
+                    {{ $t('Claims as a Instructor') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -596,7 +595,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/instructors')"
                   >
-                    Instructors
+                    {{ $t('Instructors') }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -611,7 +610,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span>
                 <i class="fa-solid fa-shield mr-2"></i>
-                Manage Authority
+                {{ $t('Manage Authority') }}
               </span>
               <span>
                 <svg
@@ -669,7 +668,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/permissions')"
                   >
-                    Permissions
+                    {{ $t('Permissions') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -678,7 +677,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/roles')"
                   >
-                    Roles
+                    {{ $t('Roles') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -687,7 +686,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/assign-role-permissions')"
                   >
-                    Assign Role Permissions
+                    {{ $t('Assign Role Permissions') }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -702,7 +701,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <span>
                 <i class="fa-solid fa-user-gear mr-2"></i>
-                Manage Accounts
+                {{ $t('Manage Accounts') }}
               </span>
               <span>
                 <svg
@@ -758,7 +757,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/registered-accounts')"
                   >
-                    Registered Accounts
+                    {{ $t('Registered Accounts') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
@@ -767,7 +766,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/admin-manage')"
                   >
-                    Admin Manage
+                    {{ $t('Admin Manage') }}
                   </NuxtLink>
                 </li>
               </ul>
@@ -783,7 +782,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-gear mr-2" />
-                Settings
+                {{ $t('Settings') }}
               </div>
             </NuxtLink>
           </li>
@@ -797,7 +796,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             >
               <div class="py-3 block">
                 <i class="fas fa-database mr-2" />
-                Database Backup
+                {{ $t('Database Backup') }}
               </div>
             </NuxtLink>
           </li>

@@ -10,11 +10,14 @@ import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
           <h1
             class="font-bold text-gray-800 text-3xl [text-shadow:_1.5px_0.5px_1.5px_rgb(0_0_0_/_40%)]"
           >
-            New And Popular Courses
+            {{ $t('New And Popular Courses') }}
           </h1>
           <p class="text-sm font-medium text-gray-600">
-            Discover the latest trends and most sought-after topics with our new and popular
-            courses.
+            {{
+              $t(
+                'Discover the latest trends and most sought-after topics with our new and popular courses.'
+              )
+            }}
           </p>
         </div>
       </div>

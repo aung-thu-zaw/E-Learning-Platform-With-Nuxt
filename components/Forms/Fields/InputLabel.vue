@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <label :for="label" class="block mb-2 text-sm font-bold text-gray-900">
-    {{ label }}
+    {{ $t(label) }}
     <span v-show="required" class="text-red-600">*</span>
   </label>
 </template>

@@ -10,17 +10,17 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
           <h1
             class="font-bold text-gray-800 text-3xl [text-shadow:_1.5px_0.5px_1.5px_rgb(0_0_0_/_40%)]"
           >
-            Recommended Learning Paths
+            {{ $t('Recommended Learning Paths') }}
           </h1>
           <p class="text-sm font-medium text-gray-600">
-            Reach your learning goals with hand-picked, sequential classes.
+            {{ $t('Reach your learning goals with hand-picked, sequential classes.') }}
           </p>
         </div>
 
         <button
           class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press"
         >
-          View All Learning Paths
+          {{ $t('View All Learning Paths') }}
           <i class="fa-solid fa-arrow-right ml-3"></i>
         </button>
       </div>

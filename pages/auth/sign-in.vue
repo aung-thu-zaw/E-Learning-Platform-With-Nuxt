@@ -11,6 +11,7 @@ import { useAuthStore } from '~/stores/auth'
 useHead({ title: 'Sign In' })
 
 const store = useAuthStore()
+const localPath = useLocalePath()
 const { errors, status } = storeToRefs(store)
 
 interface Form {
@@ -34,14 +35,14 @@ const form: Form = reactive({
           <div class="mt-7 border rounded-xl shadow-sm bg-white border-gray-300 w-full mx-auto">
             <div class="p-4 sm:p-7">
               <div class="text-center">
-                <h1 class="block text-2xl font-bold text-gray-700">Welcome Back</h1>
+                <h1 class="block text-2xl font-bold text-gray-700">{{ $t('Welcome Back') }}</h1>
                 <p class="mt-2 text-sm text-gray-500">
-                  Don't have an account yet?
+                  {{ $t("Don't have an account yet?") }}
                   <NuxtLink
-                    to="/auth/sign-up"
+                    :to="localPath('/auth/sign-up')"
                     class="text-yellow-500 decoration-2 hover:underline font-medium"
                   >
-                    Sign up here
+                    {{ $t('Sign up here') }}
                   </NuxtLink>
                 </p>
 
@@ -99,23 +100,23 @@ const form: Form = reactive({
                       <div>
                         <label class="flex items-center">
                           <Checkbox v-model:checked="form.remember" />
-                          <span class="ml-2 text-sm text-slate-600"> Remember Me</span>
+                          <span class="ml-2 text-sm text-slate-600">{{ $t('Remember Me') }}</span>
                         </label>
                       </div>
 
                       <div>
                         <NuxtLink
-                          to="/auth/forgot-password"
+                          :to="localPath('/auth/forgot-password')"
                           class="underline text-sm text-slate-600 font-[500] rounded-md hover:text-yellow-600"
                         >
-                          Forgot Password ?
+                          {{ $t('Forgot Password ?') }}
                         </NuxtLink>
                       </div>
                     </div>
 
                     <InputError :message="errors?.captcha_token" />
 
-                    <FormButton> Sign In </FormButton>
+                    <FormButton> {{ $t('Sign In') }} </FormButton>
                   </div>
                 </form>
                 <!-- End Form -->

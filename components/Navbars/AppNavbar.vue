@@ -86,27 +86,27 @@ const localPath = useLocalePath()
           class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md md:space-x-4"
         >
           <NuxtLink
-            to="/learning-paths"
+            :to="localPath('/learning-paths')"
             class="font-bold text-gray-800 hover:text-gray-600 duration-200"
             :class="{
               'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/learning-paths')
             }"
           >
-            Learning Paths
+            {{ $t('Learning Paths') }}
           </NuxtLink>
 
           <a class="font-bold text-gray-800 hover:text-gray-600 duration-200" href="#">
-            Quick Tips
+            {{ $t('Quick Tips') }}
           </a>
 
           <NuxtLink
-            to="/blogs"
+            :to="localPath('/blogs')"
             class="font-bold text-gray-800 hover:text-gray-600 duration-200"
             :class="{
               'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/blogs')
             }"
           >
-            Blogs
+            {{ $t('Blogs') }}
           </NuxtLink>
 
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
@@ -114,7 +114,7 @@ const localPath = useLocalePath()
               type="button"
               class="sm:py-3 flex items-center w-full font-bold text-gray-800 hover:text-gray-600"
             >
-              Browse
+              {{ $t('Browse') }}
               <svg
                 class="ms-1 flex-shrink-0 size-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -263,11 +263,11 @@ const localPath = useLocalePath()
           >
             <NuxtLink
               v-if="!user"
-              to="/auth/sign-in"
+              :to="localPath('/auth/sign-in')"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
               <i class="fa-solid fa-right-to-bracket mr-1"></i>
-              Sign In
+              {{ $t('Sign In') }}
             </NuxtLink>
 
             <UserDropdown v-if="user" />
