@@ -93,5 +93,9 @@
     "Stats": "إحصائيات",
     "Earning": "الأرباح",
     "Announcements": "الإعلانات",
-    "Help": "مساعدة"
+    "Help": "مساعدة",
+    "Your internet connection is restored. Welcome back!": "تم استعادة اتصال الإنترنت الخاص بك. مرحبًا بك مجددًا!",
+    "You are currently offline. Please check your internet connection.": "أنت غير متصل بالإنترنت حاليًا. يرجى التحقق من اتصالك بالإنترنت.",
+    "Your internet connection is too slow. Please consider connecting to a faster network.": "اتصالك بالإنترنت بطيء جدًا. يرجى النظر في الاتصال بشبكة أسرع.",
+    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "اتصالك بالإنترنت بطيء. يرجى النظر في الاتصال بشبكة أسرع لتحسين الأداء."
 }

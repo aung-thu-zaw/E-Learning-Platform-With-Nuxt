@@ -93,5 +93,9 @@
     "Stats": "Estadísticas",
     "Earning": "Ganancias",
     "Announcements": "Anuncios",
-    "Help": "Ayuda"
+    "Help": "Ayuda",
+    "Your internet connection is restored. Welcome back!": "¡Se ha restablecido tu conexión a Internet! ¡Bienvenido de nuevo!",
+    "You are currently offline. Please check your internet connection.": "Actualmente estás sin conexión. Por favor, verifica tu conexión a Internet.",
+    "Your internet connection is too slow. Please consider connecting to a faster network.": "Tu conexión a Internet es demasiado lenta. Por favor, considera conectarte a una red más rápida.",
+    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "Tu conexión a Internet es lenta. Por favor, considera conectarte a una red más rápida para un rendimiento óptimo."
 }

@@ -2,9 +2,10 @@ import { useNetworkStatus } from '~/composables/useNetworkStatus'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { updateOnlineStatus } = useNetworkStatus()
+  const { t } = useNuxtApp().$i18n
 
   const showOnlineNotification = () => {
-    nuxtApp.$toast.success('Your internet connection is restored. Welcome back!', {
+    nuxtApp.$toast.success(t('Your internet connection is restored. Welcome back!'), {
       autoClose: 10000,
       transition: 'flip'
     })

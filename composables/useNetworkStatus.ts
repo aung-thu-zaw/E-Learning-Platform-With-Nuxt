@@ -3,6 +3,7 @@ import { ref } from 'vue'
 export function useNetworkStatus() {
   const isOnline = ref(navigator?.onLine)
   const { $toast } = useNuxtApp()
+  const { t } = useNuxtApp().$i18n
 
   function updateOnlineStatus() {
     isOnline.value = navigator?.onLine
@@ -45,7 +46,7 @@ export function useNetworkStatus() {
   }
 
   function showOfflineNotification() {
-    $toast.error('You are currently offline. Please check your internet connection.', {
+    $toast.error(t('You are currently offline. Please check your internet connection.'), {
       autoClose: 10000,
       transition: 'flip'
     })
@@ -53,14 +54,16 @@ export function useNetworkStatus() {
 
   function showSlowConnectionNotification() {
     $toast.warning(
-      'Your internet connection is too slow. Please consider connecting to a faster network.',
+      t('Your internet connection is too slow. Please consider connecting to a faster network.'),
       { autoClose: 10000, transition: 'flip' }
     )
   }
 
   function showModerateConnectionNotification() {
     $toast.warning(
-      'Your internet connection is slow. Please consider connecting to a faster network for optimal performance.',
+      t(
+        'Your internet connection is slow. Please consider connecting to a faster network for optimal performance.'
+      ),
       { autoClose: 10000, transition: 'flip' }
     )
   }
