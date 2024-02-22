@@ -20,6 +20,20 @@ export const useBlogStore = defineStore('blogs', () => {
     }
   }
 
+  const getCategoryBlogs = async (categorySlug: string) => {
+    try {
+      const data: BlogPaginate = await $fetch(
+        `${backendApiBaseUrl}/categories/${categorySlug}/contents`
+      )
+
+      if (!data) throw new Error('Response Data Not Found!')
+
+      blogs.value = data
+    } catch (error) {
+      errors.value = error.response?.data?.errors
+    }
+  }
+
   const getResources = async () => {
     try {
       const data: BlogPaginate = await $fetch(`${backendApiBaseUrl}/content/resources`)
@@ -44,5 +58,5 @@ export const useBlogStore = defineStore('blogs', () => {
     }
   }
 
-  return { blogs, blog, categories, errors, getBlogs, getBlog, getResources }
+  return { blogs, blog, categories, errors, getBlogs, getCategoryBlogs, getBlog, getResources }
 })

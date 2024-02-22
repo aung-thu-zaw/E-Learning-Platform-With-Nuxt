@@ -1,5 +1,7 @@
 <script setup lang="ts">
-// Your Code
+import type { Blog } from '~/types/blog'
+
+defineProps<{ blog: Blog }>()
 </script>
 
 <template>
@@ -9,8 +11,8 @@
     >
       <img
         class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 duration-200"
-        src="https://images.unsplash.com/photo-1664574654529-b60630f33fdb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
-        alt="Image Description"
+        :src="blog?.thumbnail"
+        alt="Blog thumbnail"
       />
     </div>
 
@@ -20,18 +22,16 @@
           <p
             class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-300 text-gray-800"
           >
-            Business
+            {{ blog?.category?.name }}
           </p>
         </div>
         <h3
           class="text-lg sm:text-2xl font-semibold text-gray-800 group-hover:text-yellow-500 line-clamp-3"
         >
-          Preline becomes an official Instagram Marketing Partner
+          {{ blog?.title }}
         </h3>
         <p class="mt-2 text-gray-600 line-clamp-3">
-          Updating your profile is a fantastic way to showcase your brand and share your newest
-          classes with your students. Check out 5 of our favorite channels for ideas on your next
-          channel update!
+          {{ blog?.content }}
         </p>
 
         <div class="mt-5 sm:mt-auto">
@@ -40,13 +40,13 @@
             <div class="flex-shrink-0">
               <img
                 class="size-[46px] rounded-full"
-                src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-                alt="Image Description"
+                :src="blog?.author?.avatar"
+                alt="Author Avatar"
               />
             </div>
             <div class="ms-2.5 sm:ms-4">
-              <h4 class="font-semibold text-gray-800">Aaron Larsson</h4>
-              <p class="text-xs text-gray-500">Feb 15, 2021</p>
+              <h4 class="font-semibold text-gray-800">{{ blog?.author?.display_name }}</h4>
+              <p class="text-xs text-gray-500">{{ blog?.published_at }}</p>
             </div>
           </div>
           <!-- End Avatar -->

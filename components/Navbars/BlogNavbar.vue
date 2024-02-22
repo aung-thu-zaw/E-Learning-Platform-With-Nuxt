@@ -4,6 +4,7 @@ import { useBlogStore } from '~/stores/e-learning/blog'
 
 const localPath = useLocalePath()
 const store = useBlogStore()
+const route = useRoute()
 const { categories } = storeToRefs(store)
 
 onMounted(async () => await store.getResources())
@@ -91,14 +92,17 @@ onMounted(async () => await store.getResources())
           <div
             class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-center md:mt-0 md:ps-5 text-md w-full md:space-x-6"
           >
-            <a
+            <NuxtLink
               v-for="(category, index) in categories"
               :key="index"
+              :to="`/blogs/${category?.slug}?page=1`"
               class="font-bold text-gray-800 hover:text-gray-600"
-              href="#"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600': category?.slug === route?.params?.category
+              }"
             >
               {{ category?.name }}
-            </a>
+            </NuxtLink>
           </div>
 
           <div
