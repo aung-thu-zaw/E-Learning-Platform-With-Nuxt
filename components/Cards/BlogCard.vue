@@ -2,12 +2,14 @@
 import type { Blog } from '~/types/blog'
 
 defineProps<{ blog: Blog }>()
+
+const localePath = useLocalePath()
 </script>
 
 <template>
-  <a
+  <NuxtLink
+    :to="localePath('/blogs/' + blog?.slug)"
     class="group flex flex-col h-full border border-gray-200 hover:shadow-lg transition-all duration-300 rounded-xl p-5"
-    href="#"
   >
     <div class="aspect-w-16 aspect-h-11 overflow-hidden rounded-xl">
       <img
@@ -17,10 +19,10 @@ defineProps<{ blog: Blog }>()
       />
     </div>
     <div class="my-6">
-      <h3 class="text-xl font-semibold text-gray-800 group-hover:text-yellow-500">
+      <h3 class="text-xl font-semibold text-gray-800 group-hover:text-yellow-500 duration-200">
         {{ blog?.title }}
       </h3>
-      <p class="mt-5 text-gray-600">
+      <p class="mt-5 text-gray-600 line-clamp-3">
         {{ blog?.content }}
       </p>
     </div>
@@ -33,5 +35,5 @@ defineProps<{ blog: Blog }>()
         <p class="text-xs text-gray-600">{{ blog?.published_at }}</p>
       </div>
     </div>
-  </a>
+  </NuxtLink>
 </template>

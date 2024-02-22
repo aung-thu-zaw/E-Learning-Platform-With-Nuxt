@@ -2,15 +2,20 @@
 import type { Blog } from '~/types/blog'
 
 defineProps<{ blog: Blog }>()
+
+const localePath = useLocalePath()
 </script>
 
 <template>
-  <a class="group sm:flex rounded-xl" href="#">
+  <NuxtLink
+    :to="localePath('/blogs/' + blog?.slug)"
+    class="group sm:flex rounded-xl transition-all duration-300"
+  >
     <div
       class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[200px] sm:w-[250px] sm:h-[350px]"
     >
       <img
-        class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 duration-200"
+        class="size-full absolute top-0 start-0 object-cover group-hover:scale-105"
         :src="blog?.thumbnail"
         alt="Blog thumbnail"
       />
@@ -26,7 +31,7 @@ defineProps<{ blog: Blog }>()
           </p>
         </div>
         <h3
-          class="text-lg sm:text-2xl font-semibold text-gray-800 group-hover:text-yellow-500 line-clamp-3"
+          class="text-lg sm:text-2xl font-semibold text-gray-800 group-hover:text-yellow-500 line-clamp-3 duration-200"
         >
           {{ blog?.title }}
         </h3>
@@ -53,5 +58,5 @@ defineProps<{ blog: Blog }>()
         </div>
       </div>
     </div>
-  </a>
+  </NuxtLink>
 </template>

@@ -3,6 +3,7 @@ import { BlogPaginate, Blog, Category } from '~/types/blog'
 
 export const useBlogStore = defineStore('blogs', () => {
   const blogs = ref<BlogPaginate | null>(null)
+  const relatedBlogs = ref<Blog[] | null>(null)
   const blog = ref<Blog | null>(null)
   const categories = ref<Category[] | null>(null)
   const errors = ref<string | null>(null)
@@ -52,11 +53,22 @@ export const useBlogStore = defineStore('blogs', () => {
 
       if (!data) throw new Error('Response Data Not Found!')
 
-      blog.value = data
+      blog.value = data.content
+      relatedBlogs.value = data.relatedContents
     } catch (error) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  return { blogs, blog, categories, errors, getBlogs, getCategoryBlogs, getBlog, getResources }
+  return {
+    blogs,
+    relatedBlogs,
+    blog,
+    categories,
+    errors,
+    getBlogs,
+    getCategoryBlogs,
+    getBlog,
+    getResources
+  }
 })

@@ -2,7 +2,7 @@
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
 
-const localPath = useLocalePath()
+const localePath = useLocalePath()
 const store = useBlogStore()
 const route = useRoute()
 const { categories } = storeToRefs(store)
@@ -95,7 +95,7 @@ onMounted(async () => await store.getResources())
             <NuxtLink
               v-for="(category, index) in categories"
               :key="index"
-              :to="`/blogs/${category?.slug}?page=1`"
+              :to="localePath('/blogs/categories/' + category?.slug + '?page=1')"
               class="font-bold text-gray-800 hover:text-gray-600"
               :class="{
                 'text-yellow-500 hover:text-yellow-600': category?.slug === route?.params?.category
@@ -122,7 +122,7 @@ onMounted(async () => await store.getResources())
               class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
             >
               <NuxtLink
-                :to="localPath('/')"
+                :to="localePath('/')"
                 type="button"
                 class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
               >
