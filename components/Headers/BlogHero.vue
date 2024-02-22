@@ -1,15 +1,21 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Blog } from '~/types/blog'
+
+defineProps<{ blog: Blog | null }>()
+
+const localePath = useLocalePath()
+</script>
 
 <template>
-  <div class="max-w-[85rem] p-6 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div v-if="blog" class="max-w-[85rem] p-6 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <!-- Grid -->
     <div class="grid sm:grid-cols-2 sm:items-center gap-8">
       <div class="sm:order-2">
         <div class="relative pt-[50%] sm:pt-[100%] rounded-lg">
           <img
             class="size-full absolute top-0 start-0 object-cover rounded-lg"
-            src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1981&q=80"
-            alt="Image Description"
+            :src="blog?.thumbnail"
+            alt="Blog thumbnail"
           />
         </div>
       </div>
@@ -19,15 +25,18 @@
         <p
           class="mb-5 inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs font-medium bg-gray-200 text-gray-800"
         >
-          Business insight
+          {{ blog?.category?.name }}
         </p>
 
         <h2
           class="text-2xl font-bold md:text-3xl lg:text-4xl lg:leading-tight xl:text-5xl xl:leading-tight text-gray-800"
         >
-          <a class="hover:text-yellow-500" href="#">
-            How to get buy-in and budget for direct hiring
-          </a>
+          <NuxtLink
+            :to="localePath('/blogs/' + blog?.slug)"
+            class="hover:text-yellow-500 duration-200"
+          >
+            {{ blog?.title }}
+          </NuxtLink>
         </h2>
 
         <!-- Avatar -->
@@ -35,22 +44,22 @@
           <div class="flex-shrink-0">
             <img
               class="size-10 sm:h-14 sm:w-14 rounded-full"
-              src="https://images.unsplash.com/photo-1669837401587-f9a4cfe3126e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=320&h=320&q=80"
-              alt="Image Description"
+              :src="blog?.author?.avatar"
+              alt="Author Avatar"
             />
           </div>
 
           <div class="ms-3 sm:ms-4">
-            <p class="sm:mb-1 font-semibold text-gray-800">Louise Donadieu</p>
-            <p class="text-xs text-gray-500">Strategic Marketing Consultant</p>
+            <p class="sm:mb-1 font-semibold text-gray-800">{{ blog?.author?.display_name }}</p>
+            <p class="text-xs text-gray-500">{{ blog?.published_at }}</p>
           </div>
         </div>
         <!-- End Avatar -->
 
         <div class="mt-5">
-          <a
+          <NuxtLink
+            :to="localePath('/blogs/' + blog?.slug)"
             class="inline-flex items-center gap-x-1.5 text-yellow-500 decoration-2 hover:underline font-medium"
-            href="#"
           >
             Read more
             <svg
@@ -67,7 +76,7 @@
             >
               <path d="m9 18 6-6-6-6" />
             </svg>
-          </a>
+          </NuxtLink>
         </div>
       </div>
       <!-- End Col -->
