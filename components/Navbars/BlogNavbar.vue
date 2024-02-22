@@ -2,17 +2,21 @@
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
 
+defineProps<{ isOpenNavSearchBox: boolean }>()
 const localePath = useLocalePath()
 const store = useBlogStore()
 const route = useRoute()
 const { categories } = storeToRefs(store)
+const emit = defineEmits(['updatedSearch'])
 
 onMounted(async () => await store.getResources())
+
+const handleSearchBox = () => emit('updatedSearch')
 </script>
 
 <template>
   <div
-    class="sticky top-0 bg-white flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 border-b"
+    class="sticky top-0 bg-white flex flex-wrap sm:justify-start sm:flex-nowrap z-50 w-full text-sm py-4 transition-all duration-200 border-b"
   >
     <nav
       class="max-w-[85rem] w-full mx-auto px-4 md:flex md:items-center md:justify-between"
@@ -24,7 +28,10 @@ onMounted(async () => await store.getResources())
         </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
           <button
+            type="button"
             class="flex font-bold text-xs bg-gray-300 p-3 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"
+            :class="{ 'bg-yellow-500': isOpenNavSearchBox }"
+            @click="handleSearchBox"
           >
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -109,7 +116,10 @@ onMounted(async () => await store.getResources())
             class="flex gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md min-w-[300px]"
           >
             <button
+              type="button"
               class="hidden lg:flex font-bold text-xs p-3 bg-gray-300 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"
+              :class="{ 'bg-yellow-500': isOpenNavSearchBox }"
+              @click="handleSearchBox"
             >
               <i class="fa-solid fa-magnifying-glass"></i>
             </button>

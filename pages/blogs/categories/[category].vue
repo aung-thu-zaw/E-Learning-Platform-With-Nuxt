@@ -3,7 +3,6 @@ import HorizontalBlogCard from '~/components/Cards/HorizontalBlogCard.vue'
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import Pagination from '~/components/Paginations/BlogPagination.vue'
 import type { BlogPaginate } from '~/types/blog'
-
 import { useBlogStore } from '~/stores/e-learning/blog'
 
 const store = useBlogStore()

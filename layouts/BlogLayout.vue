@@ -1,16 +1,28 @@
 <script setup lang="ts">
 import BlogNavbar from '~/components/Navbars/BlogNavbar.vue'
+import BlogSearchBox from '~/components/Forms/SearchBoxs/BlogSearchBox.vue'
 import AppFooter from '~/components/Footers/AppFooter.vue'
 import { useAuthStore } from '~/stores/auth'
 
 const store = useAuthStore()
+const isOpenNavSearchBox = ref(false)
 
 onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>
   <div class="font-poppins w-full min-h-screen bg-gray-50">
-    <BlogNavbar />
+    <BlogNavbar
+      :is-open-nav-search-box="isOpenNavSearchBox"
+      @updated-search="isOpenNavSearchBox = !isOpenNavSearchBox"
+    />
+
+    <div
+      class="bg-gray-100 border-b-4 border-b-yellow-400 px-20 py-5 transition-transform duration-500 fixed right-0 z-30 left-0"
+      :class="{ 'translate-y-0': isOpenNavSearchBox, '-translate-y-full': !isOpenNavSearchBox }"
+    >
+      <BlogSearchBox @updated-search="isOpenNavSearchBox = false" />
+    </div>
 
     <main>
       <slot />

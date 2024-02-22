@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { BlogPaginate, Blog, Category } from '~/types/blog'
+import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
 export const useBlogStore = defineStore('blogs', () => {
   const blogs = ref<BlogPaginate | null>(null)
@@ -9,9 +10,13 @@ export const useBlogStore = defineStore('blogs', () => {
   const errors = ref<string | null>(null)
   const { backendApiBaseUrl } = useRuntimeConfig().public
 
-  const getBlogs = async () => {
+  const getBlogs = async (params) => {
     try {
-      const data: BlogPaginate = await $fetch(`${backendApiBaseUrl}/contents`)
+      const { generateQueryParams } = useQueryGenerator()
+
+      const data: BlogPaginate = await $fetch(
+        `${backendApiBaseUrl}/contents?${generateQueryParams(params)}`
+      )
 
       if (!data) throw new Error('Response Data Not Found!')
 

@@ -4,6 +4,7 @@ import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
 import { useLoadData } from '~/composables/useLoadData'
+import { useQueryStringParams } from '@/composables/useQueryStringParams'
 import type { BlogPaginate, Blog } from '~/types/blog'
 
 const landmark = ref<HTMLElement | null>(null)
@@ -17,9 +18,10 @@ useHead({ title: 'Blogs' })
 definePageMeta({ layout: 'blog-layout' })
 
 const { allData, newPaginatedData, observeScroll } = useLoadData()
+const { blogParams } = useQueryStringParams()
 
 onMounted(async () => {
-  await store.getBlogs()
+  await store.getBlogs(blogParams.value)
   latestBlog.value = blogs?.value?.data[0] as Blog
   observeScroll(blogs.value, landmark.value)
   store.$patch({ blogs: newPaginatedData.value as BlogPaginate })
