@@ -38,7 +38,8 @@ export default defineNuxtConfig({
     '~/plugins/sweetalert.ts',
     '~/plugins/recaptcha.ts',
     '~/plugins/can.ts',
-    '~/plugins/translations.ts'
+    '~/plugins/translations.ts',
+    '~/plugins/network.client.ts'
   ],
   app: {
     pageTransition: { name: 'page', mode: 'out-in' },

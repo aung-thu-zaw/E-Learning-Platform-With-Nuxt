@@ -2,7 +2,6 @@
 import AppNavbar from '~/components/Navbars/AppNavbar.vue'
 import AppFooter from '~/components/Footers/AppFooter.vue'
 import NavTopInviteBanner from '~/components/Banners/NavTopInviteBanner.vue'
-import { onMounted } from 'vue'
 import { useAuthStore } from '~/stores/auth'
 
 const store = useAuthStore()
@@ -15,7 +14,6 @@ onMounted(async () => await store.getAuthenticatedUser())
     <NavTopInviteBanner />
 
     <AppNavbar />
-
     <main>
       <slot />
     </main>
