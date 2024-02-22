@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
+import { useBlogStore } from '~/stores/e-learning/blog'
 
 const localPath = useLocalePath()
+const store = useBlogStore()
+const { categories } = storeToRefs(store)
+
+onMounted(async () => await store.getResources())
 </script>
 
 <template>
@@ -84,14 +89,16 @@ const localPath = useLocalePath()
       >
         <div class="flex flex-col md:flex-row items-start md:items-center justify-between">
           <div
-            class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-center md:mt-0 md:ps-5 text-md w-full md:space-x-10"
+            class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-center md:mt-0 md:ps-5 text-md w-full md:space-x-6"
           >
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Guides </a>
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#"> Teach </a>
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#">Stories </a>
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#">News </a>
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#"> Teams </a>
-            <a class="font-bold text-gray-800 hover:text-gray-600" href="#"> Classes </a>
+            <a
+              v-for="(category, index) in categories"
+              :key="index"
+              class="font-bold text-gray-800 hover:text-gray-600"
+              href="#"
+            >
+              {{ category?.name }}
+            </a>
           </div>
 
           <div
