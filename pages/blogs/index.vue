@@ -21,8 +21,9 @@ onMounted(async () => {
   await store.getBlogs()
   observeScroll(blogs.value, landmark.value)
   store.$patch({ blogs: newPaginatedData.value as BlogPaginate })
-  allBlog.value = allData.value as Blog[]
 })
+
+watch(allData, (newValue) => (allBlog.value = newValue as Blog[]))
 </script>
 
 <template>

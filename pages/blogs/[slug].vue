@@ -2,6 +2,7 @@
 import BlogAdvertisement from '~/components/Banners/BlogAdvertisement.vue'
 import RecommendedCourseSection from '~/components/Sections/RecommendedCourseInBlogSection.vue'
 import RelatedBlogSection from '~/components/Sections/RelatedBlogSection.vue'
+import ScrollProgressBar from '~/components/ProgressBars/ScrollProgressBar.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
 
 const store = useBlogStore()
@@ -18,6 +19,8 @@ onMounted(async () => {
 
 <template>
   <div>
+    <ScrollProgressBar />
+
     <section>
       <!-- Hero -->
       <div class="relative overflow-hidden">
