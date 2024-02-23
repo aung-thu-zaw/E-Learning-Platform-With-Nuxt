@@ -4,10 +4,15 @@ import RecommendedCourseSection from '~/components/Sections/RecommendedCourseInB
 import RelatedBlogSection from '~/components/Sections/RelatedBlogSection.vue'
 import ScrollProgressBar from '~/components/ProgressBars/ScrollProgressBar.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
+import { useSocialShare } from '~/composables/useSocialShare'
+import { useCopy } from '~/composables/useCopy'
 
 const store = useBlogStore()
 const route = useRoute()
+
 const { blog, relatedBlogs } = storeToRefs(store)
+const { shareToFacebook, shareToTwitter, shareToLinkedIn } = useSocialShare()
+const { copyShareLink } = useCopy()
 
 definePageMeta({ layout: 'blog-layout' })
 
@@ -71,22 +76,45 @@ onMounted(async () => {
             <div v-html="blog?.content"></div>
           </div>
 
-          <div class="my-10 flex items-center">
-            <p class="text-md font-semibold text-gray-700 mr-3">Share :</p>
+          <div class="my-10 flex items-center text-md">
+            <p class="font-semibold text-gray-700 mr-3">Share :</p>
 
             <div class="flex mt-4 space-x-5 sm:justify-center sm:mt-0">
-              <a href="#" class="text-gray-600 hover:text-gray-900">
-                <img src="~/assets/svg/facebook.svg" alt="facebook" />
+              <button
+                type="button"
+                class="text-gray-600 hover:text-blue-600 duration-200"
+                @click="shareToFacebook"
+              >
+                <i class="fa-brands fa-facebook"></i>
                 <span class="sr-only">Facebook page</span>
-              </a>
-              <a href="#" class="text-gray-600 hover:text-gray-900">
-                <img src="~/assets/svg/instagram.svg" alt="instagram" />
-                <span class="sr-only">Instagram page</span>
-              </a>
-              <a href="#" class="text-gray-600 hover:text-gray-900">
-                <img src="~/assets/svg/twitter.svg" alt="twitter" />
+              </button>
+
+              <button
+                type="button"
+                class="text-gray-600 hover:text-sky-500 duration-200"
+                @click="shareToTwitter"
+              >
+                <i class="fa-brands fa-twitter"></i>
                 <span class="sr-only">Twitter page</span>
-              </a>
+              </button>
+
+              <button
+                type="button"
+                class="text-gray-600 hover:text-blue-800 duration-200"
+                @click="shareToLinkedIn"
+              >
+                <i class="fa-brands fa-linkedin"></i>
+                <span class="sr-only">LinkedIn page</span>
+              </button>
+
+              <button
+                type="button"
+                class="text-gray-600 hover:text-gray-800 duration-200"
+                @click="copyShareLink"
+              >
+                <i class="fa-solid fa-link"></i>
+                <span class="sr-only">Copy Link</span>
+              </button>
             </div>
           </div>
         </div>
