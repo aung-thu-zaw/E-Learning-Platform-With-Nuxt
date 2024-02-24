@@ -1,85 +1,68 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useRoute, useRouter } from 'vue-router'
+import { useQueryGenerator } from '~/composables/useQueryGenerator'
+
+defineProps({
+  data: {
+    type: Object,
+    default: () => {}
+  }
+})
+
+const route = useRoute()
+const router = useRouter()
+const emit = defineEmits(['updatedData'])
+const { getParameter } = useQueryGenerator()
+const { $axiosApi } = useNuxtApp()
+
+const fetchData = async (url: string) => {
+  try {
+    const currentPage = getParameter(url, 'page') || 1
+
+    const response = await $axiosApi.get(url)
+
+    if (!response) throw new Error('Response Not Found!')
+
+    router.push({ query: { ...route.query, page: currentPage } })
+
+    emit('updatedData', response.data)
+  } catch (error: any) {
+    return showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+</script>
 
 <template>
-  <nav class="flex justify-center items-center gap-x-1">
-    <button
-      type="button"
-      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-    >
-      <svg
-        class="flex-shrink-0 size-3.5"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m15 18-6-6 6-6" />
-      </svg>
-      <span aria-hidden="true" class="sr-only">Previous</span>
-    </button>
-    <div class="flex items-center gap-x-1">
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center bg-gray-200 text-gray-800 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-300 disabled:opacity-50 disabled:pointer-events-none"
-        aria-current="page"
-      >
-        1
-      </button>
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        2
-      </button>
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        3
-      </button>
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        4
-      </button>
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        5
-      </button>
-      <button
-        type="button"
-        class="min-h-[38px] min-w-[38px] flex justify-center items-center text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-      >
-        6
-      </button>
+  <div class="flex items-center justify-center w-full">
+    <div v-if="data?.meta?.links?.length > 3">
+      <div class="flex flex-wrap -mb-1 space-x-1.5">
+        <template v-for="(link, p) in data?.meta?.links" :key="p">
+          <button
+            v-if="link.url === null"
+            type="button"
+            class="px-3.5 py-2.5 text-sm leading-4 text-gray-400 font-medium bg-gray-100 rounded-md hover:bg-gray-200 duration-150 border"
+            v-html="link.label"
+          ></button>
+
+          <div v-else class="flex items-center">
+            <button
+              type="button"
+              class="min-h-[40px] min-w-[40px] py-2.5 px-3.5 inline-flex justify-center items-center gap-x-2 text-sm rounded-md text-gray-700 focus:outline-none disabled:opacity-50 disabled:pointer-events-none font-medium bg-gray-100 hover:bg-gray-200 duration-150 border"
+              :class="{
+                'bg-yellow-500 text-white hover:bg-yellow-400 border-yellow-500':
+                  Number(link.label) === data?.meta?.current_page
+              }"
+              :href="link?.url"
+              @click="fetchData(link.url)"
+              v-html="link.label"
+            ></button>
+          </div>
+        </template>
+      </div>
     </div>
-    <button
-      type="button"
-      class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none"
-    >
-      <span aria-hidden="true" class="sr-only">Next</span>
-      <svg
-        class="flex-shrink-0 size-3.5"
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="m9 18 6-6-6-6" />
-      </svg>
-    </button>
-  </nav>
+  </div>
 </template>

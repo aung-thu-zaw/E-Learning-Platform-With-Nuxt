@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { BlogPaginate, Blog, Category } from '~/types/blog'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
-export const useBlogStore = defineStore('blogs', () => {
+export const useBlogStore = defineStore('blog', () => {
   const blogs = ref<BlogPaginate | null>(null)
   const relatedBlogs = ref<Blog[] | null>(null)
   const blog = ref<Blog | null>(null)

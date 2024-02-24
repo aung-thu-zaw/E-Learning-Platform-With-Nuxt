@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 
-export const useAbilityStore = defineStore('abilities', () => {
+export const useAbilityStore = defineStore('ability', () => {
   const permissions = ref(null)
   const errors = ref(null)
   const { $axiosApi } = useNuxtApp()

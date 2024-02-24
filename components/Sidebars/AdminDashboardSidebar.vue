@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { useURLQueryString } from '@/composables/useURLQueryString'
+import { useQueryGenerator } from '~/composables/useQueryGenerator'
+
 defineProps({
   collapse: {
     type: Boolean,
@@ -7,6 +10,8 @@ defineProps({
 })
 
 const route = useRoute()
+const { dashboardDefaultQueryString } = useURLQueryString()
+const { generateQueryParams } = useQueryGenerator()
 
 const getSidebarMenuActiveColor = (targetRoute: string): string => {
   return route.path.startsWith(targetRoute)
@@ -17,15 +22,18 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
 
 <template>
   <aside
-    :class="{ 'translate-x-0': collapse, '-translate-x-full': !collapse }"
-    class="bg-white text-gray-700 shadow-md h-screen overflow-y-scroll w-80 z-10 px-3.5 py-5 transition-transform duration-500 border-r border-gray-200 scrollbar"
+    :class="{
+      'translate-x-0 fixed left-0 top-0 pt-24': collapse,
+      '-translate-x-full pt-0': !collapse
+    }"
+    class="bg-white text-gray-700 shadow-md h-screen overflow-y-scroll min-w-64 z-10 px-3.5 py-5 transition-all duration-500 border-r border-gray-200 scrollbar"
   >
     <div
       class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center md:justify-between w-full mx-auto"
     >
       <!-- Collapse -->
       <div
-        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:shadow-none absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 py-5 md:py-0 rounded px-3.5 md:px-0"
+        class="md:flex md:flex-col md:items-stretch md:opacity-100 md:relative md:shadow-none absolute top-0 left-0 right-0 z-40 h-auto items-center flex-1 py-5 md:py-0 rounded px-3.5 md:px-0"
       >
         <!-- Heading -->
         <h6
@@ -82,7 +90,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Sliders -->
           <li class="items-center">
             <NuxtLink
-              to="/admin/sliders"
+              :to="'/admin/sliders' + '?' + dashboardDefaultQueryString"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/sliders')"
             >
@@ -378,29 +386,37 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
               class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               :class="{
                 block:
-                  route.fullPath.startsWith('/admin/blog-categories') ||
-                  route.fullPath.startsWith('/admin/blog-contents'),
+                  route.fullPath.startsWith('/admin/manage-blog/categories') ||
+                  route.fullPath.startsWith('/admin/manage-blog/contents'),
                 hidden: !(
-                  route.fullPath.startsWith('/admin/blog-categories') ||
-                  route.fullPath.startsWith('/admin/blog-contents')
+                  route.fullPath.startsWith('/admin/manage-blog/categories') ||
+                  route.fullPath.startsWith('/admin/manage-blog/contents')
                 )
               }"
             >
               <ul class="pl-8">
                 <li class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/manage-blog/categories' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/blog-categories')"
+                    :class="getSidebarMenuActiveColor('/admin/manage-blog/categories')"
                   >
                     {{ $t('Categories') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/manage-blog/contents' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/blog-contents')"
+                    :class="getSidebarMenuActiveColor('/admin/manage-blog/contents')"
                   >
                     {{ $t('Contents') }}
                   </NuxtLink>

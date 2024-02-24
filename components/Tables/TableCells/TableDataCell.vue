@@ -12,7 +12,7 @@ const computedClasses = computed(() => props.class)
 </script>
 <template>
   <td class="px-6 py-4">
-    <span class="line-clamp-1 text-gray-700 p-1.5 font-medium" :class="computedClasses">
+    <span class="line-clamp-1 text-gray-700 p-1.5 font-semibold" :class="computedClasses">
       <slot />
     </span>
   </td>
