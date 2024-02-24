@@ -6,6 +6,7 @@ import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import { useAuthStore } from '~/stores/auth'
+import type { LoginForm } from '~/types/auth'
 
 useHead({ title: 'Sign In' })
 
@@ -15,13 +16,7 @@ const store = useAuthStore()
 const localPath = useLocalePath()
 const { errors, status } = storeToRefs(store)
 
-interface Form {
-  email: string
-  password: string
-  remember: boolean
-}
-
-const form: Form = reactive({
+const form: LoginForm = reactive({
   email: '',
   password: '',
   remember: false

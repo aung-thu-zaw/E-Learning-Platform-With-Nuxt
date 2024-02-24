@@ -6,6 +6,7 @@ import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import { useAuthStore } from '~/stores/auth'
+import type { RegisterForm } from '~/types/auth'
 
 useHead({ title: 'Sign Up' })
 
@@ -15,17 +16,9 @@ const store = useAuthStore()
 const localPath = useLocalePath()
 const { $toast } = useNuxtApp()
 const { errors } = storeToRefs(store)
-
-interface Form {
-  display_name: string
-  email: string
-  password: string
-  password_confirmation: string
-}
-
 const acceptTerms = ref<boolean>(false)
 
-const form: Form = reactive({
+const form: RegisterForm = reactive({
   display_name: '',
   email: '',
   password: '',

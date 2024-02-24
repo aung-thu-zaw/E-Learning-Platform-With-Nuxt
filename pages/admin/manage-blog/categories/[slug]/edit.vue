@@ -11,44 +11,25 @@ import FormButton from '@/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
 import { useBlogCategoryStore } from '~/stores/dashboard/admin/blogCategory'
 import { storeToRefs } from 'pinia'
+import type { Form } from '~/types/blogCategory'
 
 useHead({ title: 'Edit Blog Category' })
 
-interface Form {
-  name: string
-  description: string
-  status: string | boolean
-}
-
-// interface Error {
-//   name: string
-//   description: string
-//   status: string
-// }
 definePageMeta({ layout: 'admin-layout' })
 
 const route = useRoute()
 const store = useBlogCategoryStore()
-const isCreateAnother = ref<boolean>(false)
 const { errors, blogCategory } = storeToRefs(store)
 const form: Form = reactive({ name: '', description: '', status: '' })
+const slug = route?.params?.slug.toString()
 
 onMounted(async () => {
-  await store.getBlogCategory(route?.params?.slug.toString())
+  await store.getBlogCategory(slug)
 
-  form.name = blogCategory?.value?.name
-  form.description = blogCategory?.value?.description
-  form.status = blogCategory?.value?.status
+  form.name = blogCategory?.value?.name || ''
+  form.description = blogCategory?.value?.description || ''
+  form.status = blogCategory?.value?.status || ''
 })
-
-// const handleCreateBlogCategory = async () => {
-//   await store.createBlogCategory({ ...form }, isCreateAnother.value)
-//   if (isCreateAnother.value && !store.errors) {
-//     form.name = ''
-//     form.description = ''
-//     form.status = ''
-//   }
-// }
 
 watch(form, (newValue) => {
   if (newValue.status === 'true') {
@@ -57,13 +38,9 @@ watch(form, (newValue) => {
     form.status = false
   }
 })
-
-const handleUpdateBlogCategory = async () =>
-  await store.updateBlogCategory({ ...form }, route?.params?.slug.toString())
 </script>
 
 <template>
-  {{ form }}
   <div class="h-auto space-y-5">
     <!-- Breadcrumb -->
     <div class="flex flex-col items-start md:flex-row md:items-center md:justify-between mb-10">
@@ -80,7 +57,10 @@ const handleUpdateBlogCategory = async () =>
 
     <!-- Form Start -->
     <div class="border p-10 bg-white rounded-md">
-      <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateBlogCategory">
+      <form
+        class="space-y-4 md:space-y-6"
+        @submit.prevent="store.updateBlogCategory({ ...form }, slug)"
+      >
         <div>
           <InputLabel label="Category Name" required />
 
@@ -134,11 +114,7 @@ const handleUpdateBlogCategory = async () =>
         <InputError :message="errors?.captcha_token" />
 
         <div class="flex items-center justify-end w-full space-x-5">
-          <FormButton
-            class="w-[150px] text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-            @click="isCreateAnother = false"
-          >
-            <i class="fa-solid fa-save"></i>
+          <FormButton class="w-[150px] text-white bg-yellow-600 hover:bg-yellow-700 rounded-md">
             Save Changes
           </FormButton>
         </div>

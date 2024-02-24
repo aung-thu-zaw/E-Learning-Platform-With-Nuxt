@@ -19,7 +19,7 @@ const computedClasses = computed(() => props.class)
 <template>
   <button
     type="submit"
-    class="text-sm text-white capitalize font-medium py-3.5 active:animate-press duration-200 transition-all"
+    class="text-sm text-white capitalize font-bold p-3.5 active:animate-press duration-200 transition-all"
     :class="computedClasses"
     :disabled="processing"
   >

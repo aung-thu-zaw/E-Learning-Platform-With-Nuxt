@@ -22,7 +22,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         :class="{ '-ml-64 pl-0': !collapseShow, 'pl-64': collapseShow }"
         class="w-full min-h-screen transition-all duration-500 overflow-scroll"
       >
-        <main class="px-5 py-24">
+        <main class="px-5 pt-28 pb-24">
           <slot />
         </main>
       </div>

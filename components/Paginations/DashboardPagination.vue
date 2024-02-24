@@ -28,15 +28,16 @@ const fetchData = async (url: string) => {
     emit('updatedData', response.data)
   } catch (error: any) {
     return showError({
-      statusCode: error.response?.status,
-      statusMessage: error.response?.statusText,
-      message: error.response?.data?.message
+      statusCode: error?.response?.status,
+      statusMessage: error?.response?.statusText,
+      message: error?.response?.data?.message
     })
   }
 }
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div class="flex items-center justify-center w-full">
     <div v-if="data?.meta?.links?.length > 3">
       <div class="flex flex-wrap -mb-1 space-x-1.5">

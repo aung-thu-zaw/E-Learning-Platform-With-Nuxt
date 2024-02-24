@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 
 export const useAbilityStore = defineStore('ability', () => {
   const permissions = ref(null)
-  const errors = ref(null)
   const { $axiosApi } = useNuxtApp()
 
   const getUserAbilities = async () => {
@@ -13,9 +12,13 @@ export const useAbilityStore = defineStore('ability', () => {
 
       permissions.value = data
     } catch (error) {
-      errors.value = error.response?.data?.errors
+      // return showError({
+      //   statusCode: error.response?.status,
+      //   statusMessage: error.response?.statusText,
+      //   message: error.response?.data?.message
+      // })
     }
   }
 
-  return { permissions, errors, getUserAbilities }
+  return { permissions, getUserAbilities }
 })

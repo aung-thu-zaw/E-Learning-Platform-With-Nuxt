@@ -1,70 +1,18 @@
 import { defineStore } from 'pinia'
 import { useToken } from '~/composables/useToken'
-
-interface RegisterForm {
-  display_name: string
-  email: string
-  password: string
-  password_confirmation: string
-}
-
-interface LoginForm {
-  email: string
-  password: string
-  remember: boolean
-}
-
-interface ChangePasswordForm {
-  current_password: string
-  password: string
-  password_confirmation: string
-}
-
-interface ResetPasswordForm {
-  token: string
-  email: string
-  password: string
-  password_confirmation: string
-}
-
-interface User {
-  id: number
-  google_id: string | null
-  facebook_id: string | null
-  avatar: string
-  username: string
-  display_name: string
-  headline: string | null
-  about_me: string | null
-  role: string
-  status: string
-  email: string
-  email_verified_at: string | null
-  facebook_url: string | null
-  twitter_url: string | null
-  instagram_url: string | null
-  pinterest_url: string | null
-  youtube_url: string | null
-  github_url: string | null
-  personal_website_url: string | null
-  created_at: string
-  updated_at: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  permissions: any[]
-}
-
-interface ErrorResponse {
-  display_name: string | null
-  username: string | null
-  password: string | null
-  email: string | null
-  captcha_token: string | null
-}
+import type {
+  RegisterForm,
+  LoginForm,
+  ChangePasswordForm,
+  ResetPasswordForm,
+  User,
+  Error
+} from '~/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
   const router = useRouter()
   const user = ref<User | null>(null)
-  const errors = ref<ErrorResponse | null>(null)
+  const errors = ref<Error | null>(null)
   const status = ref<string>(null)
   const isAuthenticated = ref<boolean>(false)
   const { generateCsrfToken, generateCaptchaToken } = useToken()

@@ -72,6 +72,7 @@ onMounted(async () => {
             <img :src="blog?.thumbnail" alt="Blog Thumbnail" class="w-full object-cover" />
           </div>
 
+          <!-- eslint-disable vue/no-v-html -->
           <div class="mt-3">
             <div v-html="blog?.content"></div>
           </div>

@@ -11,22 +11,11 @@ import FormButton from '@/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
 import { useBlogCategoryStore } from '~/stores/dashboard/admin/blogCategory'
 import { storeToRefs } from 'pinia'
+import type { Form } from '~/types/blogCategory'
 
 useHead({ title: 'Create Blog Category' })
 
 definePageMeta({ layout: 'admin-layout' })
-
-interface Form {
-  name: string
-  description: string
-  status: string | boolean
-}
-
-// interface Error {
-//   name: string
-//   description: string
-//   status: string
-// }
 
 const store = useBlogCategoryStore()
 const isCreateAnother = ref<boolean>(false)
@@ -122,7 +111,7 @@ watch(form, (newValue) => {
 
         <div class="flex items-center justify-end w-full space-x-5">
           <FormButton
-            class="w-[200px] text-white bg-gray-600 hover:bg-gray-700 rounded-md"
+            class="w-[250px] text-white bg-gray-600 hover:bg-gray-700 rounded-md"
             @click="isCreateAnother = true"
           >
             Save And Create Another
@@ -130,10 +119,9 @@ watch(form, (newValue) => {
 
           <FormButton
             :processing="processing"
-            class="w-[150px] text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+            class="w-[100px] text-white bg-yellow-600 hover:bg-yellow-700 rounded-md"
             @click="isCreateAnother = false"
           >
-            <i class="fa-solid fa-save"></i>
             Save
           </FormButton>
         </div>

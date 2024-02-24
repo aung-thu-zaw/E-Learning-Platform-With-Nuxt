@@ -4,6 +4,7 @@ import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import { useAuthStore } from '~/stores/auth'
+import type { ResetPasswordForm } from '~/types/auth'
 
 useHead({ title: 'Reset Password' })
 
@@ -14,14 +15,7 @@ const store = useAuthStore()
 const localPath = useLocalePath()
 const { errors } = storeToRefs(store)
 
-interface Form {
-  token: string
-  email: string
-  password: string
-  password_confirmation: string
-}
-
-const form: Form = reactive({
+const form: ResetPasswordForm = reactive({
   token: route.params.token ? route.params.token.toString() : '',
   email: route.query.email ? route.query.email.toString() : '',
   password: '',

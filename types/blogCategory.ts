@@ -33,11 +33,12 @@ export interface BlogCategoryPaginate {
 export interface Form {
   name: string
   description: string
-  status: boolean
+  status: boolean | string
 }
 
 export interface Error {
   name: string
   description: string
   status: string
+  captcha_token: string
 }

@@ -7,15 +7,11 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
   const blogCategories = ref<BlogCategoryPaginate | null>(null)
   const blogCategory = ref<BlogCategory | null>(null)
   const errors = ref<Error | null>(null)
-  const loading = ref<boolean>(false)
-  const { backendApiBaseUrl } = useRuntimeConfig().public
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
 
   const getAllBlogCategory = async (params) => {
     try {
-      loading.value = true
-
       const { generateQueryParams } = useQueryGenerator()
 
       const { data } = await $axiosApi.get(`/admin/blog-categories?${generateQueryParams(params)}`)
@@ -23,8 +19,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
       if (!data) throw new Error('Response Data Not Found!')
 
       blogCategories.value = data
-
-      loading.value = false
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -36,15 +30,11 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
 
   const getBlogCategory = async (slug: string) => {
     try {
-      loading.value = true
-
       const { data } = await $axiosApi.get(`/admin/blog-categories/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       blogCategory.value = data
-
-      loading.value = true
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -56,8 +46,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
 
   const createBlogCategory = async (form: Form, createAnother: boolean) => {
     try {
-      loading.value = true
-
       form.captcha_token = await generateCaptchaToken('create_blog_category')
 
       const response = await $axiosApi.post('/admin/blog-categories', { ...form })
@@ -72,8 +60,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
         $toast.success('Blog category created successfully!')
       }
 
-      loading.value = false
-
       // this.$reset()
     } catch (error) {
       errors.value = error.response?.data?.errors
@@ -82,8 +68,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
 
   const updateBlogCategory = async (form: Form, slug: string) => {
     try {
-      loading.value = true
-
       form.captcha_token = await generateCaptchaToken('update_blog_category')
 
       const response = await $axiosApi.patch(`/admin/blog-categories/${slug}`, { ...form })
@@ -91,9 +75,8 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
       if (!response) throw new Error('Response Not Found!')
 
       $router.push('/admin/manage-blog/categories')
-      $swal.fire({ icon: 'success', title: 'Blog category updated successfully!' })
 
-      loading.value = false
+      $swal.fire({ icon: 'success', title: 'Blog category updated successfully!' })
 
       // this.$reset()
     } catch (error) {
@@ -107,8 +90,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
         status
       })
 
-      console.log(response.data)
-
       if (!response) throw new Error('Response Not Found!')
 
       const index = blogCategories.value.data.findIndex((category) => category.slug === slug)
@@ -117,12 +98,11 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
 
       $toast.success('Category status changed successfully!')
     } catch (error) {
-      console.log(error)
-      // return showError({
-      //   statusCode: error.response?.status,
-      //   statusMessage: error.response?.statusText,
-      //   message: error.response?.data?.message
-      // })
+      return showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
     }
   }
 
@@ -179,7 +159,6 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     blogCategories,
     blogCategory,
     errors,
-    loading,
     getAllBlogCategory,
     getBlogCategory,
     createBlogCategory,

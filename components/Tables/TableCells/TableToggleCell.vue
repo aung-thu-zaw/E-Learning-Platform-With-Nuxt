@@ -1,7 +1,7 @@
 <script setup>
 import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 
-const props = defineProps({
+defineProps({
   value: {
     type: Boolean,
     default: () => false

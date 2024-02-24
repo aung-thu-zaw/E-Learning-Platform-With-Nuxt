@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { BlogPaginate, Blog, Category } from '~/types/blog'
+import type { BlogPaginate, Blog, Category } from '~/types/blog'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
 export const useBlogStore = defineStore('blog', () => {

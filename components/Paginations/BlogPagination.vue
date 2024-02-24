@@ -29,6 +29,7 @@ const fetchData = async (url: string) => {
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <div class="flex items-center justify-center w-full">
     <div v-if="data?.meta?.links?.length > 3">
       <div class="flex flex-wrap -mb-1 space-x-1.5">

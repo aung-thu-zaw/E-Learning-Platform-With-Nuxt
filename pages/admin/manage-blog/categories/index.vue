@@ -22,18 +22,17 @@ import { storeToRefs } from 'pinia'
 useHead({ title: 'Blog Categories' })
 
 definePageMeta({ layout: 'admin-layout' })
+
 const route = useRoute()
 const store = useBlogCategoryStore()
 const { blogCategories } = storeToRefs(store)
-const { dashboardQueryString } = useURLQueryString()
+const { dashboardQueryString: queryString } = useURLQueryString()
 
-onMounted(async () => {
-  await store.getAllBlogCategory(dashboardQueryString.value)
-})
+onMounted(async () => await store.getAllBlogCategory(queryString.value))
 
 watch(
   () => route.query,
-  async () => await store.getAllBlogCategory(dashboardQueryString.value)
+  async () => await store.getAllBlogCategory(queryString.value)
 )
 </script>
 
