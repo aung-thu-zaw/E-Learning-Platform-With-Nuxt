@@ -1,6 +1,6 @@
 <script setup>
 import SortingArrow from '@/components/Tables/SortingArrows.vue'
-import { useSorting } from '@/composables/useSorting.js'
+import { useSorting } from '@/composables/useSorting'
 
 const props = defineProps({
   label: {

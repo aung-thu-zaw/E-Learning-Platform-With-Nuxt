@@ -9,8 +9,8 @@ import Table from '~/components/Tables/Table.vue'
 import SortableTableHeaderCell from '~/components/Tables/TableCells/SortableTableHeaderCell.vue'
 import TableHeaderCell from '~/components/Tables/TableCells/TableHeaderCell.vue'
 import TableDataCell from '~/components/Tables/TableCells/TableDataCell.vue'
+import TableToggleCell from '~/components/Tables/TableCells/TableToggleCell.vue'
 import TableActionCell from '~/components/Tables/TableCells/TableActionCell.vue'
-import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 import DashboardTableDataSearchBox from '@/components/Forms/SearchBoxs/DashboardTableDataSearchBox.vue'
 import DashboardTableDataPerPageSelectBox from '@/components/Forms/SelectBoxs/DashboardTableDataPerPageSelectBox.vue'
 import NoTableData from '~/components/Tables/NoTableData.vue'
@@ -47,7 +47,7 @@ watch(
       </div>
 
       <!-- Create Button -->
-      <div class="flex items-center justify-end mb-3">
+      <div v-show="can('blog-categories.create')" class="flex items-center justify-end mb-3">
         <NuxtLinkButton to="/admin/manage-blog/categories/create">
           <i class="fa-solid fa-file-circle-plus mr-1"></i>
           Create Category
@@ -90,17 +90,21 @@ watch(
                 </p>
               </TableDataCell>
 
-              <TableDataCell>
-                <SwitchCheckbox />
-              </TableDataCell>
+              <TableToggleCell :value="item?.status" />
 
               <TableActionCell>
-                <NuxtLinkButton :to="'/admin/sliders/' + item?.slug + '/edit'">
+                <NuxtLinkButton
+                  v-show="can('blog-categories.edit')"
+                  :to="'/admin/sliders/' + item?.slug + '/edit'"
+                >
                   <i class="fa-solid fa-edit"></i>
                   Edit
                 </NuxtLinkButton>
 
-                <NormalButton class="bg-red-600 hover:bg-red-700 text-white">
+                <NormalButton
+                  v-show="can('blog-categories.delete')"
+                  class="bg-red-600 hover:bg-red-700 text-white"
+                >
                   <i class="fa-solid fa-trash-can"></i>
                   Delete
                 </NormalButton>

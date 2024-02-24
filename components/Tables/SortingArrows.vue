@@ -24,7 +24,7 @@ defineProps({
       <i
         class="fa-solid fa-sort-up text-[.7rem] cursor-pointer"
         :class="{
-          'text-primary': params?.direction === 'asc' && params?.sort === sort,
+          'text-yellow-500': params?.direction === 'asc' && params?.sort === sort,
           'visually-hidden':
             params?.direction !== '' && params?.direction !== 'asc' && params?.sort === sort
         }"
@@ -32,14 +32,16 @@ defineProps({
       <i
         class="fa-solid fa-sort-down text-[.7rem] cursor-pointer absolute"
         :class="{
-          'text-primary': params?.direction === 'desc' && params?.sort === sort,
+          'text-yellow-500': params?.direction === 'desc' && params?.sort === sort,
           'visually-hidden':
             params?.direction !== '' && params?.direction !== 'desc' && params?.sort === sort
         }"
       ></i>
     </span>
     <span v-else>
-      <i class="fa-solid fa-sort text-[.7rem] text-slate-600 hover:text-primary cursor-pointer"></i>
+      <i
+        class="fa-solid fa-sort text-[.7rem] text-slate-600 hover:text-yellow-500 cursor-pointer"
+      ></i>
     </span>
   </div>
 </template>

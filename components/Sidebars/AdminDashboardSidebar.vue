@@ -395,7 +395,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
               }"
             >
               <ul class="pl-8">
-                <li class="items-center">
+                <li v-show="can('blog-categories.view')" class="items-center">
                   <NuxtLink
                     :to="
                       '/admin/manage-blog/categories' +
@@ -408,7 +408,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     {{ $t('Categories') }}
                   </NuxtLink>
                 </li>
-                <li class="items-center">
+                <li v-show="can('blog-contents.view')" class="items-center">
                   <NuxtLink
                     :to="
                       '/admin/manage-blog/contents' +
