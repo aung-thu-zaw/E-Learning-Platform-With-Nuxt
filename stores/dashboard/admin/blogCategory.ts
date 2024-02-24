@@ -38,7 +38,7 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     try {
       loading.value = true
 
-      const data: BlogCategory = await $fetch(`${backendApiBaseUrl}/admin/blog-categories/${slug}`)
+      const { data } = await $axiosApi.get(`/admin/blog-categories/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
@@ -106,6 +106,8 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
       const response = await $axiosApi.put(`/admin/blog-categories/${slug}/change-status`, {
         status
       })
+
+      console.log(response.data)
 
       if (!response) throw new Error('Response Not Found!')
 

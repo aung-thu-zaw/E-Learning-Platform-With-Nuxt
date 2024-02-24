@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import AdminLayout from '~/layouts/AdminLayout.vue'
 import Breadcrumb from '~/components/Breadcrumbs/MainBreadcrumb.vue'
 import BreadcrumbItem from '~/components/Breadcrumbs/BreadcrumbItem.vue'
 import BreadcrumbLinkItem from '~/components/Breadcrumbs/BreadcrumbLinkItem.vue'
@@ -14,6 +13,8 @@ import { useBlogCategoryStore } from '~/stores/dashboard/admin/blogCategory'
 import { storeToRefs } from 'pinia'
 
 useHead({ title: 'Create Blog Category' })
+
+definePageMeta({ layout: 'admin-layout' })
 
 interface Form {
   name: string
@@ -51,95 +52,93 @@ watch(form, (newValue) => {
 </script>
 
 <template>
-  <AdminLayout>
-    <div class="h-auto space-y-5">
-      <!-- Breadcrumb -->
-      <div class="flex flex-col items-start md:flex-row md:items-center md:justify-between mb-10">
-        <Breadcrumb to="/admin/manage-blog/categories" icon="fa-file-pen" label="Manage Blog">
-          <BreadcrumbLinkItem to="/admin/manage-blog/categories" label="Categories" />
-          <BreadcrumbItem label="Create" />
-        </Breadcrumb>
+  <div class="h-auto space-y-5">
+    <!-- Breadcrumb -->
+    <div class="flex flex-col items-start md:flex-row md:items-center md:justify-between mb-10">
+      <Breadcrumb to="/admin/manage-blog/categories" icon="fa-file-pen" label="Manage Blog">
+        <BreadcrumbLinkItem to="/admin/manage-blog/categories" label="Categories" />
+        <BreadcrumbItem label="Create" />
+      </Breadcrumb>
 
-        <!-- Go Back  -->
-        <div class="w-full flex items-center justify-end">
-          <GoBackButton />
-        </div>
+      <!-- Go Back  -->
+      <div class="w-full flex items-center justify-end">
+        <GoBackButton />
       </div>
-
-      <!-- Form Start -->
-      <div class="border p-10 bg-white rounded-md">
-        <form class="space-y-4 md:space-y-6" @submit.prevent="handleCreateBlogCategory">
-          <div>
-            <InputLabel label="Category Name" required />
-
-            <InputField
-              v-model="form.name"
-              type="text"
-              name="category-name"
-              placeholder="Enter Category Name"
-              required
-            />
-
-            <InputError :message="errors?.name" />
-          </div>
-
-          <div>
-            <InputLabel label="Description" required />
-
-            <TextAreaField
-              v-model="form.description"
-              name="category-description"
-              placeholder="Enter Category Description"
-              required
-            />
-
-            <InputError :message="errors?.description" />
-          </div>
-
-          <div>
-            <InputLabel label="Status" required />
-
-            <SelectBox
-              v-model="form.status"
-              name="category-status"
-              :options="[
-                {
-                  label: 'Show',
-                  value: true
-                },
-                {
-                  label: 'Hide',
-                  value: false
-                }
-              ]"
-              required
-            />
-
-            <InputError :message="errors?.status" />
-          </div>
-
-          <InputError :message="errors?.captcha_token" />
-
-          <div class="flex items-center justify-end w-full space-x-5">
-            <FormButton
-              class="w-[200px] text-white bg-gray-600 hover:bg-gray-700 rounded-md"
-              @click="isCreateAnother = true"
-            >
-              Save And Create Another
-            </FormButton>
-
-            <FormButton
-              :processing="processing"
-              class="w-[150px] text-white bg-blue-600 hover:bg-blue-700 rounded-md"
-              @click="isCreateAnother = false"
-            >
-              <i class="fa-solid fa-save"></i>
-              Save
-            </FormButton>
-          </div>
-        </form>
-      </div>
-      <!-- Form End -->
     </div>
-  </AdminLayout>
+
+    <!-- Form Start -->
+    <div class="border p-10 bg-white rounded-md">
+      <form class="space-y-4 md:space-y-6" @submit.prevent="handleCreateBlogCategory">
+        <div>
+          <InputLabel label="Category Name" required />
+
+          <InputField
+            v-model="form.name"
+            type="text"
+            name="category-name"
+            placeholder="Enter Category Name"
+            required
+          />
+
+          <InputError :message="errors?.name" />
+        </div>
+
+        <div>
+          <InputLabel label="Description" required />
+
+          <TextAreaField
+            v-model="form.description"
+            name="category-description"
+            placeholder="Enter Category Description"
+            required
+          />
+
+          <InputError :message="errors?.description" />
+        </div>
+
+        <div>
+          <InputLabel label="Status" required />
+
+          <SelectBox
+            v-model="form.status"
+            name="category-status"
+            :options="[
+              {
+                label: 'Show',
+                value: true
+              },
+              {
+                label: 'Hide',
+                value: false
+              }
+            ]"
+            required
+          />
+
+          <InputError :message="errors?.status" />
+        </div>
+
+        <InputError :message="errors?.captcha_token" />
+
+        <div class="flex items-center justify-end w-full space-x-5">
+          <FormButton
+            class="w-[200px] text-white bg-gray-600 hover:bg-gray-700 rounded-md"
+            @click="isCreateAnother = true"
+          >
+            Save And Create Another
+          </FormButton>
+
+          <FormButton
+            :processing="processing"
+            class="w-[150px] text-white bg-blue-600 hover:bg-blue-700 rounded-md"
+            @click="isCreateAnother = false"
+          >
+            <i class="fa-solid fa-save"></i>
+            Save
+          </FormButton>
+        </div>
+      </form>
+    </div>
+    <!-- Form End -->
+  </div>
 </template>
