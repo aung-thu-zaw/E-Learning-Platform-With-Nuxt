@@ -27,7 +27,9 @@ const store = useBlogCategoryStore()
 const { blogCategories } = storeToRefs(store)
 const { dashboardQueryString } = useURLQueryString()
 
-onMounted(async () => await store.getAllBlogCategory(dashboardQueryString.value))
+onMounted(async () => {
+  await store.getAllBlogCategory(dashboardQueryString.value)
+})
 
 watch(
   () => route.query,
@@ -83,14 +85,17 @@ watch(
             <template #table-data="{ item }">
               <TableDataCell> {{ item?.id }} </TableDataCell>
 
-              <TableDataCell class="flex flex-col items-start">
+              <TableDataCell class="flex flex-col items-start min-w-[300px]">
                 <p>{{ item?.name }}</p>
                 <p class="font-medium text-[.7rem]">
                   {{ item?.description }}
                 </p>
               </TableDataCell>
 
-              <TableToggleCell :value="item?.status" />
+              <TableToggleCell
+                :value="item?.status"
+                @change="store.changeStatus(!item?.status, item?.slug)"
+              />
 
               <TableActionCell>
                 <NuxtLinkButton
@@ -104,6 +109,7 @@ watch(
                 <NormalButton
                   v-show="can('blog-categories.delete')"
                   class="bg-red-600 hover:bg-red-700 text-white"
+                  @click="store.deleteBlogCategory(item?.slug)"
                 >
                   <i class="fa-solid fa-trash-can"></i>
                   Delete

@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import type { BlogCategoryPaginate, BlogCategory, Form, Error } from '~/types/blogCategory'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
+import { useToken } from '~/composables/useToken'
 
 export const useBlogCategoryStore = defineStore('blog-category', () => {
   const blogCategories = ref<BlogCategoryPaginate | null>(null)
@@ -8,6 +9,7 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
   const errors = ref<Error | null>(null)
   const loading = ref<boolean>(false)
   const { backendApiBaseUrl } = useRuntimeConfig().public
+  const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
 
   const getAllBlogCategory = async (params) => {
@@ -56,13 +58,16 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     try {
       loading.value = true
 
+      form.captcha_token = await generateCaptchaToken('create_blog_category')
+
       const response = await $axiosApi.post('/admin/blog-categories', { ...form })
 
       if (!response) throw new Error('Response Not Found!')
 
       if (!createAnother) {
         $router.push('/admin/manage-blog/categories')
-        $swal({ icon: 'success', title: 'Blog category created successfully!' })
+
+        $swal.fire({ icon: 'success', title: 'Blog category created successfully!' })
       } else {
         $toast.success('Blog category created successfully!')
       }
@@ -79,12 +84,14 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     try {
       loading.value = true
 
+      form.captcha_token = await generateCaptchaToken('update_blog_category')
+
       const response = await $axiosApi.patch(`/admin/blog-categories/${slug}`, { ...form })
 
       if (!response) throw new Error('Response Not Found!')
 
       $router.push('/admin/manage-blog/categories')
-      $swal({ icon: 'success', title: 'Blog category updated successfully!' })
+      $swal.fire({ icon: 'success', title: 'Blog category updated successfully!' })
 
       loading.value = false
 
@@ -94,26 +101,68 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     }
   }
 
-  const deleteBlogCategory = async (slug: string) => {
+  const changeStatus = async (status: boolean, slug: string) => {
     try {
-      const response = await $axiosApi.delete(`/admin/blog-categories/${slug}`)
+      const response = await $axiosApi.put(`/admin/blog-categories/${slug}/change-status`, {
+        status
+      })
 
       if (!response) throw new Error('Response Not Found!')
 
-      const index = blogCategories.value?.data?.findIndex(
-        (blogCategory) => blogCategory.slug === slug
-      )
+      const index = blogCategories.value.data.findIndex((category) => category.slug === slug)
 
-      if (index !== -1) {
-        blogCategories.value?.data.splice(index, 1)
+      blogCategories.value.data[index] = { ...response.data }
 
-        if (index >= blogCategories.value?.current_page - 1 * blogCategories.value?.per_page) {
-          await getAllBlogCategory({ page: blogCategories.value?.current_page })
+      $toast.success('Category status changed successfully!')
+    } catch (error) {
+      console.log(error)
+      // return showError({
+      //   statusCode: error.response?.status,
+      //   statusMessage: error.response?.statusText,
+      //   message: error.response?.data?.message
+      // })
+    }
+  }
+
+  const deleteBlogCategory = async (slug: string) => {
+    try {
+      const result = await $swal.fire({
+        icon: 'question',
+        title: 'Delete Blog Category',
+        text: 'Are you sure you would like to do this?',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#d52222',
+        cancelButtonColor: '#626262',
+        timer: 20000,
+        timerProgressBar: true,
+        reverseButtons: true
+      })
+
+      if (result.isConfirmed) {
+        const response = await $axiosApi.delete(`/admin/blog-categories/${slug}`)
+
+        if (!response) throw new Error('Response Not Found!')
+
+        const index = blogCategories.value?.data?.findIndex(
+          (blogCategory) => blogCategory.slug === slug
+        )
+
+        if (index !== -1) {
+          blogCategories.value?.data.splice(index, 1)
+
+          if (
+            index >=
+            blogCategories.value?.meta?.current_page - 1 * blogCategories.value?.meta?.per_page
+          ) {
+            await getAllBlogCategory({ page: blogCategories.value?.meta?.current_page })
+          }
         }
-      }
 
-      if (response.status === 204) {
-        $swal({ icon: 'success', title: 'Blog category deleted successfully!' })
+        if (response.status === 204) {
+          $swal.fire({ icon: 'success', title: 'Blog category deleted successfully!' })
+        }
       }
     } catch (error) {
       return showError({
@@ -133,6 +182,7 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
     getBlogCategory,
     createBlogCategory,
     updateBlogCategory,
+    changeStatus,
     deleteBlogCategory
   }
 })

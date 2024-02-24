@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     '~/plugins/network.client.ts'
   ],
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' },
+    // pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       titleTemplate: '%s - Online Learning Platform',
       meta: [

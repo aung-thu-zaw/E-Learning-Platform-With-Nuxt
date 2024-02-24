@@ -10,7 +10,7 @@ onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>
-  <div class="font-inter bg-gray-100 overflow-y-scroll h-screen">
+  <div class="relative font-inter bg-gray-100 overflow-y-scroll h-screen">
     <!-- Navbar -->
     <AdminDashboardNavbar @update-collapse-show="collapseShow = !collapseShow" />
     <!-- Navbar -->
@@ -22,7 +22,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         :class="{ '-ml-64 pl-0': !collapseShow, 'pl-64': collapseShow }"
         class="w-full min-h-screen transition-all duration-500 overflow-scroll"
       >
-        <main class="px-5 py-10">
+        <main class="px-5 py-24">
           <slot />
         </main>
       </div>

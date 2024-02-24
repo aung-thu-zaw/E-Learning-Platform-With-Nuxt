@@ -11,12 +11,12 @@ const props = defineProps({
 
   checked: {
     type: Boolean,
-    default: false
+    default: () => false
   },
 
   value: {
-    type: String,
-    default: ''
+    type: Boolean,
+    default: () => false
   }
 })
 
