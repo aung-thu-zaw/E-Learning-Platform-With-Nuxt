@@ -826,9 +826,9 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           </li>
 
           <!-- Database Backup -->
-          <li class="items-center">
+          <li v-show="can('database-backups.view')" class="items-center">
             <NuxtLink
-              to="/"
+              :to="'/admin/database-backups?page=1'"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/database-backup')"
             >
