@@ -38,7 +38,6 @@ const form: Form = reactive({
 const handleCreateBlogContent = async () => {
   await store.createBlogContent({ ...form }, isCreateAnother.value)
   if (isCreateAnother.value && !store.errors) {
-    console.log(typeof createForm.value)
     createForm?.value?.reset()
     previewImage.value = image
     form.blog_category_id = ''

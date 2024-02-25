@@ -164,29 +164,37 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
               class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               :class="{
                 block:
-                  route.fullPath.startsWith('/admin/categories') ||
-                  route.fullPath.startsWith('/admin/subcategories'),
+                  route.fullPath.startsWith('/admin/catalogues/categories') ||
+                  route.fullPath.startsWith('/admin/catalogues/subcategories'),
                 hidden: !(
-                  route.fullPath.startsWith('/admin/categories') ||
-                  route.fullPath.startsWith('/admin/subcategories')
+                  route.fullPath.startsWith('/admin/catalogues/categories') ||
+                  route.fullPath.startsWith('/admin/catalogues/subcategories')
                 )
               }"
             >
               <ul class="pl-8">
-                <li class="items-center">
+                <li v-show="can('categories.view')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/catalogues/categories' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/categories')"
+                    :class="getSidebarMenuActiveColor('/admin/catalogues/categories')"
                   >
                     {{ $t('Categories') }}
                   </NuxtLink>
                 </li>
-                <li class="items-center">
+                <li v-show="can('subcategories.view')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/catalogues/subcategories' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/subcategories')"
+                    :class="getSidebarMenuActiveColor('/admin/catalogues/subcategories')"
                   >
                     {{ $t('Subcategories') }}
                   </NuxtLink>

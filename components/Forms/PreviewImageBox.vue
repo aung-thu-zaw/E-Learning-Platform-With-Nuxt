@@ -5,7 +5,7 @@ import { computed } from 'vue'
 const props = defineProps({
   class: {
     type: String,
-    default: 'w-full h-full object-cover border rounded-md'
+    default: () => 'w-32 h-32 overflow-hidden'
   },
 
   src: {
@@ -18,7 +18,7 @@ const computedClasses = computed(() => props.class)
 </script>
 
 <template>
-  <div class="w-32 h-32 overflow-hidden">
-    <img :src="src" :alt="src" :class="computedClasses" />
+  <div :class="computedClasses">
+    <img :src="src" :alt="src" class="w-full h-full object-cover border rounded-md" />
   </div>
 </template>
