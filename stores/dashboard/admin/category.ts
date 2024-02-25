@@ -38,8 +38,6 @@ export const useCategoryStore = defineStore('category', () => {
       if (!data) throw new Error('Response Data Not Found!')
 
       category.value = data
-
-      console.log(data)
     } catch (error) {
       return showError({
         statusCode: error.response?.status,

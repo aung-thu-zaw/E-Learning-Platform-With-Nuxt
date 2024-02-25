@@ -204,11 +204,11 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           </li>
 
           <!-- Skills -->
-          <li class="items-center">
+          <li v-show="can('tags.view')" class="items-center">
             <NuxtLink
-              to="/"
+              :to="'/admin/skill-tags' + '?' + generateQueryParams(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
-              :class="getSidebarMenuActiveColor('/admin/skills')"
+              :class="getSidebarMenuActiveColor('/admin/skill-tags')"
             >
               <div class="py-3 block">
                 <i class="fas fa-tag mr-2" />
