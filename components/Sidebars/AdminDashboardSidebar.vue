@@ -306,29 +306,33 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
               class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               :class="{
                 block:
-                  route.fullPath.startsWith('/admin/subscribers') ||
-                  route.fullPath.startsWith('/admin/send-newsletter'),
+                  route.fullPath.startsWith('/admin/newsletter/subscribers') ||
+                  route.fullPath.startsWith('/admin/newsletter/send-newsletter'),
                 hidden: !(
-                  route.fullPath.startsWith('/admin/subscribers') ||
-                  route.fullPath.startsWith('/admin/send-newsletter')
+                  route.fullPath.startsWith('/admin/newsletter/subscribers') ||
+                  route.fullPath.startsWith('/admin/newsletter/send-newsletter')
                 )
               }"
             >
               <ul class="pl-8">
-                <li class="items-center">
+                <li v-show="can('subscribers.view')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/newsletter/subscribers' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/subscribers')"
+                    :class="getSidebarMenuActiveColor('/admin/newsletter/subscribers')"
                   >
                     Subscribers
                   </NuxtLink>
                 </li>
-                <li class="items-center">
+                <li v-show="can('newsletter.send')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    to="/admin/newsletter/send-newsletter"
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/send-newsletter')"
+                    :class="getSidebarMenuActiveColor('/admin/newsletter/send-newsletter')"
                   >
                     Send Newsletter
                   </NuxtLink>
