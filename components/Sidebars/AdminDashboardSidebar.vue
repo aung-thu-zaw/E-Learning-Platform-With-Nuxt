@@ -74,9 +74,9 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           </li>
 
           <!-- Nav Banner -->
-          <li class="items-center">
+          <li v-show="can('nav-banners.view')" class="items-center">
             <NuxtLink
-              to="/"
+              :to="'/admin/nav-banners' + '?' + generateQueryParams(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/nav-banner')"
             >

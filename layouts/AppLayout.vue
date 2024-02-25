@@ -10,7 +10,7 @@ onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>
-  <div class="font-inter w-full max-h-[800px] overflow-hidden bg-gray-50">
+  <div class="font-inter w-full max-h-screen bg-gray-50">
     <NavTopInviteBanner />
 
     <AppNavbar />

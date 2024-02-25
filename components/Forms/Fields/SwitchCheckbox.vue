@@ -17,6 +17,11 @@ const props = defineProps({
   value: {
     type: Boolean,
     default: () => false
+  },
+
+  disabled: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -44,6 +49,7 @@ const proxyChecked = computed({
       class="relative ring-0 focus:ring-0 checked:ring-0 w-11 h-6 p-px bg-gray-200 border-transparent text-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:border-0 disabled:opacity-50 disabled:pointer-events-none checked:bg-none checked:text-yellow-600 checked:border-yellow-600 focus:checked:border-yellow-600 before:inline-block before:size-5 before:bg-white checked:before:bg-yellow-200 before:translate-x-0 checked:before:translate-x-full before:rounded-full before:shadow before:transform before:ring-0 before:transition before:ease-in-out before:duration-200"
       :value="value"
       :checked="checked"
+      :disabled="disabled"
     />
   </div>
 </template>
