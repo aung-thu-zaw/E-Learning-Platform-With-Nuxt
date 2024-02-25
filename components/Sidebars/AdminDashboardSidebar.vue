@@ -102,9 +102,9 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           </li>
 
           <!-- Coupons -->
-          <li class="items-center">
+          <li v-show="can('coupons.view')" class="items-center">
             <NuxtLink
-              to="/"
+              :to="'/admin/coupons' + '?' + generateQueryParams(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/coupons')"
             >
@@ -679,31 +679,39 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
               class="hs-accordion-content w-full overflow-hidden transition-[height] duration-300"
               :class="{
                 block:
-                  route.fullPath.startsWith('/admin/permissions') ||
-                  route.fullPath.startsWith('/admin/roles') ||
-                  route.fullPath.startsWith('/admin/assign-role-permissions'),
+                  route.fullPath.startsWith('/admin/manage-authority/permissions') ||
+                  route.fullPath.startsWith('/admin/manage-authority/roles') ||
+                  route.fullPath.startsWith('/admin/manage-authority/assign-role-permissions'),
                 hidden: !(
-                  route.fullPath.startsWith('/admin/permissions') ||
-                  route.fullPath.startsWith('/admin/roles') ||
-                  route.fullPath.startsWith('/admin/assign-role-permissions')
+                  route.fullPath.startsWith('/admin/manage-authority/permissions') ||
+                  route.fullPath.startsWith('/admin/manage-authority/roles') ||
+                  route.fullPath.startsWith('/admin/manage-authority/assign-role-permissions')
                 )
               }"
             >
               <ul class="pl-8">
-                <li class="items-center">
+                <li v-show="can('permissions.view')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/manage-authority/permissions' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/permissions')"
+                    :class="getSidebarMenuActiveColor('/admin/manage-authority/permissions')"
                   >
                     {{ $t('Permissions') }}
                   </NuxtLink>
                 </li>
                 <li class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/manage-authority/roles' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/roles')"
+                    :class="getSidebarMenuActiveColor('/admin/manage-authority/roles')"
                   >
                     {{ $t('Roles') }}
                   </NuxtLink>
@@ -712,7 +720,9 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                   <NuxtLink
                     to="/"
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
-                    :class="getSidebarMenuActiveColor('/admin/assign-role-permissions')"
+                    :class="
+                      getSidebarMenuActiveColor('/admin/manage-authority/assign-role-permissions')
+                    "
                   >
                     {{ $t('Assign Role Permissions') }}
                   </NuxtLink>
