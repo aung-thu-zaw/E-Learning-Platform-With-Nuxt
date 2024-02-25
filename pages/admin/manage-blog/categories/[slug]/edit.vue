@@ -30,14 +30,6 @@ onMounted(async () => {
   form.description = blogCategory?.value?.description || ''
   form.status = blogCategory?.value?.status !== undefined ? blogCategory?.value?.status : ''
 })
-
-watch(form, (newValue) => {
-  if (newValue.status === 'true') {
-    form.status = true
-  } else if (newValue.status === 'false') {
-    form.status = false
-  }
-})
 </script>
 
 <template>

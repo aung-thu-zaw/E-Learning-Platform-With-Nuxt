@@ -30,14 +30,6 @@ const handleCreateBlogCategory = async () => {
     form.status = ''
   }
 }
-
-watch(form, (newValue) => {
-  if (newValue.status === 'true') {
-    form.status = true
-  } else if (newValue.status === 'false') {
-    form.status = false
-  }
-})
 </script>
 
 <template>

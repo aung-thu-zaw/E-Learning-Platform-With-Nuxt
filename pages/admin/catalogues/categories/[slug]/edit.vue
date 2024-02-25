@@ -33,17 +33,9 @@ onMounted(async () => {
 
   form.name = category?.value?.name || ''
   form.description = category?.value?.description || ''
-  form.status = category?.value?.status || ''
+  form.status = category?.value?.status !== undefined ? category?.value?.status : ''
   form.image = category?.value?.image || ''
   existingImage.value = store.category?.image || ''
-})
-
-watch(form, (newValue) => {
-  if (newValue.status === 'true') {
-    form.status = true
-  } else if (newValue.status === 'false') {
-    form.status = false
-  }
 })
 
 const { previewImage, setImagePreview } = useImagePreview(existingImage || image)
