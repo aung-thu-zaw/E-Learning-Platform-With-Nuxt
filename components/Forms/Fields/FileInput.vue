@@ -44,7 +44,7 @@ const onFileChange = (event) => {
     <input
       :id="name"
       :name="name"
-      class="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 file:disabled:opacity-50 file:disabled:pointer-events-none p-2 bg-gray-50 outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400"
+      class="block w-full text-sm text-gray-500 file:me-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-700 file:text-white hover:file:bg-gray-600 file:disabled:opacity-50 file:disabled:pointer-events-none p-2 bg-gray-50 outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400 focus:outline-none"
       :class="{
         'rounded-full': rounded,
         'rounded-md': !rounded

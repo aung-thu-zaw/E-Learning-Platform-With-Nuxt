@@ -2,12 +2,12 @@
 import Breadcrumb from '~/components/Breadcrumbs/MainBreadcrumb.vue'
 import BreadcrumbItem from '~/components/Breadcrumbs/BreadcrumbItem.vue'
 import BreadcrumbLinkItem from '~/components/Breadcrumbs/BreadcrumbLinkItem.vue'
-import InputLabel from '@/components/Forms/Fields/InputLabel.vue'
-import TextAreaField from '@/components/Forms/Fields/TextAreaField.vue'
-import InputError from '@/components/Forms/Fields/InputError.vue'
-import InputField from '@/components/Forms/Fields/InputField.vue'
-import SelectBox from '@/components/Forms/Fields/SelectBox.vue'
-import FormButton from '@/components/Buttons/FormButton.vue'
+import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
+import TextAreaField from '~/components/Forms/Fields/TextAreaField.vue'
+import InputError from '~/components/Forms/Fields/InputError.vue'
+import InputField from '~/components/Forms/Fields/InputField.vue'
+import SelectBox from '~/components/Forms/Fields/SelectBox.vue'
+import FormButton from '~/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
 import { useBlogCategoryStore } from '~/stores/dashboard/admin/blogCategory'
 import { storeToRefs } from 'pinia'
@@ -19,7 +19,7 @@ definePageMeta({ layout: 'admin-layout' })
 
 const store = useBlogCategoryStore()
 const isCreateAnother = ref<boolean>(false)
-const { errors, processing } = storeToRefs(store)
+const { errors } = storeToRefs(store)
 const form: Form = reactive({ name: '', description: '', status: '' })
 
 const handleCreateBlogCategory = async () => {
@@ -118,7 +118,6 @@ watch(form, (newValue) => {
           </FormButton>
 
           <FormButton
-            :processing="processing"
             class="w-[100px] text-white bg-yellow-600 hover:bg-yellow-700 rounded-md"
             @click="isCreateAnother = false"
           >

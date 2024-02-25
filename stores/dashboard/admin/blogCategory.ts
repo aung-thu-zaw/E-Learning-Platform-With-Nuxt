@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { BlogCategoryPaginate, BlogCategory, Form, Error } from '~/types/blogCategory'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
+import { useURLQueryString } from '~/composables/useURLQueryString'
 
 export const useBlogCategoryStore = defineStore('blog-category', () => {
   const blogCategories = ref<BlogCategoryPaginate | null>(null)
@@ -9,6 +10,7 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
   const errors = ref<Error | null>(null)
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
+  const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
   const getAllBlogCategory = async (params) => {
     try {
@@ -53,14 +55,12 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
       if (!response) throw new Error('Response Not Found!')
 
       if (!createAnother) {
-        $router.push('/admin/manage-blog/categories')
+        $router.push({ path: '/admin/manage-blog/categories', query: { ...queryString.value } })
 
         $swal.fire({ icon: 'success', title: 'Blog category created successfully!' })
       } else {
         $toast.success('Blog category created successfully!')
       }
-
-      // this.$reset()
     } catch (error) {
       errors.value = error.response?.data?.errors
     }
@@ -74,11 +74,9 @@ export const useBlogCategoryStore = defineStore('blog-category', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      $router.push('/admin/manage-blog/categories')
+      $router.push({ path: '/admin/manage-blog/categories', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Blog category updated successfully!' })
-
-      // this.$reset()
     } catch (error) {
       errors.value = error.response?.data?.errors
     }

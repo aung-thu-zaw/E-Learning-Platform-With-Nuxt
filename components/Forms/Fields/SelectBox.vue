@@ -1,7 +1,7 @@
 <script setup>
 const props = defineProps({
   selected: {
-    type: [Object, Boolean, String, Number],
+    type: [Object, Boolean, String, Number, null],
     default: () => {}
   },
   options: {
@@ -78,7 +78,9 @@ const optionLabel = (option) => {
       :required="required"
       @change="$emit('update:modelValue', $event.target.value)"
     >
-      <option value="" :selected="modelValue === ''" disabled>{{ placeholder }}</option>
+      <option value="" :selected="modelValue === '' || !modelValue || modelValue === null" disabled>
+        {{ placeholder }}
+      </option>
       <option
         v-for="(option, index) in options"
         :key="optionKey(index)"

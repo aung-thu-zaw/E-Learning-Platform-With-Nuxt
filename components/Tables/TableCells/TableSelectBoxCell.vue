@@ -18,7 +18,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
-    default: 'Select an option'
+    default: 'Select'
   }
 })
 
@@ -41,7 +41,7 @@ const isSelected = (option) => {
   <td class="px-6 py-4">
     <div class="w-[120px]">
       <select
-        class="rounded-md p-2.5 w-full text-sm text-gray-700 font-medium border border-gray-300 focus:ring-2 transition-all focus:ring-slate-300 focus:border-gray-400 outline-none"
+        class="rounded-md p-2.5 w-full text-sm text-gray-700 font-semibold border border-gray-300 focus:ring-2 transition-all focus:ring-slate-300 focus:border-gray-400 outline-none"
       >
         <option value="" :selected="modelValue === ''" disabled>{{ placeholder }}</option>
         <option
