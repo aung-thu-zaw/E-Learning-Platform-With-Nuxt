@@ -9,7 +9,7 @@ defineProps({
 })
 </script>
 <template>
-  <td class="px-6 py-4">
+  <td class="px-8 py-4">
     <SwitchCheckbox :value="value" :checked="value" />
   </td>
 </template>
