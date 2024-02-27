@@ -716,9 +716,13 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     {{ $t('Roles') }}
                   </NuxtLink>
                 </li>
-                <li class="items-center">
+                <li v-show="can('assign-role-permissions.edit')" class="items-center">
                   <NuxtLink
-                    to="/"
+                    :to="
+                      '/admin/manage-authority/assign-role-permissions' +
+                      '?' +
+                      generateQueryParams(dashboardDefaultQueryString)
+                    "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="
                       getSidebarMenuActiveColor('/admin/manage-authority/assign-role-permissions')

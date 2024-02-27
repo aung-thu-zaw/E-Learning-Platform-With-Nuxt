@@ -98,9 +98,9 @@ watch(
       <div class="border w-auto px-10 py-1 bg-white rounded-lg">
         <nav class="-mb-0.5 flex justify-center space-x-6" aria-label="Tabs" role="tablist">
           <button
+            id="horizontal-alignment-item-1"
             type="button"
             class="hs-tab-active:font-bold hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-[13px] font-semibold whitespace-nowrap text-gray-700 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none active"
-            id="horizontal-alignment-item-1"
             data-hs-tab="#horizontal-alignment-1"
             aria-controls="horizontal-alignment-1"
             role="tab"
@@ -108,9 +108,9 @@ watch(
             Course Information
           </button>
           <button
+            id="horizontal-alignment-item-2"
             type="button"
             class="hs-tab-active:font-bold hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-[13px] font-semibold whitespace-nowrap text-gray-700 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none"
-            id="horizontal-alignment-item-2"
             data-hs-tab="#horizontal-alignment-2"
             aria-controls="horizontal-alignment-2"
             role="tab"
@@ -119,9 +119,9 @@ watch(
           </button>
 
           <button
+            id="horizontal-alignment-item-3"
             type="button"
             class="hs-tab-active:font-bold hs-tab-active:text-yellow-600 py-4 px-1 inline-flex items-center gap-x-2 border-b-2 border-transparent text-[13px] font-semibold whitespace-nowrap text-gray-700 hover:text-yellow-600 focus:outline-none focus:text-yellow-600 disabled:opacity-50 disabled:pointer-events-none"
-            id="horizontal-alignment-item-3"
             data-hs-tab="#horizontal-alignment-3"
             aria-controls="horizontal-alignment-3"
             role="tab"
