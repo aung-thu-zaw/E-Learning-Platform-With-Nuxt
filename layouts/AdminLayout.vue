@@ -4,7 +4,7 @@ import AdminDashboardSidebar from '~/components/Sidebars/AdminDashboardSidebar.v
 import { useAuthStore } from '~/stores/auth'
 
 const store = useAuthStore()
-const collapseShow = ref<boolean>(false)
+const collapseShow = ref<boolean>(true)
 
 onMounted(async () => await store.getAuthenticatedUser())
 </script>

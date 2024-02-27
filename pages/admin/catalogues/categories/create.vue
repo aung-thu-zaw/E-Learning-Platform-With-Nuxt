@@ -120,7 +120,7 @@ const handleCreateCategory = async () => {
             @update:model-value="setImagePreview"
           />
 
-          <InputError :message="store.errors?.image" />
+          <InputError :message="errors?.image" />
         </div>
 
         <InputError :message="errors?.captcha_token" />

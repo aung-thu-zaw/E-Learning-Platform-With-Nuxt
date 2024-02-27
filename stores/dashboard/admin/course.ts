@@ -1,27 +1,30 @@
 import { defineStore } from 'pinia'
-import type { BlogContentPaginate, BlogContent, Form, Error } from '~/types/blogContent'
+import type { CoursePaginate, Course, Form, Error } from '~/types/course'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
 
-export const useBlogContentStore = defineStore('blog-content', () => {
-  const blogContents = ref<BlogContentPaginate | null>(null)
-  const blogContent = ref<BlogContent | null>(null)
-  const blogCategories = ref<BlogCategory[] | null>(null)
+export const useCourseStore = defineStore('course', () => {
+  const courses = ref<CoursePaginate | null>(null)
+  const course = ref<Course | null>(null)
   const errors = ref<Error | null>(null)
+  const categories = ref<Category[] | null>(null)
+  const subcategories = ref<Subcategory[] | null>(null)
+  const instructors = ref<Subcategory[] | null>(null)
+  const skillTags = ref<SkillTag[] | null>(null)
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllBlogContent = async (params) => {
+  const getAllCourse = async (params) => {
     try {
       const { generateQueryParams } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/blog-contents?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/courses?${generateQueryParams(params)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
-      blogContents.value = data
+      courses.value = data
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -31,13 +34,13 @@ export const useBlogContentStore = defineStore('blog-content', () => {
     }
   }
 
-  const getBlogContent = async (slug: string) => {
+  const getCourse = async (slug: string) => {
     try {
-      const { data } = await $axiosApi.get(`/admin/blog-contents/${slug}`)
+      const { data } = await $axiosApi.get(`/admin/courses/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
-      blogContent.value = data
+      course.value = data
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -49,11 +52,14 @@ export const useBlogContentStore = defineStore('blog-content', () => {
 
   const getResources = async () => {
     try {
-      const { data } = await $axiosApi.get(`/admin/blog-content-resources`)
+      const { data } = await $axiosApi.get(`/admin/course-resources`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
-      blogCategories.value = data
+      categories.value = data.categories
+      subcategories.value = data.subcategories
+      skillTags.value = data.tags
+      instructors.value = data.instructors
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -63,12 +69,12 @@ export const useBlogContentStore = defineStore('blog-content', () => {
     }
   }
 
-  const createBlogContent = async (form: Form, createAnother: boolean) => {
+  const createCourse = async (form: Form, createAnother: boolean) => {
     try {
-      form.captcha_token = await generateCaptchaToken('create_blog_content')
+      form.captcha_token = await generateCaptchaToken('create_course')
 
       const response = await $axiosApi.post(
-        '/admin/blog-contents',
+        '/admin/courses',
         { ...form },
         {
           headers: {
@@ -80,24 +86,24 @@ export const useBlogContentStore = defineStore('blog-content', () => {
       if (!response) throw new Error('Response Not Found!')
 
       if (!createAnother) {
-        $router.push({ path: '/admin/manage-blog/contents', query: { ...queryString.value } })
+        $router.push({ path: '/admin/courses', query: { ...queryString.value } })
 
-        $swal.fire({ icon: 'success', title: 'Blog content created successfully!' })
+        $swal.fire({ icon: 'success', title: 'Course created successfully!' })
       } else {
-        $toast.success('Blog content created successfully!')
+        $toast.success('Course created successfully!')
       }
     } catch (error) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const updateBlogContent = async (form: Form, slug: string) => {
+  const updateCourse = async (form: Form, slug: string) => {
     try {
-      form.captcha_token = await generateCaptchaToken('update_blog_content')
+      form.captcha_token = await generateCaptchaToken('update_course')
       form._method = 'PATCH'
 
       const response = await $axiosApi.post(
-        `/admin/blog-contents/${slug}`,
+        `/admin/courses/${slug}`,
         { ...form },
         {
           headers: {
@@ -108,9 +114,9 @@ export const useBlogContentStore = defineStore('blog-content', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      $router.push({ path: '/admin/manage-blog/contents', query: { ...queryString.value } })
+      $router.push({ path: '/admin/courses', query: { ...queryString.value } })
 
-      $swal.fire({ icon: 'success', title: 'Blog content updated successfully!' })
+      $swal.fire({ icon: 'success', title: 'Course updated successfully!' })
     } catch (error) {
       errors.value = error.response?.data?.errors
     }
@@ -118,17 +124,17 @@ export const useBlogContentStore = defineStore('blog-content', () => {
 
   const changeStatus = async (status: string, slug: string) => {
     try {
-      const response = await $axiosApi.put(`/admin/blog-contents/${slug}/change-status`, {
+      const response = await $axiosApi.put(`/admin/courses/${slug}/change-status`, {
         status
       })
 
       if (!response) throw new Error('Response Not Found!')
 
-      const index = blogContents.value.data.findIndex((content) => content.slug === slug)
+      const index = courses.value.data.findIndex((course) => course.slug === slug)
 
-      blogContents.value.data[index] = { ...response.data }
+      courses.value.data[index] = { ...response.data }
 
-      $toast.success('Blog content status changed successfully!')
+      $toast.success('Course status changed successfully!')
     } catch (error) {
       return showError({
         statusCode: error.response?.status,
@@ -138,11 +144,11 @@ export const useBlogContentStore = defineStore('blog-content', () => {
     }
   }
 
-  const deleteBlogContent = async (slug: string) => {
+  const deleteCourse = async (slug: string) => {
     try {
       const result = await $swal.fire({
         icon: 'question',
-        title: 'Delete Blog Content',
+        title: 'Delete Course',
         text: 'Are you sure you would like to do this?',
         showCancelButton: true,
         confirmButtonText: 'Confirm',
@@ -155,27 +161,22 @@ export const useBlogContentStore = defineStore('blog-content', () => {
       })
 
       if (result.isConfirmed) {
-        const response = await $axiosApi.delete(`/admin/blog-contents/${slug}`)
+        const response = await $axiosApi.delete(`/admin/courses/${slug}`)
 
         if (!response) throw new Error('Response Not Found!')
 
-        const index = blogContents.value?.data?.findIndex(
-          (blogContent) => blogContent.slug === slug
-        )
+        const index = courses.value?.data?.findIndex((course) => course.slug === slug)
 
         if (index !== -1) {
-          blogContents.value?.data.splice(index, 1)
+          courses.value?.data.splice(index, 1)
 
-          if (
-            index >=
-            blogContents.value?.meta?.current_page - 1 * blogContents.value?.meta?.per_page
-          ) {
-            await getAllBlogContent({ page: blogContents.value?.meta?.current_page })
+          if (index >= courses.value?.meta?.current_page - 1 * courses.value?.meta?.per_page) {
+            await getAllCourse({ page: courses.value?.meta?.current_page })
           }
         }
 
         if (response.status === 204) {
-          $swal.fire({ icon: 'success', title: 'Blog content deleted successfully!' })
+          $swal.fire({ icon: 'success', title: 'Course deleted successfully!' })
         }
       }
     } catch (error) {
@@ -188,16 +189,19 @@ export const useBlogContentStore = defineStore('blog-content', () => {
   }
 
   return {
-    blogContents,
-    blogContent,
-    blogCategories,
+    courses,
+    course,
     errors,
-    getAllBlogContent,
-    getBlogContent,
+    categories,
+    subcategories,
+    instructors,
+    skillTags,
+    getAllCourse,
+    getCourse,
     getResources,
-    createBlogContent,
-    updateBlogContent,
+    createCourse,
+    updateCourse,
     changeStatus,
-    deleteBlogContent
+    deleteCourse
   }
 })
