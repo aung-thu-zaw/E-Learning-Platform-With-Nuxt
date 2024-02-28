@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
+
+const route = useRoute()
 </script>
 
 <template>
@@ -89,34 +91,68 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
             class="flex flex-col md:flex-row space-y-5 md:space-y-0 md:items-center items-start justify-center md:space-x-6 text-sm font-bold text-gray-700 w-full md:h-[76px]"
           >
             <li
-              class="text-yellow-500 md:border-b-[3px] md:border-b-yellow-500 h-full flex items-center justify-center"
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/overview')
+              }"
             >
-              <a href="#"> {{ $t('Overview') }} </a>
+              <NuxtLink to="/instructor/overview"> {{ $t('Overview') }} </NuxtLink>
             </li>
 
-            <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Stats') }} </a>
+            <li
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/stats')
+              }"
+            >
+              <NuxtLink to="/instructor/stats"> {{ $t('Stats') }} </NuxtLink>
             </li>
 
-            <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Earning') }} </a>
+            <li
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/earning')
+              }"
+            >
+              <NuxtLink to="/instructor/earning"> {{ $t('Earning') }} </NuxtLink>
             </li>
 
-            <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Courses') }} </a>
+            <li
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/courses')
+              }"
+            >
+              <NuxtLink to="courses"> {{ $t('Courses') }} </NuxtLink>
             </li>
 
-            <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
-              <a href="#"> {{ $t('Announcements') }} </a>
+            <li
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/announcements')
+              }"
+            >
+              <NuxtLink to="/instructor/announcements"> {{ $t('Announcements') }} </NuxtLink>
             </li>
 
-            <li class="text-gray-700 hover:text-gray-800 h-full flex items-center justify-center">
+            <li
+              class="h-full flex items-center justify-center text-gray-700 hover:text-gray-800"
+              :class="{
+                'text-yellow-500 hover:text-yellow-600 md:border-b-[3px] md:border-b-yellow-500':
+                  route.fullPath.startsWith('/instructor/help')
+              }"
+            >
               <a href="#">{{ $t('Help') }}</a>
             </li>
 
-            <li class="md:hidden">
+            <!-- <li class="hidden">
               <UserDropdown />
-            </li>
+            </li> -->
           </ul>
 
           <div class="hidden md:flex items-center space-x-5 justify-end min-w-[300px]">
