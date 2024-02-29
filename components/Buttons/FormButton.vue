@@ -10,6 +10,11 @@ const props = defineProps({
   processing: {
     type: Boolean,
     default: false
+  },
+
+  disabled: {
+    type: Boolean,
+    default: false
   }
 })
 
@@ -21,7 +26,7 @@ const computedClasses = computed(() => props.class)
     type="submit"
     class="text-sm text-white capitalize font-bold p-3.5 active:animate-press duration-200 transition-all"
     :class="computedClasses"
-    :disabled="processing"
+    :disabled="disabled"
   >
     <div v-if="processing" class="flex items-center justify-center">
       <div

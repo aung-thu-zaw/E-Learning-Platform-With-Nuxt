@@ -53,10 +53,22 @@ export function useFormatFunctions() {
     return null
   }
 
+  const humanReadableFileSize = (size: number): string => {
+    const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
+    let i = 0
+
+    for (; size > 1024; i++) {
+      size /= 1024
+    }
+
+    return `${size.toFixed(2)} ${units[i]}`
+  }
+
   return {
     formatAmount,
     formatDate,
     formatDateTime,
-    formatToTitleCase
+    formatToTitleCase,
+    humanReadableFileSize
   }
 }

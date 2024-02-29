@@ -67,13 +67,13 @@ const selectAllPermissions = () => {
     <!-- Form Start -->
     <div class="border p-10 bg-white rounded-md">
       <form
-        @submit.prevent="store.updateAssignRolePermission({ ...form }, slug)"
         class="space-y-4 md:space-y-6"
+        @submit.prevent="store.updateAssignRolePermission({ ...form }, slug)"
       >
         <div>
           <InputLabel label="Role" required />
 
-          <InputField type="text" name="role-name" v-model="roleName" disabled />
+          <InputField v-model="roleName" type="text" name="role-name" disabled />
         </div>
 
         <!-- Permissions Checkbox -->
@@ -89,13 +89,13 @@ const selectAllPermissions = () => {
               </h3>
 
               <button
-                @click="selectAllPermissions"
                 type="button"
                 class="px-3 py-2 text-xs font-semibold rounded-full text-white transition-all"
                 :class="{
                   'bg-red-600 hover:bg-red-500': allPermissionsSelected,
                   'bg-yellow-500 hover:bg-yellow-600': !allPermissionsSelected
                 }"
+                @click="selectAllPermissions"
               >
                 <span v-if="!allPermissionsSelected"> Select All </span>
                 <span v-else>Deselect All</span>
@@ -121,11 +121,11 @@ const selectAllPermissions = () => {
             <div class="w-full space-y-1">
               <div
                 v-for="permission in permissions"
-                :key="permission.id"
                 v-show="permission.group === permissionGroup.group"
+                :key="permission.id"
                 class="flex items-center"
               >
-                <Checkbox :value="permission.id" v-model:checked="form.permission_id" />
+                <Checkbox v-model:checked="form.permission_id" :value="permission.id" />
 
                 <span class="ml-2 text-sm font-bold text-gray-700">
                   {{ permission?.name }}

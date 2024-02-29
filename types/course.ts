@@ -1,14 +1,38 @@
 export interface Category {
   id: number
-  image: string
   name: string
-  slug: string
-  description: string | undefined
-  status: boolean
 }
 
-export interface CategoryPaginate {
-  data: Category[]
+export interface Subcategory {
+  id: number
+  category_id: number
+  name: string
+}
+
+export interface skillTag {
+  id: number
+  category_id: number
+  subcategory_id: number
+  name: string
+}
+
+export interface Course {
+  id: number
+  thumbnail: string
+  title: string
+  slug: string
+  level: string
+  status: string
+  category: {
+    name: string
+  }
+  subcategory: {
+    name: string
+  }
+}
+
+export interface CoursePaginate {
+  data: Course[]
   links: {
     first: string
     last: string
@@ -32,16 +56,32 @@ export interface CategoryPaginate {
 }
 
 export interface Form {
-  name: string
-  image: string
-  description: string
-  status: boolean | string
+  category_id: number | string
+  subcategory_id: number | string
+  thumbnail: string
+  title: string
+  course_description: string
+  project_description: string
+  level: string
+  language: string
+  tags: number[]
+  videos: string[]
+  resources: string[]
+  status: string
 }
 
 export interface Error {
-  name: string
-  description: string
+  category_id: string
+  subcategory_id: string
+  thumbnail: string
+  title: string
+  course_description: string
+  project_description: string
+  level: string
+  language: string
+  tags: string
+  videos: string
+  resources: string
   status: string
-  image: string
   captcha_token: string
 }

@@ -5,18 +5,20 @@ export function useLoadData<T>() {
   const newPaginatedData: Ref<T | null> = ref(null)
   const loading: Ref<boolean> = ref(false)
   const nextPageUrl: Ref<string> = ref('')
+  const { $axiosApi } = useNuxtApp()
 
   const loadMoreData = async (paginatedData: T) => {
     nextPageUrl.value = !newPaginatedData.value
       ? paginatedData.links.next
       : newPaginatedData.value.links.next
 
+    allData.value = paginatedData?.data
+
     if (loading.value || !nextPageUrl.value) return
 
     loading.value = true
 
-    const responsePaginatedData = await fetch(nextPageUrl.value)
-    const responseData = await responsePaginatedData.json()
+    const { data: responseData } = await $axiosApi.get(nextPageUrl.value)
 
     allData.value = [...allData.value, ...responseData.data]
     loading.value = false

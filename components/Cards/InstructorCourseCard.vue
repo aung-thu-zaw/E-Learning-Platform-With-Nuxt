@@ -1,23 +1,26 @@
 <script setup lang="ts">
-import BlueBadge from '~/components/Badges/BlueBadge.vue'
 import NormalButton from '~/components/Buttons/NormalButton.vue'
+
+defineProps({
+  course: Object
+})
 </script>
 
 <template>
-  <a class="group overflow-hidden block bg-white rounded-lg border" href="#">
+  <div class="group overflow-hidden block bg-white rounded-lg border">
     <div class="sm:flex">
       <div class="flex-shrink-0 relative overflow-hidden w-full h-52 sm:w-72">
         <img
           class="group-hover:scale-105 transition-transform duration-500 ease-in-out w-full h-full absolute top-0 start-0 object-cover"
-          src="https://cdn.elearningindustry.com/wp-content/uploads/2020/08/5-ways-to-improve-your-course-cover-design-1024x575.png"
-          alt="Image Description"
+          :src="course?.thumbnail"
+          alt="Course Thumbnail"
         />
       </div>
 
       <div class="grow mt-4 sm:mt-0 px-6 py-5">
         <div class="flex items-center justify-between">
           <h3 class="text-lg font-bold text-gray-800 line-clamp-2">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            {{ course?.title }}
           </h3>
 
           <div class="min-w-[100px]">
@@ -43,5 +46,5 @@ import NormalButton from '~/components/Buttons/NormalButton.vue'
         </div>
       </div>
     </div>
-  </a>
+  </div>
 </template>
