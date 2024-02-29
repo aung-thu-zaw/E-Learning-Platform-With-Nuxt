@@ -1,7 +1,66 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Banner {
+  description: string
+  url: string
+  button: string
+  countdown: string
+  start_date_time: string
+  end_date_time: string
+  is_active: string
+  is_manually_set: string
+}
+
+let countdownInterval: NodeJS.Timeout | null = null
+const hours = ref<number>(0)
+const minutes = ref<number>(0)
+const seconds = ref<number>(0)
+const banner = ref<Banner | null>(null)
+const { $axiosApi } = useNuxtApp()
+
+const getBanner = async () => {
+  try {
+    const { data } = await $axiosApi.get(`/nav-banner`)
+
+    if (!data) throw new Error('Response Data Not Found!')
+
+    banner.value = data
+  } catch (error: any) {
+    return showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const startCountdown = () => {
+  countdownInterval = setInterval(() => {
+    const now = new Date().getTime()
+    const countDownDate = banner?.value?.countdown ? new Date(banner.value.countdown).getTime() : 0
+    const distance = countDownDate - now
+
+    hours.value = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    minutes.value = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))
+    seconds.value = Math.floor((distance % (1000 * 60)) / 1000)
+
+    if (distance < 0) {
+      clearInterval(countdownInterval as NodeJS.Timeout)
+      hours.value = 0
+      minutes.value = 0
+      seconds.value = 0
+    }
+  }, 1000)
+}
+
+onMounted(async () => {
+  await getBanner()
+  startCountdown()
+})
+</script>
 
 <template>
   <div
+    v-show="banner"
     id="dismiss-alert"
     class="hs-removing:translate-x-5 hs-removing:opacity-0 transition duration-300 text-sm py-3.5 bg-yellow-500 text-white text-[0.85rem] font-semibold text-center px-5"
     role="alert"
@@ -9,20 +68,29 @@
     <div class="flex items-center">
       <div class="w-full flex items-center justify-center space-x-5">
         <p>
-          Give your friends 1 free month of Skillshare membership, and earn free months when they
-          sign up.
+          {{ banner?.description }}
         </p>
 
-        <div class="flex items-center space-x-2 text-xs">
-          <span class="bg-yellow-600 p-2.5 rounded-md"> 12 </span>
+        <div v-show="banner?.countdown" class="flex items-center space-x-2 text-xs">
+          <span class="bg-yellow-600 min-w-8 h-8 rounded-md flex items-center justify-center">
+            {{ hours }}
+          </span>
           <span>:</span>
-          <span class="bg-yellow-600 p-2.5 rounded-md"> 10 </span>
+          <span class="bg-yellow-600 min-w-8 h-8 rounded-md flex items-center justify-center">
+            {{ minutes }}
+          </span>
           <span>:</span>
-          <span class="bg-yellow-600 p-2.5 rounded-md"> 02 </span>
+          <span class="bg-yellow-600 min-w-8 h-8 rounded-md flex items-center justify-center">
+            {{ seconds }}
+          </span>
         </div>
 
-        <a href="#" class="bg-yellow-600 text-white p-2 text-xs rounded-md ml-1">
-          Invite friends
+        <a
+          :href="banner?.url"
+          target="_blank"
+          class="bg-yellow-600 text-white p-2 text-xs rounded-md ml-1"
+        >
+          {{ banner?.button }}
           <i class="fa-solid fa-chevron-right"></i>
         </a>
       </div>
