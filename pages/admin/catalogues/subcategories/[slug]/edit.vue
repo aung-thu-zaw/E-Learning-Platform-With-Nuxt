@@ -8,8 +8,13 @@ import InputField from '~/components/Forms/Fields/InputField.vue'
 import SelectBox from '~/components/Forms/Fields/SelectBox.vue'
 import FormButton from '~/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
+import TextAreaField from '~/components/Forms/Fields/TextAreaField.vue'
+import PreviewImageBox from '~/components/Forms/PreviewImageBox.vue'
+import FileInput from '~/components/Forms/Fields/FileInput.vue'
 import { useSubcategoryStore } from '~/stores/dashboard/admin/subcategory'
 import { storeToRefs } from 'pinia'
+import { useImagePreview } from '@/composables/useImagePreview'
+import image from '@/assets/images/no-image.jpeg'
 import type { Form } from '~/types/subcategory'
 
 useHead({ title: 'Edit Subcategory' })
@@ -19,17 +24,23 @@ definePageMeta({ layout: 'admin-layout' })
 const route = useRoute()
 const store = useSubcategoryStore()
 const { errors, categories, subcategory } = storeToRefs(store)
-const form: Form = reactive({ name: '', status: '', category_id: '' })
+const existingImage = ref<string>('')
+const form: Form = reactive({ name: '', status: '', category_id: '', description: '', image: '' })
 const slug = route?.params?.slug.toString()
 
 onMounted(async () => {
   await store.getResources()
   await store.getSubcategory(slug)
 
+  existingImage.value = subcategory?.value?.image || ''
   form.category_id = subcategory?.value?.category_id || ''
   form.name = subcategory?.value?.name || ''
   form.status = subcategory?.value?.status !== undefined ? subcategory?.value?.status : ''
+  form.description = subcategory?.value?.description || ''
+  form.image = subcategory?.value?.image || ''
 })
+
+const { previewImage, setImagePreview } = useImagePreview(existingImage || image)
 </script>
 
 <template>
@@ -53,6 +64,8 @@ onMounted(async () => {
         class="space-y-4 md:space-y-6"
         @submit.prevent="store.updateSubcategory({ ...form }, slug)"
       >
+        <PreviewImageBox :src="previewImage" />
+
         <div>
           <InputLabel label="Subcategory Name" required />
 
@@ -102,6 +115,32 @@ onMounted(async () => {
           />
 
           <InputError :message="errors?.status" />
+        </div>
+
+        <div>
+          <InputLabel label="Description" required />
+
+          <TextAreaField
+            v-model="form.description"
+            name="category-description"
+            placeholder="Enter Category Description"
+            required
+          />
+
+          <InputError :message="errors?.description" />
+        </div>
+
+        <div>
+          <InputLabel label="Background Image" required />
+
+          <FileInput
+            v-model="form.image"
+            name="category-background"
+            text="PNG, JPG or JPEG ( Max File Size : 1.5 MB )"
+            @update:model-value="setImagePreview"
+          />
+
+          <InputError :message="store.errors?.image" />
         </div>
 
         <InputError :message="errors?.captcha_token" />

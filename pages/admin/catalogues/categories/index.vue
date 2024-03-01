@@ -7,7 +7,6 @@ import TableContainer from '~/components/Tables/TableContainer.vue'
 import Table from '~/components/Tables/Table.vue'
 import SortableTableHeaderCell from '~/components/Tables/TableCells/SortableTableHeaderCell.vue'
 import TableHeaderCell from '~/components/Tables/TableCells/TableHeaderCell.vue'
-import TableImageCell from '~/components/Tables/TableCells/TableImageCell.vue'
 import TableDataCell from '~/components/Tables/TableCells/TableDataCell.vue'
 import TableToggleCell from '~/components/Tables/TableCells/TableToggleCell.vue'
 import TableActionCell from '~/components/Tables/TableCells/TableActionCell.vue'
@@ -73,8 +72,6 @@ watch(
           <template #table-header>
             <SortableTableHeaderCell label="# Id" sort="id" />
 
-            <TableHeaderCell label="Background" />
-
             <SortableTableHeaderCell label="Category" sort="name" />
 
             <SortableTableHeaderCell label="Status" sort="status" />
@@ -86,13 +83,8 @@ watch(
           <template #table-data="{ item }">
             <TableDataCell> {{ item?.id }} </TableDataCell>
 
-            <TableImageCell :src="item?.image" />
-
-            <TableDataCell class="flex flex-col items-start min-w-[300px]">
-              <p>{{ item?.name }}</p>
-              <p class="font-medium text-[.7rem]">
-                {{ item?.description }}
-              </p>
+            <TableDataCell>
+              {{ item?.name }}
             </TableDataCell>
 
             <TableToggleCell

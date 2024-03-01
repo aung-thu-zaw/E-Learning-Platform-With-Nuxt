@@ -1,9 +1,7 @@
 export interface Category {
   id: number
-  image: string
   name: string
   slug: string
-  description: string | undefined
   status: boolean
 }
 
@@ -33,15 +31,11 @@ export interface CategoryPaginate {
 
 export interface Form {
   name: string
-  image: string
-  description: string
   status: boolean | string
 }
 
 export interface Error {
   name: string
-  description: string
   status: string
-  image: string
   captcha_token: string
 }

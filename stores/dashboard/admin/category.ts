@@ -51,15 +51,7 @@ export const useCategoryStore = defineStore('category', () => {
     try {
       form.captcha_token = await generateCaptchaToken('create_category')
 
-      const response = await $axiosApi.post(
-        '/admin/categories',
-        { ...form },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      )
+      const response = await $axiosApi.post('/admin/categories', { ...form })
 
       if (!response) throw new Error('Response Not Found!')
 
@@ -78,17 +70,8 @@ export const useCategoryStore = defineStore('category', () => {
   const updateCategory = async (form: Form, slug: string) => {
     try {
       form.captcha_token = await generateCaptchaToken('update_category')
-      form._method = 'PATCH'
 
-      const response = await $axiosApi.post(
-        `/admin/categories/${slug}`,
-        { ...form },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        }
-      )
+      const response = await $axiosApi.patch(`/admin/categories/${slug}`, { ...form })
 
       if (!response) throw new Error('Response Not Found!')
 

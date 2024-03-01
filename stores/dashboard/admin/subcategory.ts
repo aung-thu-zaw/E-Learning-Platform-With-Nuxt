@@ -67,7 +67,15 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
     try {
       form.captcha_token = await generateCaptchaToken('create_subcategory')
 
-      const response = await $axiosApi.post('/admin/subcategories', { ...form })
+      const response = await $axiosApi.post(
+        '/admin/subcategories',
+        { ...form },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
 
       if (!response) throw new Error('Response Not Found!')
 
@@ -86,8 +94,17 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
   const updateSubcategory = async (form: Form, slug: string) => {
     try {
       form.captcha_token = await generateCaptchaToken('update_subcategory')
+      form._method = 'PATCH'
 
-      const response = await $axiosApi.patch(`/admin/subcategories/${slug}`, { ...form })
+      const response = await $axiosApi.post(
+        `/admin/subcategories/${slug}`,
+        { ...form },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
 
       if (!response) throw new Error('Response Not Found!')
 

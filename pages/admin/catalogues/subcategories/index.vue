@@ -8,6 +8,7 @@ import Table from '~/components/Tables/Table.vue'
 import SortableTableHeaderCell from '~/components/Tables/TableCells/SortableTableHeaderCell.vue'
 import TableHeaderCell from '~/components/Tables/TableCells/TableHeaderCell.vue'
 import TableDataCell from '~/components/Tables/TableCells/TableDataCell.vue'
+import TableImageCell from '~/components/Tables/TableCells/TableImageCell.vue'
 import TableToggleCell from '~/components/Tables/TableCells/TableToggleCell.vue'
 import TableActionCell from '~/components/Tables/TableCells/TableActionCell.vue'
 import DashboardTableDataSearchBox from '@/components/Forms/SearchBoxs/DashboardTableDataSearchBox.vue'
@@ -72,6 +73,8 @@ watch(
           <template #table-header>
             <SortableTableHeaderCell label="# Id" sort="id" />
 
+            <TableHeaderCell label="Background" />
+
             <TableHeaderCell label="Category" />
 
             <SortableTableHeaderCell label="Subcategory" sort="name" />
@@ -85,9 +88,20 @@ watch(
           <template #table-data="{ item }">
             <TableDataCell> {{ item?.id }} </TableDataCell>
 
-            <TableDataCell> {{ item?.category?.name }} </TableDataCell>
+            <TableImageCell :src="item?.image" />
 
-            <TableDataCell> {{ item?.name }} </TableDataCell>
+            <TableDataCell>
+              <div class="min-w-[200px] line-clamp-1">
+                {{ item?.category?.name }}
+              </div>
+            </TableDataCell>
+
+            <TableDataCell class="flex flex-col items-start min-w-[300px]">
+              <p>{{ item?.name }}</p>
+              <p class="font-medium text-[.7rem] line-clamp-1">
+                {{ item?.description }}
+              </p>
+            </TableDataCell>
 
             <TableToggleCell
               :value="item?.status"

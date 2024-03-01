@@ -3,19 +3,16 @@ import Breadcrumb from '~/components/Breadcrumbs/MainBreadcrumb.vue'
 import BreadcrumbItem from '~/components/Breadcrumbs/BreadcrumbItem.vue'
 import BreadcrumbLinkItem from '~/components/Breadcrumbs/BreadcrumbLinkItem.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-import TextAreaField from '~/components/Forms/Fields/TextAreaField.vue'
+
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import SelectBox from '~/components/Forms/Fields/SelectBox.vue'
 import FormButton from '~/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
-import PreviewImageBox from '~/components/Forms/PreviewImageBox.vue'
-import FileInput from '~/components/Forms/Fields/FileInput.vue'
+
 import { useCategoryStore } from '~/stores/dashboard/admin/category'
 import { storeToRefs } from 'pinia'
 import type { Form } from '~/types/category'
-import { useImagePreview } from '@/composables/useImagePreview'
-import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Create Category' })
 
@@ -25,18 +22,16 @@ const store = useCategoryStore()
 const isCreateAnother = ref<boolean>(false)
 const createForm = ref<HTMLFormElement | null>(null)
 const { errors } = storeToRefs(store)
-const { previewImage, setImagePreview } = useImagePreview()
-const form: Form = reactive({ name: '', description: '', status: '', image: '' })
+
+const form: Form = reactive({ name: '', status: '' })
 
 const handleCreateCategory = async () => {
   await store.createCategory({ ...form }, isCreateAnother.value)
   if (isCreateAnother.value && !store.errors) {
     createForm?.value?.reset()
-    previewImage.value = image
+
     form.name = ''
-    form.description = ''
     form.status = ''
-    form.image = ''
   }
 }
 </script>
@@ -59,7 +54,6 @@ const handleCreateCategory = async () => {
     <!-- Form Start -->
     <div class="border p-10 bg-white rounded-md">
       <form ref="createForm" class="space-y-4 md:space-y-6" @submit.prevent="handleCreateCategory">
-        <PreviewImageBox :src="previewImage" />
         <div>
           <InputLabel label="Category Name" required />
 
@@ -72,19 +66,6 @@ const handleCreateCategory = async () => {
           />
 
           <InputError :message="errors?.name" />
-        </div>
-
-        <div>
-          <InputLabel label="Description" required />
-
-          <TextAreaField
-            v-model="form.description"
-            name="category-description"
-            placeholder="Enter Category Description"
-            required
-          />
-
-          <InputError :message="errors?.description" />
         </div>
 
         <div>
@@ -107,20 +88,6 @@ const handleCreateCategory = async () => {
           />
 
           <InputError :message="errors?.status" />
-        </div>
-
-        <div>
-          <InputLabel label="Background Image" required />
-
-          <FileInput
-            v-model="form.image"
-            name="category-background"
-            text="PNG, JPG or JPEG ( Max File Size : 1.5 MB )"
-            required
-            @update:model-value="setImagePreview"
-          />
-
-          <InputError :message="errors?.image" />
         </div>
 
         <InputError :message="errors?.captcha_token" />

@@ -3,19 +3,17 @@ import Breadcrumb from '~/components/Breadcrumbs/MainBreadcrumb.vue'
 import BreadcrumbItem from '~/components/Breadcrumbs/BreadcrumbItem.vue'
 import BreadcrumbLinkItem from '~/components/Breadcrumbs/BreadcrumbLinkItem.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-import TextAreaField from '~/components/Forms/Fields/TextAreaField.vue'
+
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import SelectBox from '~/components/Forms/Fields/SelectBox.vue'
 import FormButton from '~/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
-import PreviewImageBox from '~/components/Forms/PreviewImageBox.vue'
-import FileInput from '~/components/Forms/Fields/FileInput.vue'
+
 import { useCategoryStore } from '~/stores/dashboard/admin/category'
-import { useImagePreview } from '@/composables/useImagePreview'
+
 import { storeToRefs } from 'pinia'
 import type { Form } from '~/types/category'
-import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Edit Category' })
 
@@ -24,21 +22,15 @@ definePageMeta({ layout: 'admin-layout' })
 const route = useRoute()
 const store = useCategoryStore()
 const { errors, category } = storeToRefs(store)
-const existingImage = ref<string>('')
-const form: Form = reactive({ name: '', description: '', status: '', image: '' })
+const form: Form = reactive({ name: '', status: '' })
 const slug = route?.params?.slug.toString()
 
 onMounted(async () => {
   await store.getCategory(slug)
 
   form.name = category?.value?.name || ''
-  form.description = category?.value?.description || ''
   form.status = category?.value?.status !== undefined ? category?.value?.status : ''
-  form.image = category?.value?.image || ''
-  existingImage.value = store.category?.image || ''
 })
-
-const { previewImage, setImagePreview } = useImagePreview(existingImage || image)
 </script>
 
 <template>
@@ -62,8 +54,6 @@ const { previewImage, setImagePreview } = useImagePreview(existingImage || image
         class="space-y-4 md:space-y-6"
         @submit.prevent="store.updateCategory({ ...form }, slug)"
       >
-        <PreviewImageBox :src="previewImage" />
-
         <div>
           <InputLabel label="Category Name" required />
 
@@ -76,19 +66,6 @@ const { previewImage, setImagePreview } = useImagePreview(existingImage || image
           />
 
           <InputError :message="errors?.name" />
-        </div>
-
-        <div>
-          <InputLabel label="Description" required />
-
-          <TextAreaField
-            v-model="form.description"
-            name="category-description"
-            placeholder="Enter Category Description"
-            required
-          />
-
-          <InputError :message="errors?.description" />
         </div>
 
         <div>
@@ -112,19 +89,6 @@ const { previewImage, setImagePreview } = useImagePreview(existingImage || image
           />
 
           <InputError :message="errors?.status" />
-        </div>
-
-        <div>
-          <InputLabel label="Background Image" required />
-
-          <FileInput
-            v-model="form.image"
-            name="category-background"
-            text="PNG, JPG or JPEG ( Max File Size : 1.5 MB )"
-            @update:model-value="setImagePreview"
-          />
-
-          <InputError :message="store.errors?.image" />
         </div>
 
         <InputError :message="errors?.captcha_token" />

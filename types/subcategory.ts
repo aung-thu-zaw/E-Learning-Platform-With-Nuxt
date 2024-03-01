@@ -4,6 +4,8 @@ export interface Subcategory {
   name: string
   slug: string
   status: boolean
+  image: string
+  description: string | undefined
 }
 
 export interface Category {
@@ -39,11 +41,15 @@ export interface Form {
   category_id: number | string
   name: string
   status: boolean | string
+  image: string
+  description: string
 }
 
 export interface Error {
   category_id: string
   name: string
   status: string
+  image: string
+  description: string
   captcha_token: string
 }
