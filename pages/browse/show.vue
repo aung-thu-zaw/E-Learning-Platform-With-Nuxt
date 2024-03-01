@@ -4,9 +4,14 @@ import VideoPagination from '~/components/Paginations/VideoPagination.vue'
 import BrowseCourseSearchBox from '~/components/Filters/BrowseCourseSearchBox.vue'
 import BrowseCourseFilterBy from '~/components/Filters/BrowseCourseFilterBy.vue'
 import BrowseCourseSortBy from '~/components/Filters/BrowseCourseSortBy.vue'
-// useHead({ title: 'Home' })
+import { useBrowsingStore } from '~/stores/e-learning/browsing'
+
+useHead({ title: 'Browse' })
 
 definePageMeta({ layout: 'app-layout' })
+
+const store = useBrowsingStore()
+const { categories, subcategories } = storeToRefs(store)
 </script>
 
 <template>
@@ -16,94 +21,25 @@ definePageMeta({ layout: 'app-layout' })
         <a
           class="bg-yellow-600 text-white font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-yellow-500 block"
         >
-          All Classes
+          All Courses
         </a>
 
-        <div>
+        <div v-for="category in categories" :key="category?.id">
           <div class="px-5">
             <h3
               class="text-xs font-bold uppercase text-gray-600 border-b border-b-gray-400 py-3 mb-3"
             >
-              Creative
+              {{ category?.name }}
             </h3>
           </div>
 
           <a
+            v-for="subcategory in subcategories"
+            v-show="subcategory.category_id === category.id"
+            :key="subcategory?.id"
             class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
           >
-            Animation
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Creative Writing
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Film & Video
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Fine Art
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Graphic Design
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Illustration
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Photography
-          </a>
-        </div>
-
-        <div>
-          <div class="px-5">
-            <h3
-              class="text-xs font-bold uppercase text-gray-600 border-b border-b-gray-400 py-3 mb-3"
-            >
-              Thrive
-            </h3>
-          </div>
-
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Lifestyle
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Productivity
-          </a>
-        </div>
-
-        <div>
-          <div class="px-5">
-            <h3
-              class="text-xs font-bold uppercase text-gray-600 border-b border-b-gray-400 py-3 mb-3"
-            >
-              Build
-            </h3>
-          </div>
-
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Freelance & Entrepreneurship
-          </a>
-          <a
-            class="text-gray-700 font-bold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all"
-          >
-            Marketing
+            {{ subcategory?.name }}
           </a>
         </div>
       </div>

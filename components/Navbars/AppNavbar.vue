@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
 import { useAuthStore } from '~/stores/auth'
+import { useBrowsingStore } from '~/stores/e-learning/browsing'
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
 
 const route = useRoute()
+const store = useBrowsingStore()
 const { user } = storeToRefs(useAuthStore())
+const { categories, subcategories } = storeToRefs(store)
 const localPath = useLocalePath()
+
+onMounted(async () => await store.getBrowsingResources())
 </script>
 
 <template>
@@ -132,92 +137,33 @@ const localPath = useLocalePath()
             </button>
 
             <div
-              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-[20rem] top-20 sm:w-[50rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
+              class="hs-dropdown-menu transition-[opacity,margin] sm:border duration-[0.1ms] sm:duration-[150ms] hs-dropdown-open:opacity-100 opacity-0 hidden z-10 end-[5rem] top-20 sm:w-[80rem] bg-white sm:shadow-md rounded-lg py-5 sm:px-5"
             >
-              <div class="sm:grid sm:grid-cols-3 gap-5">
+              <div class="sm:grid sm:grid-cols-4 gap-5">
                 <div
-                  class="sm:col-span-2 sm:grid sm:grid-cols-2 border-r border-r-gray-300 pr-5 gap-5"
+                  class="sm:col-span-3 sm:grid sm:grid-cols-3 border-r border-r-gray-300 pr-5 gap-5"
                 >
-                  <div class="flex flex-col px-2">
+                  <div
+                    v-for="category in categories"
+                    :key="category?.id"
+                    class="flex flex-col px-2"
+                  >
                     <div class="px-3 mb-3">
-                      <h4 class="text-xs uppercase font-extrabold text-gray-700">Category One</h4>
+                      <h4 class="text-xs uppercase font-extrabold text-gray-700">
+                        {{ category?.name }}
+                      </h4>
 
                       <hr class="mt-3" />
                     </div>
 
                     <a
+                      v-for="subcategory in subcategories"
+                      v-show="subcategory.category_id === category.id"
+                      :key="subcategory.id"
                       class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
                       href="#"
                     >
-                      About
-                    </a>
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Services
-                    </a>
-                  </div>
-                  <div class="flex flex-col px-2">
-                    <div class="px-3 mb-3">
-                      <h4 class="text-xs uppercase font-extrabold text-gray-700">Category One</h4>
-
-                      <hr class="mt-3" />
-                    </div>
-
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      About
-                    </a>
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Services
-                    </a>
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Customer Story
-                    </a>
-                  </div>
-
-                  <div class="flex flex-col px-2">
-                    <div class="px-3 mb-3">
-                      <h4 class="text-xs uppercase font-extrabold text-gray-700">Category One</h4>
-
-                      <hr class="mt-3" />
-                    </div>
-
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Services
-                    </a>
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Customer Story
-                    </a>
-                  </div>
-
-                  <div class="flex flex-col px-2">
-                    <div class="px-3 mb-3">
-                      <h4 class="text-xs uppercase font-extrabold text-gray-700">Category One</h4>
-
-                      <hr class="mt-3" />
-                    </div>
-
-                    <a
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
-                    >
-                      Customer Story
+                      {{ subcategory?.name }}
                     </a>
                   </div>
                 </div>
