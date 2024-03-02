@@ -5,7 +5,7 @@
     <button
       id="hs-dropdown-auto-close-inside"
       type="button"
-      class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-sm font-bold rounded-md text-gray-700 disabled:opacity-50 disabled:pointer-events-none"
+      class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-[0.8rem] font-semibold rounded-md text-gray-700 disabled:opacity-50 disabled:pointer-events-none"
     >
       Sort By
       <svg

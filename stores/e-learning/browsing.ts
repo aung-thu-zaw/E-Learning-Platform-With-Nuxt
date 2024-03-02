@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia'
-import type { Category, Subcategory } from '~/types/browsing'
+import type { Category, Subcategory, CoursePaginate } from '~/types/browsing'
+import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
 export const useBrowsingStore = defineStore('browsing', () => {
   const categories = ref<Category[] | null>(null)
   const subcategories = ref<Subcategory[] | null>(null)
+  const courses = ref<CoursePaginate | null>(null)
   const tags = ref<Tag[] | null>(null)
 
   const { backendApiBaseUrl } = useRuntimeConfig().public
@@ -26,9 +28,32 @@ export const useBrowsingStore = defineStore('browsing', () => {
     }
   }
 
+  const getCourses = async (subCategoryId: number, params) => {
+    try {
+      const { generateQueryParams } = useQueryGenerator()
+
+      const data: CoursePaginate = await $fetch(
+        `${backendApiBaseUrl}/browse/${subCategoryId}/courses?${generateQueryParams(params)}`
+      )
+
+      if (!data) throw new Error('Response Data Not Found!')
+
+      courses.value = data
+    } catch (error) {
+      return showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
+    }
+  }
+
   return {
     categories,
     subcategories,
-    getBrowsingResources
+    tags,
+    courses,
+    getBrowsingResources,
+    getCourses
   }
 })

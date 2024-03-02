@@ -1,11 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const route = useRoute()
+const router = useRouter()
+const level = ref<string | undefined>(
+  route.query?.level ? (route.query?.level as string | undefined) : 'none'
+)
+const duration = ref<string | undefined>(
+  route.query?.duration ? (route.query?.duration as string | undefined) : 'none'
+)
+
+watch(
+  () => level.value,
+  () => {
+    router.push({ query: { ...route.query, level: level.value } })
+  }
+)
+
+watch(
+  () => duration.value,
+  () => {
+    router.push({ query: { ...route.query, duration: duration.value } })
+  }
+)
+</script>
 
 <template>
   <div class="mt-1 mx-1 sm:mt-1 hs-dropdown relative sm:inline-flex z-20 [--auto-close:inside]">
     <button
       id="hs-dropdown-auto-close-inside"
       type="button"
-      class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-sm font-bold rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
+      class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-[0.8rem] font-semibold rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
     >
       <i class="fa-solid fa-filter"></i>
       Filters
@@ -36,15 +59,51 @@
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-none-level"
+              v-model="level"
+              name="hs-dropdown-level-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-none-level-description"
+              value="none"
+              x
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-none-level" class="ms-3.5">
+            <span class="block text-sm font-semibold text-gray-600">None</span>
+          </label>
+        </div>
+
+        <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
+          <div class="flex items-center h-5 mt-1">
+            <input
+              id="hs-dropdown-beginner"
+              v-model="level"
+              name="hs-dropdown-level-radio"
+              type="radio"
+              class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
+              aria-describedby="hs-dropdown-beginner-description"
+              value="all_levels"
+            />
+          </div>
+          <label for="hs-dropdown-beginner" class="ms-3.5">
+            <span class="block text-sm font-semibold text-gray-600">All Level</span>
+          </label>
+        </div>
+
+        <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
+          <div class="flex items-center h-5 mt-1">
+            <input
+              id="hs-dropdown-beginner"
+              v-model="level"
+              name="hs-dropdown-level-radio"
+              type="radio"
+              class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
+              aria-describedby="hs-dropdown-beginner-description"
+              value="beginner"
+            />
+          </div>
+          <label for="hs-dropdown-beginner" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Beginner</span>
           </label>
         </div>
@@ -52,15 +111,16 @@
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-intermediate"
+              v-model="level"
+              name="hs-dropdown-level-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-intermediate-description"
+              value="intermediate"
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-intermediate" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Intermediate</span>
           </label>
         </div>
@@ -68,15 +128,16 @@
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-advanced"
+              v-model="level"
+              name="hs-dropdown-level-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-advanced-description"
+              value="advanced"
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-advanced" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Advanced</span>
           </label>
         </div>
@@ -88,18 +149,37 @@
         <span class="block py-2 px-3 text-xs font-semibold uppercase text-gray-600">
           Duration
         </span>
+
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-none"
+              v-model="duration"
+              name="hs-dropdown-duration-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-none-description"
+              value="none"
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-none" class="ms-3.5">
+            <span class="block text-sm font-semibold text-gray-600">None</span>
+          </label>
+        </div>
+
+        <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
+          <div class="flex items-center h-5 mt-1">
+            <input
+              id="hs-dropdown-short-duration"
+              v-model="duration"
+              name="hs-dropdown-duration-radio"
+              type="radio"
+              class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
+              aria-describedby="hs-dropdown-short-duration-description"
+              value="short"
+            />
+          </div>
+          <label for="hs-dropdown-short-duration" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Short ( Under 1 Hour )</span>
           </label>
         </div>
@@ -107,15 +187,16 @@
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-medium-duration"
+              v-model="duration"
+              name="hs-dropdown-duration-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-medium-duration-description"
+              value="medium"
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-medium-duration" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Medium ( 1-3 Hours)</span>
           </label>
         </div>
@@ -123,53 +204,17 @@
         <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
           <div class="flex items-center h-5 mt-1">
             <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
+              id="hs-dropdown-long-duration"
+              v-model="duration"
+              name="hs-dropdown-duration-radio"
               type="radio"
               class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
+              aria-describedby="hs-dropdown-long-duration-description"
+              value="long"
             />
           </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
+          <label for="hs-dropdown-long-duration" class="ms-3.5">
             <span class="block text-sm font-semibold text-gray-600">Long ( Over 3 Hours)</span>
-          </label>
-        </div>
-      </div>
-
-      <hr class="text-gray-800" />
-
-      <div class="py-2 first:pt-0 last:pb-0">
-        <span class="block py-2 px-3 text-xs font-semibold uppercase text-gray-600"> Price </span>
-        <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-          <div class="flex items-center h-5 mt-1">
-            <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
-              type="radio"
-              class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
-            />
-          </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
-            <span class="block text-sm font-semibold text-gray-600">Free</span>
-          </label>
-        </div>
-
-        <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-          <div class="flex items-center h-5 mt-1">
-            <input
-              id="hs-dropdown-item-radio-delete"
-              name="hs-dropdown-item-radio"
-              type="radio"
-              class="shrink-0 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none border-gray-300 checked:bg-yellow-500 checked:border-yellow-500 focus:ring-offset-yellow-500"
-              aria-describedby="hs-dropdown-item-radio-delete-description"
-              checked
-            />
-          </div>
-          <label for="hs-dropdown-item-radio-delete" class="ms-3.5">
-            <span class="block text-sm font-semibold text-gray-600">Paid</span>
           </label>
         </div>
       </div>

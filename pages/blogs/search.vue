@@ -4,19 +4,19 @@ import BlogSearchBox from '~/components/Forms/SearchBoxs/BlogSearchBox.vue'
 import BlogCard from '~/components/Cards/BlogCard.vue'
 import { useBlogStore } from '~/stores/e-learning/blog'
 import Pagination from '~/components/Paginations/BlogPagination.vue'
-import { useQueryStringParams } from '@/composables/useQueryStringParams'
+import { useURLQueryString } from '@/composables/useURLQueryString'
 import type { BlogPaginate } from '~/types/blog'
 
 const route = useRoute()
 const store = useBlogStore()
 const { blogs } = storeToRefs(store)
-const { blogParams } = useQueryStringParams()
+const { blogPageQueryString } = useURLQueryString()
 
 useHead({ title: 'Search Result' })
 
 definePageMeta({ layout: 'blog-layout' })
 
-onMounted(async () => await store.getBlogs(blogParams.value))
+onMounted(async () => await store.getBlogs(blogPageQueryString.value))
 
 const handleUpdatedData = (data: BlogPaginate) => {
   store.$patch({ blogs: data })
@@ -29,7 +29,7 @@ const handleUpdatedData = (data: BlogPaginate) => {
 watch(
   () => route?.query,
   async () => {
-    await store.getBlogs(blogParams.value)
+    await store.getBlogs(blogPageQueryString.value)
   }
 )
 </script>

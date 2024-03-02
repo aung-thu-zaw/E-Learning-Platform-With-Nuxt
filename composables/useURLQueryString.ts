@@ -8,6 +8,11 @@ interface BlogQueryString {
   page?: number
 }
 
+interface CourseQueryString {
+  search?: QueryString
+  page?: number
+}
+
 interface DashboardQueryString {
   search?: QueryString
   page?: number
@@ -21,6 +26,15 @@ export function useURLQueryString() {
 
   const blogPageQueryString = computed<BlogQueryString>(() => ({
     query: route.query?.query as QueryString,
+    page: parseInt(route.query.page as string) || 1
+  }))
+
+  const courseQueryString = computed<CourseQueryString>(() => ({
+    search: route.query?.search as QueryString,
+    tag: route.query?.tag as QueryString,
+    sort: route.query?.sort as QueryString,
+    level: route.query?.level as QueryString,
+    duration: route.query?.duration as QueryString,
     page: parseInt(route.query.page as string) || 1
   }))
 
@@ -42,6 +56,7 @@ export function useURLQueryString() {
   return {
     blogPageQueryString,
     dashboardQueryString,
+    courseQueryString,
     dashboardDefaultQueryString
   }
 }

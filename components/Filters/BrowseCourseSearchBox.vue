@@ -1,7 +1,44 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+defineProps({
+  placeholder: {
+    type: String,
+    default: () => 'Search courses'
+  }
+})
+
+const route = useRoute()
+const router = useRouter()
+const delayedSearch = ref<NodeJS.Timeout | null>(null)
+const search = ref<string | undefined>(route.query?.query as string | undefined)
+
+const handleSearch = () => {
+  if (delayedSearch.value) {
+    clearTimeout(delayedSearch.value)
+  }
+  delayedSearch.value = setTimeout(() => {
+    router.push({ query: { ...route.query, page: 1, search: search.value } })
+  }, 400)
+}
+
+const removeSearch = () => (search.value = undefined)
+
+watch(
+  () => search.value,
+  () => {
+    handleSearch()
+  }
+)
+
+watch(
+  () => route.query,
+  () => {
+    if (!route.query.search) search.value = undefined
+  }
+)
+</script>
 
 <template>
-  <div class="min-w-[300px] max-w-[400px] w-full">
+  <div class="min-w-[300px] max-w-[400px] w-auto">
     <form>
       <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only">
         Search
@@ -26,16 +63,19 @@
         </div>
 
         <button
+          v-show="search"
           type="button"
           class="absolute inset-y-0 right-0 flex items-center pr-5 hover:cursor-pointer text-gray-500 hover:text-red-600 transition-all"
+          @click="removeSearch"
         >
           <i class="fa-solid fa-circle-xmark"></i>
         </button>
         <input
           id="default-search"
+          v-model="search"
           type="text"
           class="block w-full p-4 pl-10 text-xs text-gray-700 rounded-md bg-gray-50 transition-all focus:outline-none focus:ring-2 focus:ring-slate-300 border border-gray-300 focus:border-slate-400 font-semibold"
-          placeholder="Search courses about animation"
+          :placeholder="placeholder"
           required
         />
       </div>

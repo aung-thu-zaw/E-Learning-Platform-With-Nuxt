@@ -156,15 +156,15 @@ onMounted(async () => await store.getBrowsingResources())
                       <hr class="mt-3" />
                     </div>
 
-                    <a
+                    <NuxtLink
                       v-for="subcategory in subcategories"
                       v-show="subcategory.category_id === category.id"
                       :key="subcategory.id"
-                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 font-medium text-gray-700 hover:text-gray-600"
-                      href="#"
+                      :to="`/browse/${subcategory.slug}`"
+                      class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-0 font-medium text-gray-700 hover:text-gray-600"
                     >
                       {{ subcategory?.name }}
-                    </a>
+                    </NuxtLink>
                   </div>
                 </div>
 

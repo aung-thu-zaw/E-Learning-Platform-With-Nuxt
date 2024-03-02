@@ -60,7 +60,7 @@ onMounted(async () => {
 
 <template>
   <div
-    v-show="banner"
+    v-if="banner && banner.description"
     id="dismiss-alert"
     class="hs-removing:translate-x-5 hs-removing:opacity-0 transition duration-300 text-sm py-3.5 bg-yellow-500 text-white text-[0.85rem] font-semibold text-center px-5"
     role="alert"
