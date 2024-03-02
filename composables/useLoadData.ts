@@ -12,15 +12,14 @@ export function useLoadData<T>() {
       ? paginatedData.links.next
       : newPaginatedData.value.links.next
 
-    allData.value = paginatedData?.data
-
     if (loading.value || !nextPageUrl.value) return
 
     loading.value = true
 
     const { data: responseData } = await $axiosApi.get(nextPageUrl.value)
 
-    allData.value = [...allData.value, ...responseData.data]
+    allData.value = new Set([...paginatedData.data, ...allData.value, ...responseData.data])
+
     loading.value = false
     newPaginatedData.value = responseData
   }

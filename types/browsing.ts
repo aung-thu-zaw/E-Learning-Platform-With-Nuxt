@@ -41,7 +41,7 @@ export interface Course {
     avatar: string
   }
   total_lesson: string
-  duration_seconds: string
+  duration: string
 }
 
 export interface CoursePaginate {

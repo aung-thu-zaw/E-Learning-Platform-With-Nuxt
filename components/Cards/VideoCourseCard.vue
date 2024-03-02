@@ -39,7 +39,7 @@ defineProps<{ course: Course }>()
         </span>
         <span class="mt-5 text-xs text-gray-500">
           <i class="fa-solid fa-clock"></i>
-          {{ course?.duration_seconds }}
+          {{ course?.duration }}
         </span>
         <span class="mt-5 text-xs text-gray-500 capitalize">
           <i class="fa-solid fa-chart-simple"></i>
