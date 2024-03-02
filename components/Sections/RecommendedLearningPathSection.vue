@@ -27,9 +27,9 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
 
       <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
         <div class="grid lg:grid-cols-3 gap-5">
+          <!-- <LearningPathCollectionCard />
           <LearningPathCollectionCard />
-          <LearningPathCollectionCard />
-          <LearningPathCollectionCard />
+          <LearningPathCollectionCard /> -->
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ import type { BlogPaginate, Blog } from '~/types/blog'
 
 const landmark = ref<HTMLElement | null>(null)
 const store = useBlogStore()
-const allBlog = ref<Blog[]>([])
+// const allBlog = ref<Blog[]>([])
 const latestBlog = ref<Blog | null>(null)
 const { blogs } = storeToRefs(store)
 
@@ -28,8 +28,6 @@ onMounted(async () => {
   observeScroll(blogs.value, landmark.value)
   store.$patch({ blogs: newPaginatedData.value as BlogPaginate })
 })
-
-watch(allData, (newValue) => (allBlog.value = newValue as Blog[]))
 </script>
 
 <template>
@@ -45,8 +43,8 @@ watch(allData, (newValue) => (allBlog.value = newValue as Blog[]))
     <section>
       <div class="max-w-[85rem] mx-auto py-10 px-6 md:py-16">
         <div>
-          <div v-if="allBlog?.length" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <BlogCard v-for="blog in allBlog" :key="blog?.id" :blog="blog" />
+          <div v-if="allData?.length" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <BlogCard v-for="blog in allData" :key="blog?.id" :blog="blog" />
           </div>
 
           <div v-else class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">

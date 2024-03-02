@@ -18,7 +18,11 @@ export function useLoadData<T>() {
 
     const { data: responseData } = await $axiosApi.get(nextPageUrl.value)
 
-    allData.value = new Set([...paginatedData.data, ...allData.value, ...responseData.data])
+    allData.value = Array.from(
+      new Set([...paginatedData.data, ...allData.value, ...responseData.data])
+    )
+
+    console.log(allData.value)
 
     loading.value = false
     newPaginatedData.value = responseData
