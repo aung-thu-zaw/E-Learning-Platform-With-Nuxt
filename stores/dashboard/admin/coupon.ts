@@ -3,26 +3,28 @@ import type { CouponPaginate, Coupon, Form, Error } from '~/types/coupon'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useCouponStore = defineStore('coupon', () => {
   const coupons = ref<CouponPaginate | null>(null)
   const coupon = ref<Coupon | null>(null)
   const errors = ref<Error | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllCoupon = async (params) => {
+  const getAllCoupon = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/coupons?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/coupons?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       coupons.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -30,15 +32,15 @@ export const useCouponStore = defineStore('coupon', () => {
     }
   }
 
-  const getCoupon = async (id: number) => {
+  const getCoupon = async (id: number): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/coupons/${id}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       coupon.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -46,7 +48,7 @@ export const useCouponStore = defineStore('coupon', () => {
     }
   }
 
-  const createCoupon = async (form: Form, createAnother: boolean) => {
+  const createCoupon = async (form: Form, createAnother: boolean): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('create_coupon')
 
@@ -61,12 +63,12 @@ export const useCouponStore = defineStore('coupon', () => {
       } else {
         $toast.success('Coupon created successfully!')
       }
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const updateCoupon = async (form: Form, id: number) => {
+  const updateCoupon = async (form: Form, id: number): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('update_coupon')
 
@@ -77,12 +79,12 @@ export const useCouponStore = defineStore('coupon', () => {
       $router.push({ path: '/admin/coupons', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Coupon updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const changeStatus = async (is_redeemable: boolean, id: number) => {
+  const changeStatus = async (is_redeemable: boolean, id: number): Promise<void> => {
     try {
       const response = await $axiosApi.put(`/admin/coupons/${id}/change-status`, {
         is_redeemable
@@ -90,13 +92,15 @@ export const useCouponStore = defineStore('coupon', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      const index = coupons.value.data.findIndex((coupon) => coupon.id === id)
+      if (coupons.value) {
+        const index = coupons.value.data.findIndex((coupon) => coupon.id === id)
 
-      coupons.value.data[index] = { ...response.data }
+        coupons.value.data[index] = { ...response.data }
+      }
 
       $toast.success('Coupon status changed successfully!')
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -104,7 +108,7 @@ export const useCouponStore = defineStore('coupon', () => {
     }
   }
 
-  const deleteCoupon = async (id: number) => {
+  const deleteCoupon = async (id: number): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -127,10 +131,16 @@ export const useCouponStore = defineStore('coupon', () => {
 
         const index = coupons.value?.data?.findIndex((coupon) => coupon.id === id)
 
-        if (index !== -1) {
-          coupons.value?.data.splice(index, 1)
+        if (index !== undefined && index !== -1) {
+          const spliceIndex = index ?? 0
 
-          if (index >= coupons.value?.meta?.current_page - 1 * coupons.value?.meta?.per_page) {
+          coupons.value?.data.splice(spliceIndex, 1)
+
+          if (
+            coupons.value?.meta?.current_page !== undefined &&
+            coupons.value?.meta?.per_page !== undefined &&
+            index >= (coupons.value?.meta?.current_page - 1) * coupons.value?.meta?.per_page
+          ) {
             await getAllCoupon({ page: coupons.value?.meta?.current_page })
           }
         }
@@ -139,8 +149,8 @@ export const useCouponStore = defineStore('coupon', () => {
           $swal.fire({ icon: 'success', title: 'Coupon deleted successfully!' })
         }
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

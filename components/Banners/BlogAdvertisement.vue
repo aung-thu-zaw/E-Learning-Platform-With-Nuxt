@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="bg-gray-200">
     <div class="container mx-auto py-10 text-center space-y-5">

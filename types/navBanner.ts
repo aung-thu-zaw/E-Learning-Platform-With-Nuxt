@@ -40,6 +40,7 @@ export interface Form {
   countdown: string | null
   start_date_time: string
   end_date_time: string
+  captcha_token?: string | null
 }
 
 export interface Error {

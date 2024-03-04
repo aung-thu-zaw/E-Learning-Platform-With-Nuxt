@@ -7,14 +7,14 @@ import { useBlogStore } from '~/stores/e-learning/blog'
 import { useSocialShare } from '~/composables/useSocialShare'
 import { useCopy } from '~/composables/useCopy'
 
+definePageMeta({ layout: 'blog-layout' })
+
 const store = useBlogStore()
 const route = useRoute()
 
 const { blog, relatedBlogs } = storeToRefs(store)
 const { shareToFacebook, shareToTwitter, shareToLinkedIn } = useSocialShare()
 const { copyShareLink } = useCopy()
-
-definePageMeta({ layout: 'blog-layout' })
 
 onMounted(async () => {
   await store.getBlog(route?.params?.slug.toString())

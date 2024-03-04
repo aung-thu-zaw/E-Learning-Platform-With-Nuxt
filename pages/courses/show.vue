@@ -6,6 +6,7 @@ import CourseSectionAccordion from '~/components/Accordions/CourseSectionAccordi
 import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
 
 useHead({ title: 'Home' })
+
 definePageMeta({ layout: 'app-layout' })
 </script>
 

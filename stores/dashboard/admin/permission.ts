@@ -1,21 +1,29 @@
 import { defineStore } from 'pinia'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
+import type { dashboardQuery } from '~/types/query'
+
+interface Permission {
+  id: number
+  name: string
+  group: string
+}
 
 export const usePermissionStore = defineStore('permission', () => {
-  const permissions = ref<CouponPaginate | null>(null)
+  const permissions = ref<Permission | null>(null)
+
   const { $axiosApi } = useNuxtApp()
 
-  const getAllPermission = async (params) => {
+  const getAllPermission = async (query: dashboardQuery): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/permissions?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/permissions?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       permissions.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

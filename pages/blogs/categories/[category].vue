@@ -6,15 +6,16 @@ import Pagination from '~/components/Paginations/BlogPagination.vue'
 import type { BlogPaginate } from '~/types/blog'
 import { useBlogStore } from '~/stores/e-learning/blog'
 
-const store = useBlogStore()
-const route = useRoute()
-const { blogs } = storeToRefs(store)
-
 useHead({ title: 'Blogs' })
 
 definePageMeta({ layout: 'blog-layout' })
 
-onMounted(async () => await store.getCategoryBlogs(route?.params?.category.toString()))
+const store = useBlogStore()
+const category = useRoute()?.params?.category.toString()
+
+const { blogs } = storeToRefs(store)
+
+onMounted(async () => await store.getCategoryBlogs(category))
 
 const handleUpdatedData = (data: BlogPaginate) => {
   store.$patch({ blogs: data })
@@ -65,7 +66,7 @@ const handleUpdatedData = (data: BlogPaginate) => {
             </div>
 
             <div v-else class="grid lg:grid-cols-2 gap-6">
-              <HorizontalBlogCardSkeleton v-for="index in 2" :key="index" />
+              <HorizontalBlogCardSkeleton v-for="index in 4" :key="index" />
             </div>
           </div>
 

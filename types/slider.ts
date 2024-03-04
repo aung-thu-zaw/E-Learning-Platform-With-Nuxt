@@ -1,6 +1,7 @@
 export interface Slider {
   id: number
   title: string
+  slug: string
   description: string
   button: string
   url: string
@@ -39,6 +40,7 @@ export interface Form {
   url: string
   image: string
   status: boolean | string
+  captcha_token: string | null
 }
 
 export interface Error {

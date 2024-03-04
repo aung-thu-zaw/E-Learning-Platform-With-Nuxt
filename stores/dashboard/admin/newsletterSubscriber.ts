@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
+import type { dashboardQuery } from '~/types/query'
 
 interface SubscriberPaginate {
   data: {
@@ -31,21 +32,22 @@ interface SubscriberPaginate {
 
 export const useNewsletterSubscriberStore = defineStore('newsletter-subscriber', () => {
   const subscribers = ref<SubscriberPaginate | null>(null)
+
   const { $axiosApi, $swal } = useNuxtApp()
 
-  const getAllSubscriber = async (params) => {
+  const getAllSubscriber = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
       const { data } = await $axiosApi.get(
-        `/admin/newsletter-subscribers?${generateQueryParams(params)}`
+        `/admin/newsletter-subscribers?${generateQueryString(query)}`
       )
 
       if (!data) throw new Error('Response Data Not Found!')
 
       subscribers.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -53,7 +55,7 @@ export const useNewsletterSubscriberStore = defineStore('newsletter-subscriber',
     }
   }
 
-  const deleteSubscriber = async (id: number) => {
+  const deleteSubscriber = async (id: number): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -76,12 +78,15 @@ export const useNewsletterSubscriberStore = defineStore('newsletter-subscriber',
 
         const index = subscribers.value?.data?.findIndex((subscriber) => subscriber.id === id)
 
-        if (index !== -1) {
-          subscribers.value?.data.splice(index, 1)
+        if (index !== undefined && index !== -1) {
+          const spliceIndex = index ?? 0
+
+          subscribers.value?.data.splice(spliceIndex, 1)
 
           if (
-            index >=
-            subscribers.value?.meta?.current_page - 1 * subscribers.value?.meta?.per_page
+            subscribers.value?.meta?.current_page !== undefined &&
+            subscribers.value?.meta?.per_page !== undefined &&
+            index >= (subscribers.value?.meta?.current_page - 1) * subscribers.value?.meta?.per_page
           ) {
             await getAllSubscriber({ page: subscribers.value?.meta?.current_page })
           }
@@ -91,8 +96,8 @@ export const useNewsletterSubscriberStore = defineStore('newsletter-subscriber',
           $swal.fire({ icon: 'success', title: 'Newsletter subscriber deleted successfully!' })
         }
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

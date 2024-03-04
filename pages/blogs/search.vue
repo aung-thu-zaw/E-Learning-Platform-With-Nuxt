@@ -7,14 +7,15 @@ import Pagination from '~/components/Paginations/BlogPagination.vue'
 import { useURLQueryString } from '@/composables/useURLQueryString'
 import type { BlogPaginate } from '~/types/blog'
 
-const route = useRoute()
-const store = useBlogStore()
-const { blogs } = storeToRefs(store)
-const { blogPageQueryString } = useURLQueryString()
-
 useHead({ title: 'Search Result' })
 
 definePageMeta({ layout: 'blog-layout' })
+
+const route = useRoute()
+const store = useBlogStore()
+
+const { blogs } = storeToRefs(store)
+const { blogPageQueryString } = useURLQueryString()
 
 onMounted(async () => await store.getBlogs(blogPageQueryString.value))
 

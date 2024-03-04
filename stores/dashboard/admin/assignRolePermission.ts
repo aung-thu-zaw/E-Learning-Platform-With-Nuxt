@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useAssignRolePermissionStore = defineStore('blog-category', () => {
   const rolesWithPermissions = ref<any>(null)
@@ -9,23 +10,24 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
   const permissions = ref<any>(null)
   const permissionGroups = ref<any>(null)
   const errors = ref<Error | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllRoleWithPermissions = async (params) => {
+  const getAllRoleWithPermissions = async (query: dashboardQuery): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
       const { data } = await $axiosApi.get(
-        `/admin/assign-role-permissions?${generateQueryParams(params)}`
+        `/admin/assign-role-permissions?${generateQueryString(query)}`
       )
 
       if (!data) throw new Error('Response Data Not Found!')
 
       rolesWithPermissions.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -33,15 +35,15 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
     }
   }
 
-  const getRole = async (slug: string) => {
+  const getRole = async (slug: string): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/assign-role-permissions/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       role.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -49,7 +51,7 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
     }
   }
 
-  const getResources = async () => {
+  const getResources = async (): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/assign-role-permissions-resources`)
 
@@ -57,8 +59,8 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
 
       permissionGroups.value = data.permissionGroups
       permissions.value = data.permissions
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -66,7 +68,10 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
     }
   }
 
-  const updateAssignRolePermission = async (form, slug: string) => {
+  const updateAssignRolePermission = async (
+    form: { role_id: number; permission_id: number; captcha_token?: string | null },
+    slug: string
+  ): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('update_role')
 
@@ -80,8 +85,8 @@ export const useAssignRolePermissionStore = defineStore('blog-category', () => {
       })
 
       $swal.fire({ icon: 'success', title: 'Role updated successfully!' })
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

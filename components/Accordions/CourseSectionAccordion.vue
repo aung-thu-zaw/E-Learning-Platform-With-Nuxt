@@ -1,5 +1,3 @@
-<script setup lang="ts"></script>
-
 <template>
   <div class="hs-accordion-group">
     <div id="hs-basic-with-arrow-heading-one" class="hs-accordion">

@@ -1,7 +1,11 @@
 import { useReCaptcha } from 'vue-recaptcha-v3'
 
 export function useToken() {
-  const { executeRecaptcha, recaptchaLoaded } = useReCaptcha()
+  const { executeRecaptcha, recaptchaLoaded } = useReCaptcha() ?? {
+    executeRecaptcha: () => Promise.reject(),
+    recaptchaLoaded: () => Promise.reject()
+  }
+
   const { $axios } = useNuxtApp()
 
   async function generateCsrfToken(): Promise<void> {

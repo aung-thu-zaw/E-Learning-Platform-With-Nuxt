@@ -34,6 +34,7 @@ export interface Form {
   name: string
   description: string
   status: boolean | string
+  captcha_token?: string | null
 }
 
 export interface Error {

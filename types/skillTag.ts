@@ -51,6 +51,7 @@ export interface Form {
   category_id: number | string
   subcategory_id: number | string
   name: string
+  captcha_token?: string | null
 }
 
 export interface Error {

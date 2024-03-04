@@ -19,7 +19,8 @@ const form: ResetPasswordForm = reactive({
   token: route.params.token ? route.params.token.toString() : '',
   email: route.query.email ? route.query.email.toString() : '',
   password: '',
-  password_confirmation: ''
+  password_confirmation: '',
+  captcha_token: null
 })
 </script>
 

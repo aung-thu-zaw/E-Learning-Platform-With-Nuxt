@@ -10,15 +10,17 @@ import type {
 } from '~/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
-  const router = useRouter()
   const user = ref<User | null>(null)
   const errors = ref<Error | null>(null)
-  const status = ref<string>(null)
+  const status = ref<string>('')
   const isAuthenticated = ref<boolean>(false)
+  const router = useRouter()
+
+  /* composable */
   const { generateCsrfToken, generateCaptchaToken } = useToken()
   const { $axios, $toast } = useNuxtApp()
 
-  const forgotPassword = async (email: string): void => {
+  const forgotPassword = async (email: string): Promise<void> => {
     try {
       await generateCsrfToken()
 
@@ -32,12 +34,12 @@ export const useAuthStore = defineStore('auth', () => {
       if (!response) throw new Error('Response Not Found!')
 
       status.value = response.data.status
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const resetPassword = async (form: ResetPasswordForm): void => {
+  const resetPassword = async (form: ResetPasswordForm): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('reset_password')
 
@@ -48,12 +50,12 @@ export const useAuthStore = defineStore('auth', () => {
       status.value = response.data.status
 
       router.push({ path: '/auth/sign-in' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const changePassword = async (form: ChangePasswordForm): void => {
+  const changePassword = async (form: ChangePasswordForm): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('change_password')
       const response = await $axios.put('/password', { ...form })
@@ -61,34 +63,34 @@ export const useAuthStore = defineStore('auth', () => {
       if (!response) throw new Error('Response Not Found!')
 
       $toast.success(response.data?.message, { autoClose: 2000 })
-    } catch (error) {
+    } catch (error: any) {
       if (error?.response?.status === 422) {
         errors.value = error.response?.data?.errors
       }
     }
   }
 
-  const sendVerificationEmail = async (): void => {
+  const sendVerificationEmail = async (): Promise<void> => {
     try {
       const response = await $axios.post('/email/verification-notification')
 
       if (!response) throw new Error('Response Not Found!')
 
       status.value = response.data.status
-    } catch (error) {
+    } catch (error: any) {
       if (error?.response?.status === 422) {
         errors.value = error.response?.data?.errors
       }
     }
   }
 
-  const getAuthenticatedUser = async (): void => {
+  const getAuthenticatedUser = async (): Promise<void> => {
     try {
       await generateCsrfToken()
       const { data } = await $axios.get('api/v1/user')
 
       if (data.permissions.length > 0) {
-        const permissionNames = data.permissions.map((permission) => permission.name)
+        const permissionNames = data.permissions.map((permission: any) => permission.name)
 
         user.value = { ...data, permissions: permissionNames }
       } else {
@@ -96,7 +98,7 @@ export const useAuthStore = defineStore('auth', () => {
       }
 
       isAuthenticated.value = true
-    } catch (error) {
+    } catch (error: any) {
       console.error('Failed to get authenticated user:', error)
     }
   }
@@ -105,7 +107,7 @@ export const useAuthStore = defineStore('auth', () => {
     action: string,
     endpoint: string,
     form: RegisterForm | LoginForm
-  ): void => {
+  ): Promise<void> => {
     try {
       await generateCsrfToken()
 
@@ -118,24 +120,24 @@ export const useAuthStore = defineStore('auth', () => {
       isAuthenticated.value = true
 
       router.push({ path: '/' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const register = async (form: RegisterForm): void => {
+  const register = async (form: RegisterForm): Promise<void> => {
     await performAuthAction('post', '/register', { ...form })
 
     isAuthenticated.value = true
   }
 
-  const login = async (form: LoginForm): void => {
+  const login = async (form: LoginForm): Promise<void> => {
     await performAuthAction('post', '/login', { ...form })
 
     isAuthenticated.value = true
   }
 
-  const logout = async (): void => {
+  const logout = async (): Promise<void> => {
     await $axios.post('/logout')
     user.value = null
     isAuthenticated.value = false

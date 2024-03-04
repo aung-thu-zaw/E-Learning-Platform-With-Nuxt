@@ -1,4 +1,12 @@
-import { ref, Ref } from 'vue'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
+
+// interface DataWithLinks {
+//   data: []
+//   links: {
+//     next: string
+//   }
+// }
 
 export function useLoadData<T>() {
   const allData: Ref<T[]> = ref([])
@@ -33,7 +41,7 @@ export function useLoadData<T>() {
     element: HTMLElement | null,
     options = { rootMargin: '0px 0px 150px 0px' }
   ) => {
-    if (!element || !paginatedData) return // Added null check for paginatedData
+    if (!element || !paginatedData) return
 
     const observer = new IntersectionObserver(
       (entries) => {

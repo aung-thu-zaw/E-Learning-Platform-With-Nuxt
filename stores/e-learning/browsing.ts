@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import type { Category, Subcategory, CoursePaginate } from '~/types/browsing'
+import type { Category, Subcategory, CoursePaginate, Tag } from '~/types/browsing'
+import type { BrowseCourseQuery } from '~/types/query'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
 export const useBrowsingStore = defineStore('browsing', () => {
@@ -10,17 +11,18 @@ export const useBrowsingStore = defineStore('browsing', () => {
 
   const { backendApiBaseUrl } = useRuntimeConfig().public
 
-  const getBrowsingResources = async () => {
+  const getBrowsingResources = async (): Promise<void> => {
     try {
-      const data = await $fetch(`${backendApiBaseUrl}/resources-for-browsing-course`)
+      const data: { categories: Category[]; subcategories: Subcategory[]; tags: Tag[] } =
+        await $fetch(`${backendApiBaseUrl}/resources-for-browsing-course`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       categories.value = data?.categories
       subcategories.value = data?.subcategories
       tags.value = data?.tags
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -28,19 +30,19 @@ export const useBrowsingStore = defineStore('browsing', () => {
     }
   }
 
-  const getCourses = async (subCategoryId: number, params) => {
+  const getCourses = async (subCategoryId: number, query: BrowseCourseQuery): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
       const data: CoursePaginate = await $fetch(
-        `${backendApiBaseUrl}/browse/${subCategoryId}/courses?${generateQueryParams(params)}`
+        `${backendApiBaseUrl}/browse/${subCategoryId}/courses?${generateQueryString(query)}`
       )
 
       if (!data) throw new Error('Response Data Not Found!')
 
       courses.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

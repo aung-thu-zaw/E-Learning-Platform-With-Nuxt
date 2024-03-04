@@ -3,26 +3,28 @@ import type { SliderPaginate, Slider, Form, Error } from '~/types/slider'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useSliderStore = defineStore('slider', () => {
   const sliders = ref<SliderPaginate | null>(null)
   const slider = ref<Slider | null>(null)
   const errors = ref<Error | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllSlider = async (params) => {
+  const getAllSlider = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/sliders?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/sliders?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       sliders.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -30,15 +32,15 @@ export const useSliderStore = defineStore('slider', () => {
     }
   }
 
-  const getSlider = async (slug: string) => {
+  const getSlider = async (slug: string): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/sliders/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       slider.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -46,7 +48,7 @@ export const useSliderStore = defineStore('slider', () => {
     }
   }
 
-  const createSlider = async (form: Form, createAnother: boolean) => {
+  const createSlider = async (form: Form, createAnother: boolean): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('create_slider')
 
@@ -69,20 +71,18 @@ export const useSliderStore = defineStore('slider', () => {
       } else {
         $toast.success('Slider created successfully!')
       }
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const updateSlider = async (form: Form, slug: string) => {
+  const updateSlider = async (form: Form, slug: string): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('update_slider')
 
-      form._method = 'PATCH'
-
       const response = await $axiosApi.post(
         `/admin/sliders/${slug}`,
-        { ...form },
+        { ...form, _method: 'PATCH' },
         {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -95,12 +95,12 @@ export const useSliderStore = defineStore('slider', () => {
       $router.push({ path: '/admin/sliders', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Slider updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const changeStatus = async (status: boolean, slug: string) => {
+  const changeStatus = async (status: boolean, slug: string): Promise<void> => {
     try {
       const response = await $axiosApi.put(`/admin/sliders/${slug}/change-status`, {
         status
@@ -108,13 +108,15 @@ export const useSliderStore = defineStore('slider', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      const index = sliders.value.data.findIndex((slider) => slider.slug === slug)
+      if (sliders.value) {
+        const index = sliders.value.data.findIndex((slider) => slider?.slug === slug)
 
-      sliders.value.data[index] = { ...response.data }
+        sliders.value.data[index] = { ...response.data }
+      }
 
       $toast.success('Slider status changed successfully!')
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -122,7 +124,7 @@ export const useSliderStore = defineStore('slider', () => {
     }
   }
 
-  const deleteSlider = async (slug: string) => {
+  const deleteSlider = async (slug: string): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -145,10 +147,16 @@ export const useSliderStore = defineStore('slider', () => {
 
         const index = sliders.value?.data?.findIndex((slider) => slider.slug === slug)
 
-        if (index !== -1) {
-          sliders.value?.data.splice(index, 1)
+        if (index !== undefined && index !== -1) {
+          const spliceIndex = index ?? 0
 
-          if (index >= sliders.value?.meta?.current_page - 1 * sliders.value?.meta?.per_page) {
+          sliders.value?.data.splice(spliceIndex, 1)
+
+          if (
+            sliders.value?.meta?.current_page !== undefined &&
+            sliders.value?.meta?.per_page !== undefined &&
+            index >= (sliders.value?.meta?.current_page - 1) * sliders.value?.meta?.per_page
+          ) {
             await getAllSlider({ page: sliders.value?.meta?.current_page })
           }
         }
@@ -157,8 +165,8 @@ export const useSliderStore = defineStore('slider', () => {
           $swal.fire({ icon: 'success', title: 'Slider deleted successfully!' })
         }
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

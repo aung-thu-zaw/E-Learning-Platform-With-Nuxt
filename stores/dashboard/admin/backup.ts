@@ -6,20 +6,21 @@ export const useBackupStore = defineStore('database-backup', () => {
   const backup = ref<any>(null)
   const overallInformation = ref<any>(null)
   const errors = ref<any>(null)
-  const { $axiosApi, $swal, $toast, $router } = useNuxtApp()
 
-  const getAllBackup = async (params) => {
+  const { $axiosApi, $swal, $toast } = useNuxtApp()
+
+  const getAllBackup = async (query: { page: 1 }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/database-backups?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/database-backups?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       backups.value = data.backups
       overallInformation.value = data.overallInformation
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -27,7 +28,7 @@ export const useBackupStore = defineStore('database-backup', () => {
     }
   }
 
-  const createBackup = async () => {
+  const createBackup = async (): Promise<void> => {
     try {
       const response = await $axiosApi.post('/admin/database-backups')
 
@@ -36,8 +37,8 @@ export const useBackupStore = defineStore('database-backup', () => {
       await getAllBackup({ page: 1 })
 
       $toast.success('Backup completed successfully')
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -45,7 +46,7 @@ export const useBackupStore = defineStore('database-backup', () => {
     }
   }
 
-  const deleteBackup = async (filename: string) => {
+  const deleteBackup = async (filename: string): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -66,7 +67,7 @@ export const useBackupStore = defineStore('database-backup', () => {
 
         if (!response) throw new Error('Response Not Found!')
 
-        const index = backups.value?.data?.findIndex((file) => file.filename === filename)
+        const index = backups.value?.data?.findIndex((file: any) => file.filename === filename)
 
         if (index !== -1) {
           backups.value.data.splice(index, 1)
@@ -82,8 +83,8 @@ export const useBackupStore = defineStore('database-backup', () => {
         if (response.status === 204)
           $swal.fire({ icon: 'success', title: 'Backup deleted successfully!' })
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -91,7 +92,7 @@ export const useBackupStore = defineStore('database-backup', () => {
     }
   }
 
-  const downloadBackup = async (filename: string) => {
+  const downloadBackup = async (filename: string): Promise<void> => {
     try {
       const response = await $axiosApi.get(`/admin/database-backups/${filename}/download`)
 
@@ -104,7 +105,7 @@ export const useBackupStore = defineStore('database-backup', () => {
       link.setAttribute('download', filename)
       document.body.appendChild(link)
       link.click()
-    } catch (error) {
+    } catch (error: any) {
       $swal.fire({
         icon: 'error',
         title: 'Failed to download backup file. Please try again.'

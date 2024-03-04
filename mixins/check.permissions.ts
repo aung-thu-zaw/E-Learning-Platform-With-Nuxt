@@ -1,5 +1,5 @@
 import { useAbilityStore } from '~/stores/dashboard/ability'
-import { App } from 'vue'
+import type { App } from 'vue'
 
 export const Can = {
   install: (app: App) => {
@@ -7,7 +7,7 @@ export const Can = {
 
     store.getUserAbilities()
 
-    const can = (permission: string): boolean => store?.permissions?.includes(permission)
+    const can = (permission: string): boolean => store?.permissions?.includes(permission) ?? false
 
     app.mixin({ methods: { can } })
   }

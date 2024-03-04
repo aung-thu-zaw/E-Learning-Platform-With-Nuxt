@@ -44,6 +44,7 @@ export interface Form {
   expiry_date: string | null
   is_redeemable: boolean | string
   free_trial_days: string | number
+  captcha_token?: string | null
 }
 
 export interface Error {

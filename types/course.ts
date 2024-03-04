@@ -9,7 +9,7 @@ export interface Subcategory {
   name: string
 }
 
-export interface skillTag {
+export interface SkillTag {
   id: number
   category_id: number
   subcategory_id: number
@@ -68,6 +68,7 @@ export interface Form {
   videos: string[]
   resources: string[]
   status: string
+  captcha_token?: string | null
 }
 
 export interface Error {

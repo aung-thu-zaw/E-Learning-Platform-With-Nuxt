@@ -1,4 +1,10 @@
-import { App } from 'vue'
+import type { App } from 'vue'
+
+declare global {
+  interface Window {
+    _translations: Record<string, string>
+  }
+}
 
 export const Translations = {
   install: (app: App) => {

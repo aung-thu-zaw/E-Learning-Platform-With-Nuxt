@@ -1,11 +1,12 @@
-import { ref, Ref } from 'vue'
+import { ref } from 'vue'
+import type { Ref } from 'vue'
 import image from '~/assets/images/no-image.jpeg'
 
 interface FileWithPreview extends File {
   preview: string
 }
 
-export function useImagePreview(existingImage?: string | Ref<string> = image) {
+export function useImagePreview(existingImage: string | Ref<string> = image) {
   const previewImage: Ref<string> = ref(existingImage)
   const previewImages: Ref<string[]> = ref([])
 

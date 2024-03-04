@@ -8,15 +8,17 @@ import BrowseCourseSortBy from '~/components/Filters/BrowseCourseSortBy.vue'
 import { useBrowsingStore } from '~/stores/e-learning/browsing'
 import { useURLQueryString } from '@/composables/useURLQueryString'
 import type { CoursePaginate } from '~/types/course'
+import type { BrowseCourseQuery } from '~/types/query'
 
 definePageMeta({ layout: 'app-layout' })
 
 const router = useRouter()
 const route = useRoute()
 const store = useBrowsingStore()
-const { categories, subcategories, tags, courses } = storeToRefs(store)
-const { courseQueryString } = useURLQueryString()
 const slug = route?.params?.slug.toString()
+
+const { categories, subcategories, tags, courses } = storeToRefs(store)
+const { browseCourseQueryString } = useURLQueryString()
 
 const filteredSubcategory = computed(() =>
   subcategories.value?.find((subcategory) => subcategory.slug === slug)
@@ -33,7 +35,10 @@ const filteredSkillTags = computed(() => {
 onMounted(async () => {
   await store.getBrowsingResources()
   if (filteredSubcategory?.value) {
-    await store.getCourses(filteredSubcategory?.value?.id, courseQueryString.value)
+    await store.getCourses(
+      filteredSubcategory?.value?.id,
+      browseCourseQueryString.value as BrowseCourseQuery
+    )
 
     useHead({ title: filteredSubcategory?.value?.name })
   }
@@ -49,14 +54,17 @@ const handleUpdatedData = (data: CoursePaginate) => {
 
 const handleTag = (slug: string) =>
   router.push({
-    query: { ...courseQueryString.value, tag: route.query?.tag === slug ? undefined : slug }
+    query: { ...browseCourseQueryString.value, tag: route.query?.tag === slug ? undefined : slug }
   })
 
 watch(
   () => route?.query,
   async () => {
     if (filteredSubcategory?.value) {
-      await store.getCourses(filteredSubcategory?.value?.id, courseQueryString.value)
+      await store.getCourses(
+        filteredSubcategory?.value?.id,
+        browseCourseQueryString.value as BrowseCourseQuery
+      )
     }
   }
 )

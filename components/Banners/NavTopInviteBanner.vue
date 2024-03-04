@@ -15,6 +15,7 @@ const hours = ref<number>(0)
 const minutes = ref<number>(0)
 const seconds = ref<number>(0)
 const banner = ref<Banner | null>(null)
+
 const { $axiosApi } = useNuxtApp()
 
 const getBanner = async () => {

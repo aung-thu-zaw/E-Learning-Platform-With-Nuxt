@@ -3,7 +3,7 @@ interface Params {
 }
 
 export function useQueryGenerator() {
-  const generateQueryParams = (params: Params): string => {
+  const generateQueryString = (params: Params): string => {
     const queryParams = Object.entries(params)
       .filter(([key, value]) => value !== undefined && value !== null && value !== '')
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
@@ -25,7 +25,7 @@ export function useQueryGenerator() {
   }
 
   return {
-    generateQueryParams,
+    generateQueryString,
     getParameter
   }
 }

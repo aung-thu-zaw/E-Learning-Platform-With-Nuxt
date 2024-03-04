@@ -3,18 +3,21 @@ export interface RegisterForm {
   email: string
   password: string
   password_confirmation: string
+  captcha_token?: string | null
 }
 
 export interface LoginForm {
   email: string
   password: string
   remember: boolean
+  captcha_token?: string | null
 }
 
 export interface ChangePasswordForm {
   current_password: string
   password: string
   password_confirmation: string
+  captcha_token?: string | null
 }
 
 export interface ResetPasswordForm {
@@ -22,6 +25,7 @@ export interface ResetPasswordForm {
   email: string
   password: string
   password_confirmation: string
+  captcha_token?: string | null
 }
 
 export interface User {
@@ -51,9 +55,9 @@ export interface User {
 }
 
 export interface Error {
-  display_name: string | null
-  username: string | null
-  password: string | null
-  email: string | null
-  captcha_token: string | null
+  display_name: string
+  username: string
+  password: string
+  email: string
+  captcha_token: string
 }

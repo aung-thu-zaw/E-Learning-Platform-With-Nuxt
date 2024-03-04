@@ -11,6 +11,7 @@ definePageMeta({ layout: 'app-layout' })
 const landmark = ref<HTMLElement | null>(null)
 const store = useLearningPathStore()
 const route = useRoute()
+
 const { learningPaths } = storeToRefs(store)
 
 onMounted(async () => {

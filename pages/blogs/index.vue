@@ -9,21 +9,20 @@ import { useLoadData } from '~/composables/useLoadData'
 import { useURLQueryString } from '@/composables/useURLQueryString'
 import type { BlogPaginate, Blog } from '~/types/blog'
 
-const landmark = ref<HTMLElement | null>(null)
-const store = useBlogStore()
-// const allBlog = ref<Blog[]>([])
-const latestBlog = ref<Blog | null>(null)
-const { blogs } = storeToRefs(store)
-
 useHead({ title: 'Blogs' })
 
 definePageMeta({ layout: 'blog-layout' })
 
+const landmark = ref<HTMLElement | null>(null)
+const latestBlog = ref<Blog | null>(null)
+const store = useBlogStore()
+
+const { blogs } = storeToRefs(store)
 const { allData, newPaginatedData, observeScroll } = useLoadData()
 const { blogPageQueryString } = useURLQueryString()
 
 onMounted(async () => {
-  await store.getBlogs(blogPageQueryString.value)
+  await store.getBlogs({blogPageQueryString.value})
   latestBlog.value = blogs?.value?.data[0] as Blog
   observeScroll(blogs.value, landmark.value)
   store.$patch({ blogs: newPaginatedData.value as BlogPaginate })

@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import type { BlogPaginate, Blog, Category } from '~/types/blog'
+import type { BlogPageQuery } from '~/types/query'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 
 export const useBlogStore = defineStore('blog', () => {
@@ -7,26 +8,30 @@ export const useBlogStore = defineStore('blog', () => {
   const relatedBlogs = ref<Blog[] | null>(null)
   const blog = ref<Blog | null>(null)
   const categories = ref<Category[] | null>(null)
-  const errors = ref<string | null>(null)
+
   const { backendApiBaseUrl } = useRuntimeConfig().public
 
-  const getBlogs = async (params) => {
+  const getBlogs = async (query: BlogPageQuery): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
       const data: BlogPaginate = await $fetch(
-        `${backendApiBaseUrl}/contents?${generateQueryParams(params)}`
+        `${backendApiBaseUrl}/contents?${generateQueryString(query)}`
       )
 
       if (!data) throw new Error('Response Data Not Found!')
 
       blogs.value = data
-    } catch (error) {
-      errors.value = error.response?.data?.errors
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
     }
   }
 
-  const getCategoryBlogs = async (categorySlug: string) => {
+  const getCategoryBlogs = async (categorySlug: string): Promise<void> => {
     try {
       const data: BlogPaginate = await $fetch(
         `${backendApiBaseUrl}/categories/${categorySlug}/contents`
@@ -35,33 +40,47 @@ export const useBlogStore = defineStore('blog', () => {
       if (!data) throw new Error('Response Data Not Found!')
 
       blogs.value = data
-    } catch (error) {
-      errors.value = error.response?.data?.errors
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
     }
   }
 
-  const getResources = async () => {
+  const getResources = async (): Promise<void> => {
     try {
-      const data: BlogPaginate = await $fetch(`${backendApiBaseUrl}/content/resources`)
+      const data: Category[] = await $fetch(`${backendApiBaseUrl}/content/resources`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       categories.value = data
-    } catch (error) {
-      errors.value = error.response?.data?.errors
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
     }
   }
 
-  const getBlog = async (slug: string) => {
+  const getBlog = async (slug: string): Promise<void> => {
     try {
-      const data: Blog = await $fetch(`${backendApiBaseUrl}/contents/${slug}`)
+      const data: { content: Blog; relatedContents: any } = await $fetch(
+        `${backendApiBaseUrl}/contents/${slug}`
+      )
 
       if (!data) throw new Error('Response Data Not Found!')
 
       blog.value = data.content
       relatedBlogs.value = data.relatedContents
-    } catch (error) {
-      errors.value = error.response?.data?.errors
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
     }
   }
 
@@ -70,7 +89,6 @@ export const useBlogStore = defineStore('blog', () => {
     relatedBlogs,
     blog,
     categories,
-    errors,
     getBlogs,
     getCategoryBlogs,
     getBlog,

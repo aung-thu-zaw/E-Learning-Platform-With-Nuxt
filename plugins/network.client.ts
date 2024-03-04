@@ -5,7 +5,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const { t } = useNuxtApp().$i18n
 
   const showOnlineNotification = () => {
-    nuxtApp.$toast.success(t('Your internet connection is restored. Welcome back!'), {
+    ;(nuxtApp.$toast as any).success(t('Your internet connection is restored. Welcome back!'), {
       autoClose: 10000,
       transition: 'flip'
     })

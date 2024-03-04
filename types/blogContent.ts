@@ -54,6 +54,7 @@ export interface Form {
   status: string
   content: string
   thumbnail: string | File
+  captcha_token?: string | null
 }
 
 export interface Error {

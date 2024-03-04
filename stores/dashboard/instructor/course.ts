@@ -1,8 +1,17 @@
 import { defineStore } from 'pinia'
-import type { CoursePaginate, Course, Form, Error } from '~/types/course'
+import type {
+  CoursePaginate,
+  Course,
+  Form,
+  Error,
+  Category,
+  Subcategory,
+  SkillTag
+} from '~/types/course'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useCourseStore = defineStore('instructor-course', () => {
   const courses = ref<CoursePaginate | null>(null)
@@ -11,21 +20,22 @@ export const useCourseStore = defineStore('instructor-course', () => {
   const categories = ref<Category[] | null>(null)
   const subcategories = ref<Subcategory[] | null>(null)
   const skillTags = ref<SkillTag[] | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllCourse = async (params) => {
+  const getAllCourse = async (query: dashboardQuery): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/instructor/courses?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/instructor/courses?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       courses.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -33,15 +43,15 @@ export const useCourseStore = defineStore('instructor-course', () => {
     }
   }
 
-  const getCourse = async (slug: string) => {
+  const getCourse = async (slug: string): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/instructor/courses/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       course.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -49,7 +59,7 @@ export const useCourseStore = defineStore('instructor-course', () => {
     }
   }
 
-  const getResources = async () => {
+  const getResources = async (): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/instructor/course-resources`)
 
@@ -58,8 +68,8 @@ export const useCourseStore = defineStore('instructor-course', () => {
       categories.value = data.categories
       subcategories.value = data.subcategories
       skillTags.value = data.tags
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -67,7 +77,7 @@ export const useCourseStore = defineStore('instructor-course', () => {
     }
   }
 
-  const createCourse = async (form: Form) => {
+  const createCourse = async (form: Form): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('create_course')
 
@@ -86,19 +96,18 @@ export const useCourseStore = defineStore('instructor-course', () => {
       $router.push({ path: '/instructor/courses', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Course created successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const updateCourse = async (form: Form, slug: string) => {
+  const updateCourse = async (form: Form, slug: string): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('update_course')
-      form._method = 'PATCH'
 
       const response = await $axiosApi.post(
         `/instructor/courses/${slug}`,
-        { ...form },
+        { ...form, _method: 'PATCH' },
         {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -111,7 +120,7 @@ export const useCourseStore = defineStore('instructor-course', () => {
       $router.push({ path: '/instructor/courses', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Course updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }

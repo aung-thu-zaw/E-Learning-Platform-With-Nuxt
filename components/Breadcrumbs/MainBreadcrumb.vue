@@ -27,7 +27,7 @@ defineProps({
   <nav class="flex mb-5 md:mb-0 overflow-x-auto w-full md:max-w-[1000px] px-0">
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
       <li class="inline-flex items-center text-gray-800 hover:text-yellow-500 duration-150">
-        <router-link
+        <NuxtLink
           :to="targetIdentifier ? `${to}/${targetIdentifier}` : to"
           class="inline-flex items-center text-sm font-bold"
         >
@@ -35,7 +35,7 @@ defineProps({
             <i class="fa-solid" :class="icon"></i>
           </span>
           {{ label }}
-        </router-link>
+        </NuxtLink>
       </li>
       <slot />
     </ol>

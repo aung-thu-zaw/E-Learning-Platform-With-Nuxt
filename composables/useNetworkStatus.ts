@@ -15,8 +15,8 @@ export function useNetworkStatus() {
   }
 
   function testNetworkSpeed() {
-    if (navigator?.connection) {
-      const connection = navigator.connection
+    if ((navigator as any)?.connection) {
+      const connection = (navigator as any).connection
 
       // Calculate speed based on effectiveType
       const speedMbps = calculateSpeed(connection.effectiveType)
@@ -30,7 +30,7 @@ export function useNetworkStatus() {
   }
 
   // Function to calculate network speed based on effectiveType
-  function calculateSpeed(effectiveType) {
+  function calculateSpeed(effectiveType: string) {
     switch (effectiveType) {
       case 'slow-2g':
         return 0.1 // Speed in Mbps for slow-2g

@@ -3,6 +3,7 @@ import type { CoursePaginate, Course, Form, Error } from '~/types/course'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useCourseStore = defineStore('course', () => {
   const courses = ref<CoursePaginate | null>(null)
@@ -12,21 +13,22 @@ export const useCourseStore = defineStore('course', () => {
   const subcategories = ref<Subcategory[] | null>(null)
   const instructors = ref<Subcategory[] | null>(null)
   const skillTags = ref<SkillTag[] | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllCourse = async (params) => {
+  const getAllCourse = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/courses?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/courses?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       courses.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -41,7 +43,7 @@ export const useCourseStore = defineStore('course', () => {
       if (!data) throw new Error('Response Data Not Found!')
 
       course.value = data
-    } catch (error) {
+    } catch (error: any) {
       return showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
@@ -60,7 +62,7 @@ export const useCourseStore = defineStore('course', () => {
       subcategories.value = data.subcategories
       skillTags.value = data.tags
       instructors.value = data.instructors
-    } catch (error) {
+    } catch (error: any) {
       return showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
@@ -92,7 +94,7 @@ export const useCourseStore = defineStore('course', () => {
       } else {
         $toast.success('Course created successfully!')
       }
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
@@ -117,7 +119,7 @@ export const useCourseStore = defineStore('course', () => {
       $router.push({ path: '/admin/courses', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Course updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
@@ -135,7 +137,7 @@ export const useCourseStore = defineStore('course', () => {
       courses.value.data[index] = { ...response.data }
 
       $toast.success('Course status changed successfully!')
-    } catch (error) {
+    } catch (error: any) {
       return showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
@@ -179,7 +181,7 @@ export const useCourseStore = defineStore('course', () => {
           $swal.fire({ icon: 'success', title: 'Course deleted successfully!' })
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       return showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,

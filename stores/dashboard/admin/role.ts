@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 interface Role {
   id: number
@@ -42,21 +43,22 @@ export const useRoleStore = defineStore('role', () => {
   const roles = ref<RolePaginate | null>(null)
   const role = ref<Role | null>(null)
   const errors = ref<Error | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllRole = async (params) => {
+  const getAllRole = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/roles?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/roles?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       roles.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -64,15 +66,15 @@ export const useRoleStore = defineStore('role', () => {
     }
   }
 
-  const getRole = async (slug: string) => {
+  const getRole = async (slug: string): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/roles/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       role.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -80,7 +82,7 @@ export const useRoleStore = defineStore('role', () => {
     }
   }
 
-  const createRole = async (roleName: string, createAnother: boolean) => {
+  const createRole = async (roleName: string, createAnother: boolean): Promise<void> => {
     try {
       const token = await generateCaptchaToken('create_role')
 
@@ -98,12 +100,12 @@ export const useRoleStore = defineStore('role', () => {
       } else {
         $toast.success('Role created successfully!')
       }
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const updateRole = async (roleName: string, slug: string) => {
+  const updateRole = async (roleName: string, slug: string): Promise<void> => {
     try {
       const token = await generateCaptchaToken('update_role')
 
@@ -117,12 +119,12 @@ export const useRoleStore = defineStore('role', () => {
       $router.push({ path: '/admin/manage-authority/roles', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Role updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const deleteRole = async (slug: string) => {
+  const deleteRole = async (slug: string): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -145,10 +147,16 @@ export const useRoleStore = defineStore('role', () => {
 
         const index = roles.value?.data?.findIndex((role) => role.slug === slug)
 
-        if (index !== -1) {
-          roles.value?.data.splice(index, 1)
+        if (index !== undefined && index !== -1) {
+          const spliceIndex = index ?? 0
 
-          if (index >= roles.value?.meta?.current_page - 1 * roles.value?.meta?.per_page) {
+          roles.value?.data.splice(spliceIndex, 1)
+
+          if (
+            roles.value?.meta?.current_page !== undefined &&
+            roles.value?.meta?.per_page !== undefined &&
+            index >= (roles.value?.meta?.current_page - 1) * roles.value?.meta?.per_page
+          ) {
             await getAllRole({ page: roles.value?.meta?.current_page })
           }
         }
@@ -157,8 +165,8 @@ export const useRoleStore = defineStore('role', () => {
           $swal.fire({ icon: 'success', title: 'Role deleted successfully!' })
         }
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message

@@ -32,6 +32,7 @@ export interface CategoryPaginate {
 export interface Form {
   name: string
   status: boolean | string
+  captcha_token?: string | null
 }
 
 export interface Error {

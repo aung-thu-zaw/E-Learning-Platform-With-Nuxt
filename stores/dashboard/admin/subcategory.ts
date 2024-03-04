@@ -3,27 +3,29 @@ import type { SubcategoryPaginate, Subcategory, Category, Form, Error } from '~/
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import { useToken } from '~/composables/useToken'
 import { useURLQueryString } from '~/composables/useURLQueryString'
+import type { dashboardQuery } from '~/types/query'
 
 export const useSubcategoryStore = defineStore('subcategory', () => {
   const subcategories = ref<SubcategoryPaginate | null>(null)
   const subcategory = ref<Subcategory | null>(null)
   const categories = ref<Category[] | null>(null)
   const errors = ref<Error | null>(null)
+
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $swal, $router, $toast } = useNuxtApp()
   const { dashboardDefaultQueryString: queryString } = useURLQueryString()
 
-  const getAllSubcategory = async (params) => {
+  const getAllSubcategory = async (query: dashboardQuery | { page: number }): Promise<void> => {
     try {
-      const { generateQueryParams } = useQueryGenerator()
+      const { generateQueryString } = useQueryGenerator()
 
-      const { data } = await $axiosApi.get(`/admin/subcategories?${generateQueryParams(params)}`)
+      const { data } = await $axiosApi.get(`/admin/subcategories?${generateQueryString(query)}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       subcategories.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -31,15 +33,15 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
     }
   }
 
-  const getSubcategory = async (slug: string) => {
+  const getSubcategory = async (slug: string): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/subcategories/${slug}`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       subcategory.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -47,15 +49,15 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
     }
   }
 
-  const getResources = async () => {
+  const getResources = async (): Promise<void> => {
     try {
       const { data } = await $axiosApi.get(`/admin/subcategory-resources`)
 
       if (!data) throw new Error('Response Data Not Found!')
 
       categories.value = data
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -63,7 +65,7 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
     }
   }
 
-  const createSubcategory = async (form: Form, createAnother: boolean) => {
+  const createSubcategory = async (form: Form, createAnother: boolean): Promise<void> => {
     try {
       form.captcha_token = await generateCaptchaToken('create_subcategory')
 
@@ -86,7 +88,7 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
       } else {
         $toast.success('Subcategory created successfully!')
       }
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
@@ -94,11 +96,10 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
   const updateSubcategory = async (form: Form, slug: string) => {
     try {
       form.captcha_token = await generateCaptchaToken('update_subcategory')
-      form._method = 'PATCH'
 
       const response = await $axiosApi.post(
         `/admin/subcategories/${slug}`,
-        { ...form },
+        { ...form, _method: 'PATCH' },
         {
           headers: {
             'Content-Type': 'multipart/form-data'
@@ -111,12 +112,12 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
       $router.push({ path: '/admin/catalogues/subcategories', query: { ...queryString.value } })
 
       $swal.fire({ icon: 'success', title: 'Subcategory updated successfully!' })
-    } catch (error) {
+    } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
   }
 
-  const changeStatus = async (status: boolean, slug: string) => {
+  const changeStatus = async (status: boolean, slug: string): Promise<void> => {
     try {
       const response = await $axiosApi.put(`/admin/subcategories/${slug}/change-status`, {
         status
@@ -124,13 +125,16 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
 
       if (!response) throw new Error('Response Not Found!')
 
-      const index = subcategories.value.data.findIndex((subcategory) => subcategory.slug === slug)
-
-      subcategories.value.data[index] = { ...response.data }
+      if (subcategories.value) {
+        const index = subcategories.value.data.findIndex((subcategory) => subcategory.slug === slug)
+        if (index !== -1) {
+          subcategories.value.data[index] = { ...response.data }
+        }
+      }
 
       $toast.success('Subcategory status changed successfully!')
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
@@ -138,7 +142,7 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
     }
   }
 
-  const deleteSubcategory = async (slug: string) => {
+  const deleteSubcategory = async (slug: string): Promise<void> => {
     try {
       const result = await $swal.fire({
         icon: 'question',
@@ -163,12 +167,16 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
           (subcategory) => subcategory.slug === slug
         )
 
-        if (index !== -1) {
-          subcategories.value?.data.splice(index, 1)
+        if (index !== undefined && index !== -1) {
+          const spliceIndex = index ?? 0
+
+          subcategories.value?.data.splice(spliceIndex, 1)
 
           if (
+            subcategories.value?.meta?.current_page !== undefined &&
+            subcategories.value?.meta?.per_page !== undefined &&
             index >=
-            subcategories.value?.meta?.current_page - 1 * subcategories.value?.meta?.per_page
+              (subcategories.value?.meta?.current_page - 1) * subcategories.value?.meta?.per_page
           ) {
             await getAllSubcategory({ page: subcategories.value?.meta?.current_page })
           }
@@ -178,8 +186,8 @@ export const useSubcategoryStore = defineStore('subcategory', () => {
           $swal.fire({ icon: 'success', title: 'Subcategory deleted successfully!' })
         }
       }
-    } catch (error) {
-      return showError({
+    } catch (error: any) {
+      showError({
         statusCode: error.response?.status,
         statusMessage: error.response?.statusText,
         message: error.response?.data?.message
