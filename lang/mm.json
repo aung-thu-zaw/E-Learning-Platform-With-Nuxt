@@ -97,5 +97,11 @@
     "Your internet connection is restored. Welcome back!": "သင့်အင်တာနက်ချိတ်ဆက်မှုကို ပြန်လည်ရယူထားသည်။ ကြိုဆိုပါတယ်!",
     "You are currently offline. Please check your internet connection.": "သင်သည် လောလောဆယ် အော့ဖ်လိုင်းဖြစ်နေသည်။ သင့်အင်တာနက်ချိတ်ဆက်မှုကို စစ်ဆေးပါ။",
     "Your internet connection is too slow. Please consider connecting to a faster network.": "သင့်အင်တာနက်ချိတ်ဆက်မှုသည် နှေးကွေးလွန်းသည်။ ပိုမိုမြန်ဆန်သောကွန်ရက်သို့ ချိတ်ဆက်ရန် စဉ်းစားပါ။",
-    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "သင့်အင်တာနက်ချိတ်ဆက်မှု နှေးကွေးနေပါသည်။ အကောင်းဆုံးစွမ်းဆောင်ရည်အတွက် ပိုမိုမြန်ဆန်သောကွန်ရက်သို့ ချိတ်ဆက်ရန် စဉ်းစားပါ။"
+    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "သင့်အင်တာနက်ချိတ်ဆက်မှု နှေးကွေးနေပါသည်။ အကောင်းဆုံးစွမ်းဆောင်ရည်အတွက် ပိုမိုမြန်ဆန်သောကွန်ရက်သို့ ချိတ်ဆက်ရန် စဉ်းစားပါ။",
+    "List": "စာရင်း",
+    "Edit": "တည်းဖြတ်ပါ",
+    "Delete": "ဖျက်ပါ",
+    "Go Back": "ပြန်သွားပါ",
+    "Create": "ဖန်တီးပါ",
+    "Nav Banners": "ဆလိုက်ဒါနဖူးစည်းများ"
 }

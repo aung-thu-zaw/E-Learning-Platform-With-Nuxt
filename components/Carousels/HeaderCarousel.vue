@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 
 interface Slider {
   title: string
@@ -34,7 +34,7 @@ onMounted(async () => await getSlider())
 
 <template>
   <header>
-    <Carousel wrapAround autoplay="5000" transition="600">
+    <Carousel wrap-around :autoplay="5000" :transition="600">
       <Slide v-for="slider in sliders" :key="slider?.id">
         <div
           class="flex justify-center h-full bg-gray-100 p-20 w-screen"

@@ -28,6 +28,7 @@ definePageMeta({ layout: 'admin-layout' })
 
 const route = useRoute()
 const store = useNavBannerStore()
+
 const { navBanners } = storeToRefs(store)
 const { dashboardQueryString: queryString } = useURLQueryString()
 
@@ -58,11 +59,14 @@ const getEventStatus = (item: NavBanner) => {
     <!-- Breadcrumb -->
     <div class="flex flex-col items-start md:flex-row md:items-center md:justify-between mb-10">
       <Breadcrumb to="/admin/nav-banners" icon="fa-ad" label="Nav Banners">
-        <BreadcrumbItem label="List" />
+        <BreadcrumbItem :label="$t('List')" />
       </Breadcrumb>
 
       <!-- Create Button -->
-      <div v-show="can('nav-banners.create')" class="flex items-center justify-end mb-3">
+      <div
+        v-show="can('nav-banners.create')"
+        class="flex items-center justify-end mb-3 min-w-[150px]"
+      >
         <NuxtLinkButton to="/admin/nav-banners/create">
           <i class="fa-solid fa-file-circle-plus mr-1"></i>
           Create Banner

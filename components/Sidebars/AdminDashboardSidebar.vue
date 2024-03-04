@@ -11,7 +11,7 @@ defineProps({
 
 const route = useRoute()
 const { dashboardDefaultQueryString } = useURLQueryString()
-const { generateQueryParams } = useQueryGenerator()
+const { generateQueryString } = useQueryGenerator()
 
 const getSidebarMenuActiveColor = (targetRoute: string): string => {
   return route.path.startsWith(targetRoute)
@@ -26,7 +26,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
       'translate-x-0 fixed left-0 top-0 pt-24': collapse,
       '-translate-x-full pt-0': !collapse
     }"
-    class="bg-white text-gray-700 shadow-md h-screen overflow-y-scroll min-w-64 z-10 px-3.5 py-5 transition-all duration-500 border-r border-gray-200 scrollbar"
+    class="bg-white text-gray-700 shadow-md h-screen overflow-y-scroll w-64 z-10 px-3.5 py-5 transition-all duration-500 border-r border-gray-200 scrollbar"
   >
     <div
       class="md:flex-col md:items-stretch md:min-h-full md:flex-nowrap px-0 flex flex-wrap items-center md:justify-between w-full mx-auto"
@@ -76,13 +76,13 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Nav Banner -->
           <li v-show="can('nav-banners.view')" class="items-center">
             <NuxtLink
-              :to="'/admin/nav-banners' + '?' + generateQueryParams(dashboardDefaultQueryString)"
+              :to="'/admin/nav-banners' + '?' + generateQueryString(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/nav-banner')"
             >
               <div class="py-3 block">
                 <i class="fa-solid fa-ad mr-2"></i>
-                {{ $t('Nav Banner') }}
+                {{ $t('Nav Banners') }}
               </div>
             </NuxtLink>
           </li>
@@ -90,7 +90,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Sliders -->
           <li v-show="can('sliders.view')" class="items-center">
             <NuxtLink
-              :to="'/admin/sliders' + '?' + generateQueryParams(dashboardDefaultQueryString)"
+              :to="'/admin/sliders' + '?' + generateQueryString(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/sliders')"
             >
@@ -104,7 +104,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Coupons -->
           <li v-show="can('coupons.view')" class="items-center">
             <NuxtLink
-              :to="'/admin/coupons' + '?' + generateQueryParams(dashboardDefaultQueryString)"
+              :to="'/admin/coupons' + '?' + generateQueryString(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/coupons')"
             >
@@ -178,7 +178,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/catalogues/categories' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/catalogues/categories')"
@@ -191,7 +191,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/catalogues/subcategories' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/catalogues/subcategories')"
@@ -206,7 +206,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Skills -->
           <li v-show="can('tags.view')" class="items-center">
             <NuxtLink
-              :to="'/admin/skill-tags' + '?' + generateQueryParams(dashboardDefaultQueryString)"
+              :to="'/admin/skill-tags' + '?' + generateQueryString(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/skill-tags')"
             >
@@ -220,7 +220,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
           <!-- Courses -->
           <li v-show="can('courses.view')" class="items-center">
             <NuxtLink
-              :to="'/admin/courses' + '?' + generateQueryParams(dashboardDefaultQueryString)"
+              :to="'/admin/courses' + '?' + generateQueryString(dashboardDefaultQueryString)"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
               :class="getSidebarMenuActiveColor('/admin/courses')"
             >
@@ -328,7 +328,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/newsletter/subscribers' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/newsletter/subscribers')"
@@ -412,7 +412,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/manage-blog/categories' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/manage-blog/categories')"
@@ -425,7 +425,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/manage-blog/contents' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/manage-blog/contents')"
@@ -695,7 +695,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/manage-authority/permissions' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/manage-authority/permissions')"
@@ -708,7 +708,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/manage-authority/roles' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="getSidebarMenuActiveColor('/admin/manage-authority/roles')"
@@ -721,7 +721,7 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
                     :to="
                       '/admin/manage-authority/assign-role-permissions' +
                       '?' +
-                      generateQueryParams(dashboardDefaultQueryString)
+                      generateQueryString(dashboardDefaultQueryString)
                     "
                     class="py-3 font-bold block hover:bg-gray-200 rounded-lg px-3"
                     :class="

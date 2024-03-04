@@ -30,8 +30,6 @@ export function useLoadData<T>() {
       new Set([...paginatedData.data, ...allData.value, ...responseData.data])
     )
 
-    console.log(allData.value)
-
     loading.value = false
     newPaginatedData.value = responseData
   }

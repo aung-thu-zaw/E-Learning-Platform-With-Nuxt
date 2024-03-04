@@ -24,11 +24,12 @@ export const useNavBannerStore = defineStore('nav-banner', () => {
 
       navBanners.value = data
     } catch (error: any) {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
+      console.log(error)
+      // showError({
+      //   statusCode: error.response?.status,
+      //   statusMessage: error.response?.statusText,
+      //   message: error.response?.data?.message
+      // })
     }
   }
 

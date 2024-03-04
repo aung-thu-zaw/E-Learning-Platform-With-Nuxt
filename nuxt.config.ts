@@ -42,7 +42,7 @@ export default defineNuxtConfig({
     '~/plugins/network.client.ts'
   ],
   app: {
-    // pageTransition: { name: 'page', mode: 'out-in' },
+    pageTransition: { name: 'page', mode: 'out-in' },
     head: {
       titleTemplate: '%s - Online Learning Platform',
       meta: [
@@ -76,20 +76,20 @@ export default defineNuxtConfig({
       ]
     }
   },
-  router: {
-    extendRoutes(routes, resolve) {
-      routes.push(
-        {
-          path: '/blogs/categories/:category',
-          component: resolve(__dirname, 'pages/blogs/categories/[category].vue')
-        },
-        {
-          path: '/blogs/:slug',
-          component: resolve(__dirname, 'pages/blogs/[slug].vue')
-        }
-      )
-    }
-  },
+  // router: {
+  //   extendRoutes(routes, resolve) {
+  //     routes.push(
+  //       {
+  //         path: '/blogs/categories/:category',
+  //         component: resolve(__dirname, 'pages/blogs/categories/[category].vue')
+  //       },
+  //       {
+  //         path: '/blogs/:slug',
+  //         component: resolve(__dirname, 'pages/blogs/[slug].vue')
+  //       }
+  //     )
+  //   }
+  // },
   runtimeConfig: {
     public: {
       backendBaseUrl: process.env.BACKEND_BASEURL,

@@ -21,6 +21,8 @@ defineProps({
     default: () => 'fa-home'
   }
 })
+
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -28,13 +30,13 @@ defineProps({
     <ol class="inline-flex items-center space-x-1 md:space-x-3">
       <li class="inline-flex items-center text-gray-800 hover:text-yellow-500 duration-150">
         <NuxtLink
-          :to="targetIdentifier ? `${to}/${targetIdentifier}` : to"
+          :to="targetIdentifier ? localePath(`${to}/${targetIdentifier}`) : localePath(to)"
           class="inline-flex items-center text-sm font-bold"
         >
           <span class="mr-2">
             <i class="fa-solid" :class="icon"></i>
           </span>
-          {{ label }}
+          {{ $t(label) }}
         </NuxtLink>
       </li>
       <slot />

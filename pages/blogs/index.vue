@@ -22,7 +22,7 @@ const { allData, newPaginatedData, observeScroll } = useLoadData()
 const { blogPageQueryString } = useURLQueryString()
 
 onMounted(async () => {
-  await store.getBlogs({blogPageQueryString.value})
+  await store.getBlogs(blogPageQueryString.value)
   latestBlog.value = blogs?.value?.data[0] as Blog
   observeScroll(blogs.value, landmark.value)
   store.$patch({ blogs: newPaginatedData.value as BlogPaginate })

@@ -97,5 +97,11 @@
     "Your internet connection is restored. Welcome back!": "Your internet connection is restored. Welcome back!",
     "You are currently offline. Please check your internet connection.": "You are currently offline. Please check your internet connection.",
     "Your internet connection is too slow. Please consider connecting to a faster network.": "Your internet connection is too slow. Please consider connecting to a faster network.",
-    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "Your internet connection is slow. Please consider connecting to a faster network for optimal performance."
+    "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.": "Your internet connection is slow. Please consider connecting to a faster network for optimal performance.",
+    "List": "List",
+    "Edit": "Edit",
+    "Delete": "Delete",
+    "Go Back": "Go Back",
+    "Create": "Create",
+    "Nav Banners": "Nav Banners"
 }
