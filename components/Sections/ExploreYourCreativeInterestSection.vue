@@ -1,6 +1,48 @@
 <script setup lang="ts">
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
 import AddUserInterestSkillModal from '~/components/Modals/AddUserInterestSkillModal.vue'
+import type { Course } from '~/types/browsing'
+
+interface SkillTag {
+  id: number
+  name: string
+}
+
+const followedTags = ref<SkillTag[] | null>(null)
+const selectedTag = ref<SkillTag | null>(null)
+const courses = ref<Course | null>(null)
+
+const { $axiosApi } = useNuxtApp()
+
+const getAllUserInterestedTag = async () => {
+  try {
+    const { data } = await $axiosApi.get('/followed-tags')
+
+    followedTags.value = data
+    handleSelectTag(data[0])
+  } catch (error: any) {
+    console.error(error)
+  }
+}
+
+const getInterestBeginnerCourse = async (tagId: number) => {
+  try {
+    const { data } = await $axiosApi.get(`/courses/interests/${tagId}/beginner`)
+
+    courses.value = data
+
+    console.log(data)
+  } catch (error: any) {
+    console.error(error)
+  }
+}
+
+const handleSelectTag = (tag: SkillTag) => {
+  selectedTag.value = tag
+  getInterestBeginnerCourse(tag?.id)
+}
+
+onMounted(async () => await getAllUserInterestedTag())
 </script>
 
 <template>
@@ -26,66 +68,44 @@ import AddUserInterestSkillModal from '~/components/Modals/AddUserInterestSkillM
       </div>
 
       <div class="bg-gray-200 border px-10 pt-10 rounded-md">
-        <div class="py-5 px-5 md:px-0 mx-auto flex items-center overflow-scroll space-x-2 mb-6">
+        <div class="py-5 px-5 md:px-0 mx-auto flex items-center overflow-scroll mb-6 scrollbar">
           <button
-            class="text-xs font-semibold px-5 py-3 rounded-full mb-2 bg-yellow-500 text-white border border-yellow-500 duration-200 transition-all"
+            v-for="followedTag in followedTags"
+            :key="followedTag?.id"
+            type="button"
+            class="text-xs font-semibold px-5 py-3 rounded-full mr-2 mb-2 text-gray-800 border border-gray-500 duration-200 transition-all w-auto inline-block flex-shrink-0"
+            :class="{
+              'bg-yellow-500 text-white border-yellow-500': followedTag?.id === selectedTag?.id
+            }"
+            @click="handleSelectTag(followedTag)"
           >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
-          </button>
-          <button
-            class="text-xs font-semibold border border-gray-400 px-5 py-3 rounded-full mb-2 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all"
-          >
-            Productivity
+            {{ followedTag?.name }}
           </button>
         </div>
 
         <div class="space-y-3">
-          <h1 class="font-bold text-2xl text-gray-800">Get Started in UI/UX Design</h1>
+          <h1 class="font-bold text-2xl text-gray-800">Get Started in {{ selectedTag?.name }}</h1>
 
           <p class="text-gray-700 text-sm font-medium">
             Check out these great beginner classes or
-            <a href="#" class="text-yellow-600 underline">view more UI/UX Design classes</a>
+            <a href="#" class="text-yellow-600 underline lowercase">
+              view more {{ selectedTag?.name }} classes
+            </a>
           </p>
         </div>
 
         <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
           <div class="grid lg:grid-cols-3 gap-5">
-            <!-- <VideoCourseCard />
-            <VideoCourseCard />
-            <VideoCourseCard /> -->
+            <VideoCourseCard v-for="course in courses" :key="course?.id" :course="course" />
           </div>
         </div>
       </div>
     </div>
   </section>
 </template>
+
+<style scoped>
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
+</style>
