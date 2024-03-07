@@ -28,6 +28,7 @@ import AppLayout from '~/layouts/AppLayout.vue'
 
         <div class="max-w-[85rem] py-10 lg:py-14 mx-auto">
           <div class="grid lg:grid-cols-3 gap-5">
+            <!-- <LearningPathCollectionCard />
             <LearningPathCollectionCard />
             <LearningPathCollectionCard />
             <LearningPathCollectionCard />
@@ -36,8 +37,7 @@ import AppLayout from '~/layouts/AppLayout.vue'
             <LearningPathCollectionCard />
             <LearningPathCollectionCard />
             <LearningPathCollectionCard />
-            <LearningPathCollectionCard />
-            <LearningPathCollectionCard />
+            <LearningPathCollectionCard /> -->
           </div>
         </div>
       </div>

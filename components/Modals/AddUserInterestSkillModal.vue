@@ -122,7 +122,7 @@ watch(
     </button>
 
     <Modal :show="confirmingAddMoreInterest" @close="closeModal">
-      <div class="p-6">
+      <div class="p-6 bg-white rounded-md max-w-[700px] mx-auto">
         <div class="flex items-center justify-between">
           <h2 class="text-md font-bold text-gray-800">
             <i class="fa-solid fa-tag"></i>

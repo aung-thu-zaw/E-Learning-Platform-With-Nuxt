@@ -3,12 +3,13 @@ import UserDropdown from '~/components/Dropdowns/UserDropdown.vue'
 import { useAuthStore } from '~/stores/auth'
 import { useBrowsingStore } from '~/stores/e-learning/browsing'
 import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
+import ELearningSearchModal from '~/components/Modals/ELearningSearchModal.vue'
 
 const route = useRoute()
 const store = useBrowsingStore()
 const { user } = storeToRefs(useAuthStore())
 const { categories, subcategories } = storeToRefs(store)
-const localPath = useLocalePath()
+const localePath = useLocalePath()
 
 onMounted(async () => await store.getBrowsingResources())
 </script>
@@ -22,15 +23,11 @@ onMounted(async () => await store.getBrowsingResources())
       aria-label="Global"
     >
       <div class="flex items-center justify-between md:w-auto min-w-[200px] w-full">
-        <NuxtLink :to="localPath('/')" class="flex-none text-xl font-bold text-gray-800">
+        <NuxtLink :to="localePath('/')" class="flex-none text-xl font-bold text-gray-800">
           E-Learning Platform
         </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
-          <button
-            class="flex font-bold text-xs bg-yellow-500 border-2 shadow border-yellow-200 p-3 text-white rounded-full w-8 h-8 items-center justify-center hover:cursor-pointer hover:bg-yellow-400 transition-all"
-          >
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </button>
+          <ELearningSearchModal />
 
           <button
             type="button"
@@ -91,7 +88,7 @@ onMounted(async () => await store.getBrowsingResources())
           class="flex flex-col gap-5 mt-5 md:flex-row md:items-center md:justify-end md:mt-0 md:ps-5 w-auto text-md md:space-x-4"
         >
           <NuxtLink
-            :to="localPath('/learning-paths')"
+            :to="localePath('/learning-paths')"
             class="font-bold text-gray-800 hover:text-gray-600 duration-200"
             :class="{
               'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/learning-paths')
@@ -105,7 +102,7 @@ onMounted(async () => await store.getBrowsingResources())
           </a>
 
           <NuxtLink
-            :to="localPath('/blogs')"
+            :to="localePath('/blogs')"
             class="font-bold text-gray-800 hover:text-gray-600 duration-200"
             :class="{
               'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/blogs')
@@ -187,11 +184,7 @@ onMounted(async () => await store.getBrowsingResources())
           </div>
 
           <div class="flex items-center space-x-3">
-            <button
-              class="flex font-bold p-3 text-gray-700 rounded-full w-10 h-10 items-center justify-center hover:cursor-pointer hover:bg-gray-200 transition-all"
-            >
-              <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
+            <ELearningSearchModal />
 
             <LanguageDropdown />
 
@@ -209,7 +202,7 @@ onMounted(async () => await store.getBrowsingResources())
           >
             <NuxtLink
               v-if="!user"
-              :to="localPath('/auth/sign-in')"
+              :to="localePath('/auth/sign-in')"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
               <i class="fa-solid fa-right-to-bracket mr-1"></i>

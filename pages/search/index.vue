@@ -50,9 +50,9 @@ definePageMeta({ layout: 'app-layout' })
 
         <div class="max-w-[85rem] mx-auto">
           <div class="grid lg:grid-cols-3 gap-5">
+            <!-- <LearningPathCollectionCard />
             <LearningPathCollectionCard />
-            <LearningPathCollectionCard />
-            <LearningPathCollectionCard />
+            <LearningPathCollectionCard /> -->
           </div>
         </div>
       </div>
@@ -81,6 +81,7 @@ definePageMeta({ layout: 'app-layout' })
 
         <div class="max-w-[85rem] mx-auto">
           <div class="grid lg:grid-cols-3 gap-5">
+            <!-- <VideoCourseCard />
             <VideoCourseCard />
             <VideoCourseCard />
             <VideoCourseCard />
@@ -106,8 +107,7 @@ definePageMeta({ layout: 'app-layout' })
             <VideoCourseCard />
             <VideoCourseCard />
             <VideoCourseCard />
-            <VideoCourseCard />
-            <VideoCourseCard />
+            <VideoCourseCard /> -->
           </div>
         </div>
       </div>

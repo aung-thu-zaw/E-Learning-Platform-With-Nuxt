@@ -3,6 +3,7 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
 import type { LearningPath } from '~/types/learningPath'
 
 const learningPaths = ref<LearningPath[] | null>(null)
+const localePath = useLocalePath()
 
 const { $axiosApi } = useNuxtApp()
 
@@ -38,12 +39,13 @@ onMounted(async () => await getRecommendedLearningPaths())
           </p>
         </div>
 
-        <button
+        <NuxtLink
+          :to="localePath('/learning-paths')"
           class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press"
         >
           {{ $t('View All Learning Paths') }}
           <i class="fa-solid fa-arrow-right ml-3"></i>
-        </button>
+        </NuxtLink>
       </div>
 
       <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
