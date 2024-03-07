@@ -6,7 +6,7 @@ const courses = ref<Course[] | null>(null)
 
 const { $axiosApi } = useNuxtApp()
 
-const getNewAndPopularCourses = async () => {
+const getRecommendedCourseForUserInterest = async () => {
   try {
     const { data } = await $axiosApi.get(`/courses/recommended-for-user-interest`)
 
@@ -20,7 +20,7 @@ const getNewAndPopularCourses = async () => {
   }
 }
 
-onMounted(async () => await getNewAndPopularCourses())
+onMounted(async () => await getRecommendedCourseForUserInterest())
 </script>
 
 <template>

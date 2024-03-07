@@ -1,5 +1,26 @@
 <script setup lang="ts">
 import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectionCard.vue'
+import type { LearningPath } from '~/types/learningPath'
+
+const learningPaths = ref<LearningPath[] | null>(null)
+
+const { $axiosApi } = useNuxtApp()
+
+const getRecommendedLearningPaths = async () => {
+  try {
+    const { data } = await $axiosApi.get(`/learning-paths/recommended`)
+
+    learningPaths.value = data
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+onMounted(async () => await getRecommendedLearningPaths())
 </script>
 
 <template>
@@ -27,9 +48,11 @@ import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectio
 
       <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
         <div class="grid lg:grid-cols-3 gap-5">
-          <!-- <LearningPathCollectionCard />
-          <LearningPathCollectionCard />
-          <LearningPathCollectionCard /> -->
+          <LearningPathCollectionCard
+            v-for="learningPath in learningPaths"
+            :key="learningPath?.id"
+            :learning-path="learningPath"
+          />
         </div>
       </div>
     </div>
