@@ -24,7 +24,7 @@ onMounted(async () => await getNewAndPopularCourses())
 </script>
 
 <template>
-  <section class="py-10">
+  <section v-show="courses?.length" class="py-10">
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5">
         <div class="space-y-3">
@@ -43,7 +43,7 @@ onMounted(async () => await getNewAndPopularCourses())
         </div>
       </div>
 
-      <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
+      <div class="py-10 px-5 md:px-0 mx-auto">
         <NewAndPopularCourseCarousel :courses="courses" />
       </div>
     </div>

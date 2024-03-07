@@ -1,5 +1,26 @@
 <script setup lang="ts">
-import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
+import RecommendedCourseForYouCarousel from '~/components/Carousels/RecommendedCourseForYouCarousel.vue'
+import type { Course } from '~/types/browsing'
+
+const courses = ref<Course[] | null>(null)
+
+const { $axiosApi } = useNuxtApp()
+
+const getNewAndPopularCourses = async () => {
+  try {
+    const { data } = await $axiosApi.get(`/courses/recommended-for-user-interest`)
+
+    courses.value = data
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+onMounted(async () => await getNewAndPopularCourses())
 </script>
 
 <template>
@@ -22,12 +43,8 @@ import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
         </div>
       </div>
 
-      <div class="py-10 px-5 md:px-0 lg:py-14 mx-auto">
-        <div class="grid lg:grid-cols-3 gap-5">
-          <!-- <VideoCourseCard />
-          <VideoCourseCard />
-          <VideoCourseCard /> -->
-        </div>
+      <div class="py-10 px-5 md:px-0 mx-auto">
+        <RecommendedCourseForYouCarousel :courses="courses" />
       </div>
     </div>
   </section>

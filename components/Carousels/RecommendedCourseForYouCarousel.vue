@@ -8,7 +8,7 @@ let defaultTransform = 0
 
 const goNext = () => {
   defaultTransform = defaultTransform - 398
-  const videoCarousel = document.getElementById('new-and-popular-carousel')
+  const videoCarousel = document.getElementById('recommended-course-carousel')
   if (videoCarousel) {
     if (Math.abs(defaultTransform) >= videoCarousel.scrollWidth / 1.7) defaultTransform = 0
     videoCarousel.style.transform = 'translateX(' + defaultTransform + 'px)'
@@ -16,7 +16,7 @@ const goNext = () => {
 }
 
 const goPrev = () => {
-  const videoCarousel = document.getElementById('new-and-popular-carousel')
+  const videoCarousel = document.getElementById('recommended-course-carousel')
   if (videoCarousel) {
     if (Math.abs(defaultTransform) === 0) defaultTransform = 0
     else defaultTransform = defaultTransform + 398
@@ -50,7 +50,7 @@ const goPrev = () => {
 
       <div class="w-full h-full mx-auto overflow-x-hidden overflow-y-hidden rounded-md">
         <div
-          id="new-and-popular-carousel"
+          id="recommended-course-carousel"
           class="h-full flex gap-5 items-center justify-start transition ease-out duration-700"
         >
           <div
