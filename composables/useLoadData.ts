@@ -31,6 +31,7 @@ export function useLoadData<T>() {
     )
 
     loading.value = false
+
     newPaginatedData.value = responseData
   }
 
