@@ -6,11 +6,23 @@ import type { Course } from '~/types/browsing'
 interface SkillTag {
   id: number
   name: string
+  slug: string
+  category: {
+    id: number
+    name: string
+    slug: string
+  }
+  subcategory: {
+    id: number
+    name: string
+    slug: string
+  }
 }
 
 const followedTags = ref<SkillTag[] | null>(null)
 const selectedTag = ref<SkillTag | null>(null)
 const courses = ref<Course | null>(null)
+const localePath = useLocalePath()
 
 const { $axiosApi } = useNuxtApp()
 
@@ -86,9 +98,16 @@ onMounted(async () => await getAllUserInterestedTag())
 
           <p class="text-gray-700 text-sm font-medium">
             Check out these great beginner classes or
-            <a href="#" class="text-yellow-600 underline lowercase">
-              view more {{ selectedTag?.name }} classes
-            </a>
+            <NuxtLink
+              :to="
+                localePath(
+                  `/browse/${selectedTag?.subcategory?.slug}?tag=${selectedTag?.slug}&page=1`
+                )
+              "
+              class="text-yellow-600 underline lowercase"
+            >
+              view more {{ selectedTag?.name }} courses
+            </NuxtLink>
           </p>
         </div>
 
