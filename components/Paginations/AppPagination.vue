@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
-import type { CoursePaginate } from '~/types/browsing'
 import axios from 'axios'
 
-defineProps<{ data: CoursePaginate }>()
+defineProps<{ data: any }>()
 
 const route = useRoute()
 const router = useRouter()

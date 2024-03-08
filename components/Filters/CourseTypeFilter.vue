@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const localePath = useLocalePath()
+const query = useRoute().query?.query?.toString()
+</script>
 
 <template>
   <div class="mt-1 mx-1 sm:mt-1 hs-dropdown relative sm:inline-flex z-20 [--auto-close:inside]">
@@ -29,15 +32,26 @@
       class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden bg-white shadow-md rounded-lg p-2 mt-2"
       aria-labelledby="hs-dropdown-auto-close-inside"
     >
-      <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-        <span class="mt-1 block text-sm font-semibold text-gray-800">All</span>
-      </div>
-      <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-        <span class="mt-1 block text-sm font-semibold text-gray-800">Courses</span>
-      </div>
-      <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-        <span class="mt-1 block text-sm font-semibold text-gray-800">Learning Paths</span>
-      </div>
+      <NuxtLink
+        :to="localePath(`/search?query=${query}`)"
+        class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
+      >
+        <span class="mt-1 block text-sm font-semibold text-gray-800"> All </span>
+      </NuxtLink>
+
+      <NuxtLink
+        :to="localePath(`/search/courses?query=${query}`)"
+        class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
+      >
+        <span class="mt-1 block text-sm font-semibold text-gray-800"> Courses </span>
+      </NuxtLink>
+
+      <NuxtLink
+        :to="localePath(`/search/learning-paths?query=${query}`)"
+        class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
+      >
+        <span class="mt-1 block text-sm font-semibold text-gray-800"> Learning Paths </span>
+      </NuxtLink>
     </div>
   </div>
 </template>

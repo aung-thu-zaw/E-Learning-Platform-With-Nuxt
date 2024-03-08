@@ -3,6 +3,17 @@ export interface BlogPageQuery {
   page?: number
 }
 
+export interface SearchQuery {
+  query?: string | undefined
+  page?: number
+  level?: string | undefined
+  with?: string | undefined
+  published_date?: string | undefined
+  duration?: string | undefined
+  language?: string | undefined
+  rating?: string | undefined
+}
+
 export interface BrowseCourseQuery {
   search?: string | undefined
   page?: number

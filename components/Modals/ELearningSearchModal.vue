@@ -3,14 +3,10 @@ import Modal from '~/components/ModalContainer.vue'
 import ELearningSearchBox from '~/components/Forms/SearchBoxs/ELearningSearchBox.vue'
 
 const confirmingSearch = ref(false)
-const search = ref<string>('')
 
 const confirmSearch = () => (confirmingSearch.value = true)
 
-const closeModal = () => {
-  confirmingSearch.value = false
-  search.value = ''
-}
+const closeModal = () => (confirmingSearch.value = false)
 </script>
 
 <template>
@@ -25,7 +21,7 @@ const closeModal = () => {
 
     <Modal :show="confirmingSearch" @close="closeModal">
       <div class="max-w-[700px] mx-auto">
-        <ELearningSearchBox />
+        <ELearningSearchBox @updated-search="confirmingSearch = false" />
       </div>
 
       <div class="my-5 p-5 bg-white rounded-md shadow-xl">

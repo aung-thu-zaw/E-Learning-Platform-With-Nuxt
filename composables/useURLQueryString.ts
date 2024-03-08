@@ -1,6 +1,6 @@
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
-import type { BlogPageQuery, BrowseCourseQuery, dashboardQuery } from '~/types/query'
+import type { BlogPageQuery, BrowseCourseQuery, dashboardQuery, SearchQuery } from '~/types/query'
 
 type QueryString = string | undefined
 
@@ -10,6 +10,17 @@ export function useURLQueryString() {
   const blogPageQueryString = computed<BlogPageQuery>(() => ({
     query: route.query?.query as QueryString,
     page: parseInt(route.query.page as string) || 1
+  }))
+
+  const searchQueryString = computed<SearchQuery>(() => ({
+    query: route.query?.query as QueryString,
+    page: parseInt(route.query.page as string) || 1,
+    level: route.query?.level as QueryString,
+    with: route.query?.with as QueryString,
+    published_date: route.query?.published_date as QueryString,
+    duration: route.query?.duration as QueryString,
+    language: route.query?.language as QueryString,
+    rating: route.query?.rating as QueryString
   }))
 
   const browseCourseQueryString = computed<BrowseCourseQuery>(() => ({
@@ -37,6 +48,7 @@ export function useURLQueryString() {
   }))
 
   return {
+    searchQueryString,
     blogPageQueryString,
     dashboardQueryString,
     browseCourseQueryString,

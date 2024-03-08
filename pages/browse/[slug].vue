@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
-import Pagination from '~/components/Paginations/CoursePagination.vue'
+import Pagination from '~/components/Paginations/AppPagination.vue'
 import SubcategoryDescriptionCard from '~/components/Cards/SubcategoryDescriptionCard.vue'
 import BrowseCourseSearchBox from '~/components/Filters/BrowseCourseSearchBox.vue'
 import BrowseCourseFilterBy from '~/components/Filters/BrowseCourseFilterBy.vue'

@@ -30,8 +30,6 @@ const getInterestBeginnerCourse = async (tagId: number) => {
     const { data } = await $axiosApi.get(`/courses/interests/${tagId}/beginner`)
 
     courses.value = data
-
-    console.log(data)
   } catch (error: any) {
     console.error(error)
   }

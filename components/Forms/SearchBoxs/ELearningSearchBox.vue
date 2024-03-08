@@ -1,17 +1,26 @@
 <script setup lang="ts">
+import { useURLQueryString } from '~/composables/useURLQueryString'
+
 const route = useRoute()
 const router = useRouter()
 const search = ref<string | undefined>(route.query?.query as string | undefined)
 const emit = defineEmits(['updatedSearch'])
 
+const { searchQueryString } = useURLQueryString()
+
 const handleSearch = () => {
   if (search.value) {
-    router.push({ path: '/blogs/search', query: { page: 1, query: search.value } })
+    router.push({ path: '/search', query: { ...searchQueryString.value, query: search.value } })
   } else {
-    router.push({ path: '/blogs' })
+    router.push({ path: '/' })
   }
-  emit('updatedSearch')
+  emit('updatedSearch', false)
 }
+
+watch(
+  () => route.query,
+  async () => await handleSearch()
+)
 </script>
 
 <template>
@@ -43,6 +52,7 @@ const handleSearch = () => {
         class="block w-full p-5 pl-10 text-sm text-gray-800 font-semibold border border-gray-300 bg-gray-50 rounded-lg shadow-xl focus:ring-0 focus:outline-none focus:border-gray-300"
         placeholder="Search for courses, skill tags and instructors"
         autocomplete="off"
+        autofocus
       />
       <button
         type="submit"
