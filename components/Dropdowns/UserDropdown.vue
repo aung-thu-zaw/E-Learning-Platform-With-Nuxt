@@ -5,10 +5,12 @@ const route = useRoute()
 const store = useAuthStore()
 const localePath = useLocalePath()
 const { user } = storeToRefs(store)
+
+onMounted(async () => await store.getAuthenticatedUser())
 </script>
 
 <template>
-  <div class="hs-dropdown relative inline-flex">
+  <div v-if="user" class="hs-dropdown relative inline-flex">
     <button
       id="hs-dropdown-slideup-animation"
       type="button"

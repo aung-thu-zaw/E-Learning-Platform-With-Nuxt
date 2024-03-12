@@ -87,6 +87,7 @@ export const useAuthStore = defineStore('auth', () => {
   const getAuthenticatedUser = async (): Promise<void> => {
     try {
       await generateCsrfToken()
+
       const { data } = await $axios.get('api/v1/user')
 
       if (data.permissions.length > 0) {

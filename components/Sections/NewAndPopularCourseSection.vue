@@ -24,7 +24,7 @@ onMounted(async () => await getNewAndPopularCourses())
 </script>
 
 <template>
-  <section v-show="courses?.length" class="py-10">
+  <section v-if="courses?.length" class="py-10">
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5">
         <div class="space-y-3">

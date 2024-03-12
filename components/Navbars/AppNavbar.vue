@@ -7,7 +7,7 @@ import ELearningSearchModal from '~/components/Modals/ELearningSearchModal.vue'
 
 const route = useRoute()
 const store = useBrowsingStore()
-const { user } = storeToRefs(useAuthStore())
+const { isAuthenticated } = storeToRefs(useAuthStore())
 const { categories, subcategories } = storeToRefs(store)
 const localePath = useLocalePath()
 
@@ -111,6 +111,16 @@ onMounted(async () => await store.getBrowsingResources())
             {{ $t('Blogs') }}
           </NuxtLink>
 
+          <NuxtLink
+            :to="localePath('/')"
+            class="font-bold text-gray-800 hover:text-gray-600 duration-200"
+            :class="{
+              'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/')
+            }"
+          >
+            {{ $t('Pricing') }}
+          </NuxtLink>
+
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
             <button
               type="button"
@@ -201,7 +211,7 @@ onMounted(async () => await store.getBrowsingResources())
             class="flex items-center justify-start font-bold text-gray-300 hover:text-gray-300 space-x-3"
           >
             <NuxtLink
-              v-if="!user"
+              v-if="!isAuthenticated"
               :to="localePath('/auth/sign-in')"
               class="text-xs rounded-md font-semibold border border-yellow-500 px-4 py-2.5 text-yellow-500 hover:bg-yellow-500 hover:text-white transition-all"
             >
@@ -209,7 +219,7 @@ onMounted(async () => await store.getBrowsingResources())
               {{ $t('Sign In') }}
             </NuxtLink>
 
-            <UserDropdown v-if="user" />
+            <UserDropdown v-else />
 
             <!-- <button
               type="button"

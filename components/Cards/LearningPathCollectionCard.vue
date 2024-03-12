@@ -1,7 +1,60 @@
 <script setup lang="ts">
 import type { LearningPath } from '~/types/learningPath'
 
-defineProps<{ learningPath: LearningPath }>()
+const props = defineProps<{ learningPath: LearningPath }>()
+
+const isSaved = ref<boolean>(false)
+const store = useMyCourseStore()
+
+const { $axiosApi, $toast } = useNuxtApp()
+const { learningPaths } = storeToRefs(store)
+
+const savedLearningPathToList = async (slug: string) => {
+  try {
+    const { data } = await $axiosApi.post(`/learning-paths/${slug}/save`)
+
+    isSaved.value = true
+
+    $toast.success(data.message)
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const removeLearningPathFromList = async (slug: string) => {
+  try {
+    const { data } = await $axiosApi.delete(`/learning-paths/${slug}/remove`)
+
+    isSaved.value = false
+
+    $toast.success(data.message)
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const checkLearningPathIsSaved = (learningPathId: number): boolean | void => {
+  if (!learningPaths.value?.data?.length) return false
+
+  isSaved.value = learningPaths.value?.data?.some(
+    (learningPath) => learningPath.id === learningPathId
+  )
+}
+
+onMounted(() => checkLearningPathIsSaved(props.learningPath?.id))
+
+watch(
+  () => learningPaths.value,
+  () => checkLearningPathIsSaved(props.learningPath?.id)
+)
 </script>
 
 <template>
@@ -34,9 +87,21 @@ defineProps<{ learningPath: LearningPath }>()
           </p>
         </div>
         <div>
-          <span class="cursor-pointer">
-            <i class="fa-regular fa-bookmark"></i>
-          </span>
+          <button
+            type="button"
+            @click="
+              isSaved
+                ? removeLearningPathFromList(learningPath?.slug)
+                : savedLearningPathToList(learningPath?.slug)
+            "
+          >
+            <span v-if="isSaved" class="text-yellow-500">
+              <i class="fa-solid fa-bookmark"></i>
+            </span>
+            <span v-else class="text-gray-600">
+              <i class="fa-regular fa-bookmark"></i>
+            </span>
+          </button>
         </div>
       </div>
     </div>

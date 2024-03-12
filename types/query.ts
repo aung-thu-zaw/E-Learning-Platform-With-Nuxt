@@ -14,6 +14,13 @@ export interface SearchQuery {
   rating?: string | undefined
 }
 
+export interface myCourseQuery {
+  page?: number
+  skill?: string | undefined
+  duration?: string | undefined
+  status?: string | undefined
+}
+
 export interface BrowseCourseQuery {
   search?: string | undefined
   page?: number

@@ -1,7 +1,59 @@
 <script setup lang="ts">
+import { useMyCourseStore } from '~/stores/user/myCourse'
 import type { Course } from '~/types/browsing'
 
-defineProps<{ course: Course }>()
+const props = defineProps<{ course: Course }>()
+
+const isSaved = ref<boolean>(false)
+const store = useMyCourseStore()
+
+const { $axiosApi, $toast } = useNuxtApp()
+const { courses } = storeToRefs(store)
+
+const savedCourseToList = async (courseUUID: string) => {
+  try {
+    const { data } = await $axiosApi.post(`/courses/${courseUUID}/save`)
+
+    isSaved.value = true
+
+    $toast.success(data.message)
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const removeCourseFromList = async (courseUUID: string) => {
+  try {
+    const { data } = await $axiosApi.delete(`/courses/${courseUUID}/remove`)
+
+    isSaved.value = false
+
+    $toast.success(data.message)
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const checkCourseIsSaved = (courseId: number): boolean | void => {
+  if (!courses.value?.data?.length) return false
+
+  isSaved.value = courses.value?.data?.some((course) => course.id === courseId)
+}
+
+onMounted(() => checkCourseIsSaved(props.course?.id))
+
+watch(
+  () => courses.value,
+  () => checkCourseIsSaved(props.course?.id)
+)
 </script>
 
 <template>
@@ -25,10 +77,19 @@ defineProps<{ course: Course }>()
             {{ course?.instructor?.name }}
           </span>
         </div>
+
         <div>
-          <span class="cursor-pointer">
-            <i class="fa-regular fa-bookmark"></i>
-          </span>
+          <button
+            type="button"
+            @click="isSaved ? removeCourseFromList(course?.uuid) : savedCourseToList(course?.uuid)"
+          >
+            <span v-if="isSaved" class="text-yellow-500">
+              <i class="fa-solid fa-bookmark"></i>
+            </span>
+            <span v-else class="text-gray-600">
+              <i class="fa-regular fa-bookmark"></i>
+            </span>
+          </button>
         </div>
       </div>
 
