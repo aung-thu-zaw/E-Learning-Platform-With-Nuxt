@@ -26,6 +26,7 @@
     "pinia": "^2.1.7",
     "plyr": "^3.7.8",
     "preline": "^2.0.3",
+    "@stripe/stripe-js": "^1.52.1",
     "sweetalert2": "^11.10.5",
     "vue": "^3.4.15",
     "vue-eslint-parser": "^9.4.2",

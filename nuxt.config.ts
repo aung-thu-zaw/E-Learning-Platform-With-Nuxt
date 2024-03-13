@@ -91,11 +91,19 @@ export default defineNuxtConfig({
   //   }
   // },
   runtimeConfig: {
+    private: {
+      stripe: {
+        STRIPE_SECRET: process.env.STRIPE_SECRET
+      }
+    },
     public: {
       backendBaseUrl: process.env.BACKEND_BASEURL,
       backendApiBaseUrl: process.env.BACKEND_API_BASEURL,
       recaptcha: {
         siteKey: process.env.GOOGLE_RECAPTCHA_SITE_KEY
+      },
+      stripe: {
+        STRIPE_KEY: process.env.STRIPE_KEY
       }
     }
   }
