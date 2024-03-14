@@ -118,6 +118,15 @@ const handleSubmit = async () => {
         ></div>
       </div>
       <div id="card-errors" role="alert" class="text-red-600"></div>
+
+      <div class="flex items-end justify-end">
+        <button
+          type="submit"
+          class="bg-yellow-500 hover:bg-yellow-600 duration-200 text-white font-bold text-xs px-5 py-2.5 rounded-sm active:animate-press"
+        >
+          Start Your 7 Days Free Trial
+        </button>
+      </div>
     </form>
   </div>
 </template>

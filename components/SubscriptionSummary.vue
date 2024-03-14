@@ -17,17 +17,10 @@
         </div>
       </div>
 
-      <div class="flex items-start justify-between pt-4 text-xl font-bold text-gray-800 mb-10">
+      <div class="flex items-start justify-between pt-4 text-xl font-bold text-gray-800">
         <p>Today's Total</p>
         <p>$ 0.00</p>
       </div>
-
-      <button
-        type="button"
-        class="bg-yellow-500 hover:bg-yellow-600 duration-200 text-white font-bold text-sm px-5 py-2.5 rounded-sm active:animate-press"
-      >
-        Start Your 7 Days Free Trial
-      </button>
 
       <div class="my-10 text-xs text-gray-600 space-y-2.5">
         <p>

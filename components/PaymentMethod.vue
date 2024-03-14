@@ -1,5 +1,17 @@
 <script setup lang="ts">
-// Your Code
+const selectedMethod = ref<string | null>(null)
+const emit = defineEmits(['paymentSelected'])
+
+const emitPaymentSelection = () => {
+  if (selectedMethod.value !== null) emit('paymentSelected', selectedMethod.value)
+}
+
+onMounted(() => {
+  if (!selectedMethod.value) {
+    selectedMethod.value = 'paypal'
+    emit('paymentSelected', 'paypal')
+  }
+})
 </script>
 
 <template>
@@ -12,10 +24,13 @@
           class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <input
-            id="hs-radio-payment"
+            id="hs-radio-paypal"
+            v-model="selectedMethod"
             type="radio"
-            name="hs-radio-payment"
+            name="hs-radio-paypal"
             class="shrink-0 mt-0.5 border-gray-200 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
+            value="paypal"
+            @change="emitPaymentSelection"
           />
           <div class="space-y-3">
             <div class="ms-3">
@@ -28,14 +43,17 @@
         </label>
 
         <label
-          for="hs-radio-payment"
+          for="hs-radio-card"
           class="flex p-3 w-full bg-white border border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500"
         >
           <input
-            id="hs-radio-payment"
+            id="hs-radio-card"
+            v-model="selectedMethod"
             type="radio"
-            name="hs-radio-payment"
+            name="hs-radio-card"
             class="shrink-0 mt-0.5 border-gray-200 rounded-full text-yellow-600 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
+            value="card"
+            @change="emitPaymentSelection"
           />
           <div class="space-y-3">
             <div class="ms-3">

@@ -12,8 +12,10 @@ useHead({ title: 'Checkout' })
 const localePath = useLocalePath()
 
 const selectedPlan = ref<string | null>(null)
+const selectedPayment = ref<string | null>(null)
 
 const handlePlanSelection = (plan: string) => (selectedPlan.value = plan)
+const handlePaymentSelection = (paymentMethod: string) => (selectedPayment.value = paymentMethod)
 </script>
 
 <template>
@@ -45,11 +47,11 @@ const handlePlanSelection = (plan: string) => (selectedPlan.value = plan)
 
           <SubscriptionPlan @plan-selected="handlePlanSelection" />
 
-          <PaymentMethod />
+          <PaymentMethod @payment-selected="handlePaymentSelection" />
 
           <hr />
 
-          <div>
+          <div v-if="selectedPayment === 'card'">
             <div v-if="selectedPlan">
               <StripeForm :plan="selectedPlan" />
             </div>
@@ -58,6 +60,20 @@ const handlePlanSelection = (plan: string) => (selectedPlan.value = plan)
                 You need to select plan first.
               </p>
             </div>
+          </div>
+          <div v-if="selectedPayment === 'paypal'" class="flex items-center justify-between">
+            <div>
+              <h1 class="font-bold text-lg text-gray-800">PayPal</h1>
+
+              <p class="text-xs">Start your free 7 days by using PayPal Checkout.</p>
+            </div>
+
+            <button
+              type="submit"
+              class="bg-yellow-500 hover:bg-yellow-600 duration-200 text-white font-bold text-xs px-5 py-2.5 rounded-sm active:animate-press"
+            >
+              Checkout with Paypal
+            </button>
           </div>
 
           <div class="space-y-3">

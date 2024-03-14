@@ -482,30 +482,30 @@ const getSidebarMenuActiveColor = (targetRoute: string): string => {
             </NuxtLink>
           </li>
 
-          <!-- User Subscriptions -->
+          <!-- Subscribed Users -->
           <li class="items-center">
             <NuxtLink
               to="/"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
-              :class="getSidebarMenuActiveColor('/admin/user-subscriptions')"
+              :class="getSidebarMenuActiveColor('/admin/subscribed Users')"
             >
               <div class="py-3 block">
                 <i class="fas fa-users-cog mr-2" />
-                {{ $t('User Subscriptions') }}
+                {{ $t('Subscribed Users') }}
               </div>
             </NuxtLink>
           </li>
 
-          <!-- Payment Processing -->
+          <!-- Payment Transitions -->
           <li class="items-center">
             <NuxtLink
               to="/"
               class="flex h-12 cursor-pointer items-center truncate rounded-lg py-3 outline-none hover:bg-gray-200 px-3"
-              :class="getSidebarMenuActiveColor('/admin/payment-processing')"
+              :class="getSidebarMenuActiveColor('/admin/payment-transitions')"
             >
               <div class="py-3 block">
                 <i class="fas fa-money-check-alt mr-2" />
-                {{ $t('Payment Processing') }}
+                {{ $t('Payment Transitions') }}
               </div>
             </NuxtLink>
           </li>

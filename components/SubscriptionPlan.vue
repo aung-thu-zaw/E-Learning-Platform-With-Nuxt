@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
 const options = [
   { label: 'Monthly', value: 'price_1Otm2nLOhkUjdRduKZO6l8FK', price: 'US$10.00/month' },
   {
