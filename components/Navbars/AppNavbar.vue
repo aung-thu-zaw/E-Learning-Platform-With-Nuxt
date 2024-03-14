@@ -111,16 +111,6 @@ onMounted(async () => await store.getBrowsingResources())
             {{ $t('Blogs') }}
           </NuxtLink>
 
-          <NuxtLink
-            :to="localePath('/')"
-            class="font-bold text-gray-800 hover:text-gray-600 duration-200"
-            :class="{
-              'text-yellow-500 hover:text-yellow-600': route.fullPath.startsWith('/')
-            }"
-          >
-            {{ $t('Pricing') }}
-          </NuxtLink>
-
           <div class="hs-dropdown [--strategy:static] sm:[--strategy:absolute] [--adaptive:none]">
             <button
               type="button"

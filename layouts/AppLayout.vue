@@ -15,6 +15,7 @@ onMounted(async () => {
   await authStore.getAuthenticatedUser()
 
   if (authStore.isAuthenticated) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
     await myCourseStore.getAllSavedCourse({ ...myCourseQueryString.value })
     await myCourseStore.getAllSavedLearningPath({ ...myCourseQueryString.value })
   }

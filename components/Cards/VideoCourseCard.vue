@@ -18,11 +18,15 @@ const savedCourseToList = async (courseUUID: string) => {
 
     $toast.success(data.message)
   } catch (error: any) {
-    showError({
-      statusCode: error.response?.status,
-      statusMessage: error.response?.statusText,
-      message: error.response?.data?.message
-    })
+    if (error.response?.status === 401) {
+      return useRouter().push({ path: '/auth/sign-in' })
+    } else {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
+    }
   }
 }
 
@@ -34,11 +38,15 @@ const removeCourseFromList = async (courseUUID: string) => {
 
     $toast.success(data.message)
   } catch (error: any) {
-    showError({
-      statusCode: error.response?.status,
-      statusMessage: error.response?.statusText,
-      message: error.response?.data?.message
-    })
+    if (error.response?.status === 401) {
+      return useRouter().push({ path: '/auth/sign-in' })
+    } else {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
+    }
   }
 }
 

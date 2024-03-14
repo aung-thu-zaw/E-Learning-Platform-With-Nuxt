@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
+import { useAuthStore } from '~/stores/auth'
 import { useLoadData } from '~/composables/useLoadData'
 import type { CoursePaginate } from '~/types/browsing'
 
@@ -7,6 +8,7 @@ const landmark = ref<HTMLElement | null>(null)
 const courses = ref<CoursePaginate | null>(null)
 
 const { $axiosApi } = useNuxtApp()
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const getBasedOnUserInterestCourses = async () => {
   try {
@@ -23,15 +25,18 @@ const getBasedOnUserInterestCourses = async () => {
 }
 
 onMounted(async () => {
-  await getBasedOnUserInterestCourses()
-  observeScroll(courses.value, landmark.value)
+  await new Promise((resolve) => setTimeout(resolve, 500))
+  if (isAuthenticated.value) {
+    await getBasedOnUserInterestCourses()
+    observeScroll(courses.value, landmark.value)
+  }
 })
 
 const { allData, newPaginatedData, observeScroll } = useLoadData()
 </script>
 
 <template>
-  <section v-show="allData" class="py-10">
+  <section v-if="allData?.length" class="py-10">
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5">
         <div class="space-y-3">

@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import RecommendedCourseForYouCarousel from '~/components/Carousels/RecommendedCourseForYouCarousel.vue'
 import type { Course } from '~/types/browsing'
+import { useAuthStore } from '~/stores/auth'
 
 const courses = ref<Course[] | null>(null)
 
 const { $axiosApi } = useNuxtApp()
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const getRecommendedCourseForUserInterest = async () => {
   try {
@@ -20,7 +22,10 @@ const getRecommendedCourseForUserInterest = async () => {
   }
 }
 
-onMounted(async () => await getRecommendedCourseForUserInterest())
+onMounted(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 500))
+  if (isAuthenticated.value) await getRecommendedCourseForUserInterest()
+})
 </script>
 
 <template>

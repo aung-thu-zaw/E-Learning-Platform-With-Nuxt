@@ -76,20 +76,7 @@ export default defineNuxtConfig({
       ]
     }
   },
-  // router: {
-  //   extendRoutes(routes, resolve) {
-  //     routes.push(
-  //       {
-  //         path: '/blogs/categories/:category',
-  //         component: resolve(__dirname, 'pages/blogs/categories/[category].vue')
-  //       },
-  //       {
-  //         path: '/blogs/:slug',
-  //         component: resolve(__dirname, 'pages/blogs/[slug].vue')
-  //       }
-  //     )
-  //   }
-  // },
+
   runtimeConfig: {
     private: {
       stripe: {

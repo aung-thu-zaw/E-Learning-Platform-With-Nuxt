@@ -2,6 +2,7 @@
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import NormalButton from '~/components/Buttons/NormalButton.vue'
 import Modal from '~/components/ModalContainer.vue'
+import { useAuthStore } from '~/stores/auth'
 
 interface SkillTag {
   id: number
@@ -17,6 +18,7 @@ const delayedSearch = ref<NodeJS.Timeout | null>(null)
 const store = useAuthStore()
 
 const { $axiosApi } = useNuxtApp()
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const getSkillTags = async () => {
   try {
@@ -97,11 +99,14 @@ const confirmAddMoreInterest = () => (confirmingAddMoreInterest.value = true)
 const closeModal = () => {
   confirmingAddMoreInterest.value = false
   search.value = ''
+  window.location.reload()
 }
 
 onMounted(async () => {
-  await getSkillTags()
-  await getAllUserInterestedTag()
+  if (isAuthenticated.value) {
+    await getSkillTags()
+    await getAllUserInterestedTag()
+  }
 })
 
 watch(
@@ -114,7 +119,7 @@ watch(
   <div v-show="store.isAuthenticated">
     <button
       type="button"
-      class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press"
+      class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press inline-block w-[120px]"
       @click="confirmAddMoreInterest"
     >
       <i class="fa-solid fa-plus mr-1"></i>

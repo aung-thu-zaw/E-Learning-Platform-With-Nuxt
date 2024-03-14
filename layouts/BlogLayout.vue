@@ -18,8 +18,11 @@ onMounted(async () => await store.getAuthenticatedUser())
     />
 
     <div
-      class="bg-gray-100 border-b-4 border-b-yellow-400 px-20 py-5 transition-transform duration-500 fixed right-0 z-30 left-0"
-      :class="{ 'translate-y-0': isOpenNavSearchBox, '-translate-y-full': !isOpenNavSearchBox }"
+      class="bg-gray-100 border-b-4 border-b-yellow-400 px-20 py-5 transition-transform duration-500 fixed right-0 left-0 z-30"
+      :class="{
+        'translate-y-0': isOpenNavSearchBox,
+        '-translate-y-96': !isOpenNavSearchBox
+      }"
     >
       <BlogSearchBox @updated-search="isOpenNavSearchBox = false" />
     </div>

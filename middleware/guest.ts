@@ -9,7 +9,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (store?.isAuthenticated) {
       return navigateTo(to.fullPath !== from.fullPath ? from.fullPath : '/')
     }
-  } catch (error) {
+  } catch (error: any) {
     return abortNavigation(error)
   }
 })

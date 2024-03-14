@@ -6,8 +6,8 @@ export default defineNuxtRouteMiddleware(async () => {
   try {
     await store.getAuthenticatedUser()
 
-    if (!store?.isAuthenticated) return navigateTo('/auth/sign-in')
-  } catch (error) {
+    if (!store.isAuthenticated) return navigateTo('/auth/sign-in')
+  } catch (error: any) {
     return abortNavigation(error)
   }
 })

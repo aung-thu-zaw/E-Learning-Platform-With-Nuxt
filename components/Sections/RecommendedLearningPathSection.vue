@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import LearningPathCollectionCard from '~/components/Cards/LearningPathCollectionCard.vue'
 import type { LearningPath } from '~/types/learningPath'
+import { useAuthStore } from '~/stores/auth'
 
 const learningPaths = ref<LearningPath[] | null>(null)
 const localePath = useLocalePath()
 
 const { $axiosApi } = useNuxtApp()
+const { isAuthenticated } = storeToRefs(useAuthStore())
 
 const getRecommendedLearningPaths = async () => {
   try {
@@ -21,11 +23,14 @@ const getRecommendedLearningPaths = async () => {
   }
 }
 
-onMounted(async () => await getRecommendedLearningPaths())
+onMounted(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 500))
+  if (isAuthenticated.value) await getRecommendedLearningPaths()
+})
 </script>
 
 <template>
-  <section class="py-10">
+  <section v-if="learningPaths?.length" class="py-10">
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5">
         <div class="space-y-3">
