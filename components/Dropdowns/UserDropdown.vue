@@ -73,13 +73,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         <i class="fa-solid fa-book"></i>
         My Courses
       </NuxtLink>
-      <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
-      >
-        <i class="fa-solid fa-address-card"></i>
-        My Profile
-      </a>
+
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"
@@ -87,20 +81,23 @@ onMounted(async () => await store.getAuthenticatedUser())
         <i class="fa-solid fa-gear"></i>
         Account Settings
       </a>
-      <a
+
+      <NuxtLink
+        to="/settings/referrals"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
       >
         <i class="fa-solid fa-share"></i>
         Refer a Friend
-      </a>
-      <a
+      </NuxtLink>
+
+      <NuxtLink
+        to="/settings/referrals"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
       >
         <i class="fa-solid fa-credit-card"></i>
         My Membership
-      </a>
+      </NuxtLink>
+
       <a
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
         href="#"

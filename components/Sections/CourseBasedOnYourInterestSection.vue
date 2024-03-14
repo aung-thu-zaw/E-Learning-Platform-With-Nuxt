@@ -36,7 +36,7 @@ const { allData, newPaginatedData, observeScroll } = useLoadData()
 </script>
 
 <template>
-  <section v-if="allData?.length" class="py-10">
+  <section v-if="allData && courses?.data.length" class="py-10">
     <div class="container mx-auto">
       <div class="flex items-start justify-between md:px-0 px-5">
         <div class="space-y-3">

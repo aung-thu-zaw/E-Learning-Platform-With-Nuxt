@@ -15,7 +15,7 @@ const localePath = useLocalePath()
       class="flex-shrink-0 relative rounded-xl overflow-hidden w-full h-[200px] sm:w-[250px] sm:h-[350px]"
     >
       <img
-        class="size-full absolute top-0 start-0 object-cover group-hover:scale-105"
+        class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 duration-200"
         :src="blog?.thumbnail"
         alt="Blog thumbnail"
       />

@@ -7,7 +7,14 @@ export function useCopy() {
     $toast.success('Copied to clipboard!', { autoclose: 500, position: 'bottom-right' })
   }
 
+  const copyText = (text: string) => {
+    navigator.clipboard.writeText(text)
+
+    $toast.success('Copied to clipboard!', { autoclose: 500, position: 'bottom-right' })
+  }
+
   return {
-    copyShareLink
+    copyShareLink,
+    copyText
   }
 }
