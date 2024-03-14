@@ -21,7 +21,7 @@ import { storeToRefs } from 'pinia'
 
 useHead({ title: 'Categories' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useCategoryStore()

@@ -24,7 +24,7 @@ import type { NavBanner } from '~/types/navBanner'
 
 useHead({ title: 'Nav Banners' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useNavBannerStore()

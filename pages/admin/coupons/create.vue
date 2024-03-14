@@ -16,7 +16,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 useHead({ title: 'Create Coupon' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useCouponStore()
 const isCreateAnother = ref<boolean>(false)

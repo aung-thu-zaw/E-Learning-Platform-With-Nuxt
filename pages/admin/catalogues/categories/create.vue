@@ -3,20 +3,18 @@ import Breadcrumb from '~/components/Breadcrumbs/MainBreadcrumb.vue'
 import BreadcrumbItem from '~/components/Breadcrumbs/BreadcrumbItem.vue'
 import BreadcrumbLinkItem from '~/components/Breadcrumbs/BreadcrumbLinkItem.vue'
 import InputLabel from '~/components/Forms/Fields/InputLabel.vue'
-
 import InputError from '~/components/Forms/Fields/InputError.vue'
 import InputField from '~/components/Forms/Fields/InputField.vue'
 import SelectBox from '~/components/Forms/Fields/SelectBox.vue'
 import FormButton from '~/components/Buttons/FormButton.vue'
 import GoBackButton from '~/components/Buttons/GoBackButton.vue'
-
 import { useCategoryStore } from '~/stores/dashboard/admin/category'
 import { storeToRefs } from 'pinia'
 import type { Form } from '~/types/category'
 
 useHead({ title: 'Create Category' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useCategoryStore()
 const isCreateAnother = ref<boolean>(false)

@@ -18,7 +18,7 @@ import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Create Slider' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useSliderStore()
 const isCreateAnother = ref<boolean>(false)

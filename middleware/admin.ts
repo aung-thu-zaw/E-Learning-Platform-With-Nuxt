@@ -6,13 +6,15 @@ export default defineNuxtRouteMiddleware(async () => {
   try {
     await store.getAuthenticatedUser()
 
-    if (store?.user?.role !== 'admin') {
-      throw createError({
-        statusCode: 403,
-        statusMessage: 'Forbidden'
-      })
-    }
-  } catch (error) {
+    setTimeout(() => {
+      if (store.user && store.user.role !== 'admin') {
+        showError({
+          statusCode: 403,
+          statusMessage: 'Forbidden'
+        })
+      }
+    }, 200)
+  } catch (error: any) {
     return abortNavigation(error)
   }
 })

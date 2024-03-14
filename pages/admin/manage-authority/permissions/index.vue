@@ -15,7 +15,7 @@ import { storeToRefs } from 'pinia'
 
 useHead({ title: 'Permissions' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = usePermissionStore()

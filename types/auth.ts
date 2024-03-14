@@ -25,7 +25,8 @@ export interface ResetPasswordForm {
   email: string
   password: string
   password_confirmation: string
-  captcha_token?: string | null
+  captcha_token?: string | 
+  
 }
 
 export interface User {

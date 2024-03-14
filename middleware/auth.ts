@@ -6,7 +6,9 @@ export default defineNuxtRouteMiddleware(async () => {
   try {
     await store.getAuthenticatedUser()
 
-    if (!store.isAuthenticated) return navigateTo('/auth/sign-in')
+    setTimeout(() => {
+      if (!store.isAuthenticated) navigateTo('/auth/sign-in')
+    }, 200)
   } catch (error: any) {
     return abortNavigation(error)
   }

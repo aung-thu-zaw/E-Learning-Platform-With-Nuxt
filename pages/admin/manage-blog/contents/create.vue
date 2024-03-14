@@ -20,7 +20,7 @@ import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Create Blog Content' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useBlogContentStore()
 const isCreateAnother = ref<boolean>(false)

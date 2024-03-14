@@ -15,7 +15,7 @@ import type { Form } from '~/types/blogCategory'
 
 useHead({ title: 'Create Blog Category' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useBlogCategoryStore()
 const isCreateAnother = ref<boolean>(false)

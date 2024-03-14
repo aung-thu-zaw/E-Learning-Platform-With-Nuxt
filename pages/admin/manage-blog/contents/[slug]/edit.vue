@@ -20,7 +20,7 @@ import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Edit Blog Content' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const existingImage = ref<string>('')
 const route = useRoute()

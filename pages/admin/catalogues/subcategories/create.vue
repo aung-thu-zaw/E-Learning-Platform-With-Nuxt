@@ -20,7 +20,7 @@ import type { Form } from '~/types/subcategory'
 
 useHead({ title: 'Create Subcategory' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useSubcategoryStore()
 const isCreateAnother = ref<boolean>(false)

@@ -19,7 +19,7 @@ import type { Form } from '~/types/subcategory'
 
 useHead({ title: 'Edit Subcategory' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useSubcategoryStore()

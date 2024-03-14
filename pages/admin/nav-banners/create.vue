@@ -16,7 +16,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 useHead({ title: 'Create Nav Banner' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useNavBannerStore()
 const addCountdown = ref<boolean>(false)

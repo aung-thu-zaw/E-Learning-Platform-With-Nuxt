@@ -18,7 +18,7 @@ import image from '@/assets/images/no-image.jpeg'
 
 useHead({ title: 'Edit Slider' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useSliderStore()

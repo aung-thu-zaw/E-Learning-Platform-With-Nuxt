@@ -90,6 +90,8 @@ export const useAuthStore = defineStore('auth', () => {
 
       const { data } = await $axios.get('api/v1/user')
 
+      isAuthenticated.value = true
+
       if (data.permissions.length > 0) {
         const permissionNames = data.permissions.map((permission: any) => permission.name)
 
@@ -97,8 +99,6 @@ export const useAuthStore = defineStore('auth', () => {
       } else {
         user.value = data
       }
-
-      isAuthenticated.value = true
     } catch (error: any) {
       console.error('Failed to get authenticated user:', error)
     }

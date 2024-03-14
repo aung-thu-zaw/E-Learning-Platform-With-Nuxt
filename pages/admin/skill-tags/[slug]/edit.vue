@@ -13,7 +13,7 @@ import type { Form } from '~/types/skillTag'
 
 useHead({ title: 'Edit Skill Tag' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useSkillTagStore()

@@ -17,7 +17,7 @@ import { storeToRefs } from 'pinia'
 
 useHead({ title: 'Database Backups' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useBackupStore()

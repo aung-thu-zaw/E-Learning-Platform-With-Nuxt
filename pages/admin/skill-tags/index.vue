@@ -19,7 +19,7 @@ import { storeToRefs } from 'pinia'
 
 useHead({ title: 'Skill Tags' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useSkillTagStore()

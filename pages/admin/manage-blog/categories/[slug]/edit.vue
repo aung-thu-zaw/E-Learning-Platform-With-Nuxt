@@ -15,7 +15,7 @@ import type { Form } from '~/types/blogCategory'
 
 useHead({ title: 'Edit Blog Category' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const route = useRoute()
 const store = useBlogCategoryStore()

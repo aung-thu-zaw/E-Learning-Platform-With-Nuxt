@@ -1,7 +1,7 @@
 <script setup lang="ts">
 useHead({ title: 'Dashboard' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 </script>
 
 <template>

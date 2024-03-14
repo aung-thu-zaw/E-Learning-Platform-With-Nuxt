@@ -12,7 +12,7 @@ import { useAssignRolePermissionStore } from '~/stores/dashboard/admin/assignRol
 
 useHead({ title: 'Add Role To Permissions' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const roleName = ref(null)
 const route = useRoute()

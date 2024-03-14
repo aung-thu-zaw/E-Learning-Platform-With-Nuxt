@@ -16,7 +16,7 @@ import '@vuepic/vue-datepicker/dist/main.css'
 
 useHead({ title: 'Edit Nav Banner' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useNavBannerStore()
 const route = useRoute()

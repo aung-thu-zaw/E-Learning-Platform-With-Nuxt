@@ -12,7 +12,7 @@ import { useToken } from '~/composables/useToken'
 
 useHead({ title: 'Send Newsletter' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 interface Form {
   subject: string

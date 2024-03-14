@@ -11,7 +11,7 @@ import { useRoleStore } from '~/stores/dashboard/admin/role'
 
 useHead({ title: 'Create Role' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useRoleStore()
 const isCreateAnother = ref<boolean>(false)

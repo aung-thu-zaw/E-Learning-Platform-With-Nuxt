@@ -13,7 +13,7 @@ import { useSkillTagStore } from '~/stores/dashboard/admin/skillTag'
 
 useHead({ title: 'Create Skill Tag' })
 
-definePageMeta({ layout: 'admin-layout' })
+definePageMeta({ layout: 'admin-layout', middleware: ['auth', 'admin'] })
 
 const store = useSkillTagStore()
 const isCreateAnother = ref<boolean>(false)
