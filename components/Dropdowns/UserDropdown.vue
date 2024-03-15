@@ -57,6 +57,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         <i class="fa-solid fa-chalkboard-user"></i>
         Instructor
       </NuxtLink>
+
       <NuxtLink
         v-show="user?.role === 'admin'"
         :to="localePath('/admin/dashboard')"
@@ -74,13 +75,13 @@ onMounted(async () => await store.getAuthenticatedUser())
         My Courses
       </NuxtLink>
 
-      <a
+      <NuxtLink
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
+        href="/settings/profile-information"
       >
-        <i class="fa-solid fa-gear"></i>
-        Account Settings
-      </a>
+        <i class="fa-solid fa-user-gear"></i>
+        Account Setting
+      </NuxtLink>
 
       <NuxtLink
         to="/settings/referrals"

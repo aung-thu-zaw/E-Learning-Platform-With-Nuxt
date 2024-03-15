@@ -60,5 +60,6 @@ export interface Error {
   username: string
   password: string
   email: string
+  avatar: string
   captcha_token: string
 }
