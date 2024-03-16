@@ -225,8 +225,8 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
                   <InputError :message="errors?.avatar" />
                 </div>
 
-                <div class="w-[150px] ml-auto">
-                  <FormButton> Save Changes </FormButton>
+                <div class="w-[250px] ml-auto">
+                  <FormButton> {{ $t('Save Changes') }} </FormButton>
                 </div>
               </form>
             </div>

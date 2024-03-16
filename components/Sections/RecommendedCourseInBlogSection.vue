@@ -5,7 +5,7 @@ import RecommendedCourseCard from '~/components/Cards/RecommendedCourseCard.vue'
 <template>
   <section id="recommended-courses" class="py-10">
     <h1 class="text-2xl md:text-4xl font-bold text-gray-700 px-5 md:px-20 mb-5">
-      Recommended Courses
+      {{ $t('Recommended Courses') }}
     </h1>
 
     <hr />

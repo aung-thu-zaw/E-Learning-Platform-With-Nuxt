@@ -7,7 +7,7 @@
       type="button"
       class="hs-dropdown-toggle py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold text-gray-700 disabled:opacity-50 disabled:pointer-events-none border border-gray-500 rounded-full"
     >
-      Sort By : Relevant
+      {{ $t('Sort By') }} : {{ $t('Relevant') }}
       <svg
         class="hs-dropdown-open:rotate-180 size-2.5"
         width="16"
@@ -30,10 +30,12 @@
       aria-labelledby="hs-dropdown-auto-close-inside"
     >
       <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-        <span class="mt-1 block text-sm font-semibold text-gray-800">Relevant</span>
+        <span class="mt-1 block text-sm font-semibold text-gray-800">{{ $t('Relevant') }}</span>
       </div>
       <div class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100">
-        <span class="mt-1 block text-sm font-semibold text-gray-800">Number Of Students</span>
+        <span class="mt-1 block text-sm font-semibold text-gray-800">
+          {{ $t('Number Of Students') }}
+        </span>
       </div>
     </div>
   </div>

@@ -108,25 +108,32 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
 
               <div class="space-y-3">
                 <p class="font-semibold text-sm text-gray-700">
-                  For your security we will send a verification link to
-                  <span class="font-bold text-yellow-500"> myanmar2024@gmail.com </span>. This
-                  update will not take place until you follow the instructions listed in that email.
+                  {{
+                    $t(
+                      "For security purposes, we'll send a verification link to update your email address. Please follow the instructions provided in the verification email for the change to take effect."
+                    )
+                  }}
                 </p>
 
                 <p class="font-semibold text-sm text-gray-700">
-                  If you do not have access to
-                  <span class="font-bold text-yellow-500"> myanmar2024@gmail.com </span>, please
-                  contact support for assistance.
+                  {{
+                    $t(
+                      "If you encounter any issues or need assistance, please don't hesitate to contact our support team."
+                    )
+                  }}
                 </p>
 
                 <p class="font-semibold text-sm text-gray-700">
-                  If your Skillshare account was connected to a social account previously, updating
-                  your email may cause your account to become unlinked.
+                  {{
+                    $t(
+                      'Please be aware that if your account was previously linked to a social media account, updating your email address might unlink them.'
+                    )
+                  }}
                 </p>
               </div>
 
-              <div class="w-[150px] ml-auto">
-                <FormButton> Update Email </FormButton>
+              <div class="w-[200px] ml-auto">
+                <FormButton> {{ $t('Update Email') }} </FormButton>
               </div>
             </form>
           </div>

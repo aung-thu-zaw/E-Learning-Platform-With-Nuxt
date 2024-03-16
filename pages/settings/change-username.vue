@@ -63,7 +63,7 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
                 <InputLabel label="Username" />
 
                 <p class="text-xs font-semibold text-gray-700 mb-3">
-                  Your URL: https://www.skillshare.com/en/user/aung_thu_zaw
+                  {{ $t('Your Profile URL') }}: https://www.skillshare.com/en/user/aung_thu_zaw
                 </p>
 
                 <InputField
@@ -77,23 +77,25 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
               </div>
 
               <div class="space-y-3">
-                <h1 class="font-bold text-md text-gray-700">Privacy</h1>
+                <h1 class="font-bold text-md text-gray-700">{{ $t('Privacy') }}</h1>
 
                 <div class="space-x-3 flex items-start">
                   <Checkbox />
-                  <h3 class="font-semibold text-sm text-gray-700">Make my profile private</h3>
+                  <h3 class="font-semibold text-sm text-gray-700">
+                    {{ $t('Make my profile private') }}
+                  </h3>
                 </div>
 
                 <div class="space-x-3 flex items-start">
                   <Checkbox />
                   <h3 class="font-semibold text-sm text-gray-700">
-                    Remove my profile from web search results
+                    {{ $t('Remove my profile from web search results') }}
                   </h3>
                 </div>
               </div>
 
-              <div class="w-[150px] ml-auto">
-                <FormButton> Save Changes </FormButton>
+              <div class="w-[250px] ml-auto">
+                <FormButton> {{ $t('Save Changes') }} </FormButton>
               </div>
             </form>
           </div>

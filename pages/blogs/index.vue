@@ -53,7 +53,7 @@ onMounted(async () => {
 
         <div v-if="!blogs?.links?.next" class="mt-14">
           <p class="text-slate-700 text-sm font-semibold text-center">
-            You have reached the end of the page.
+            {{ $t('You have reached the end of the page.') }}
           </p>
         </div>
         <div ref="landmark"></div>

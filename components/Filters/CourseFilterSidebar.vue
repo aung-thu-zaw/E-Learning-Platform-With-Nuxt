@@ -13,13 +13,15 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
     <div>
       <div class="px-5">
         <div class="py-3 mb-3 border-b border-b-gray-300 flex items-center justify-between">
-          <h3 class="text-xs font-extrabold uppercase text-gray-800">Course Level</h3>
+          <h3 class="text-xs font-extrabold uppercase text-gray-800 min-w-[120px]">
+            {{ $t('Course Level') }}
+          </h3>
 
           <button
             class="text-yellow-500 duration-200 transition-all hover:bg-yellow-500 hover:text-white font-semibold rounded-md px-2 py-1 text-xs"
           >
             <i class="fa-solid fa-rotate"></i>
-            Reset Filters
+            {{ $t('Reset Filters') }}
           </button>
         </div>
       </div>
@@ -30,7 +32,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Beginner </span>
+          <span class="ml-3"> {{ $t('Beginner') }} </span>
         </div>
 
         <div>
@@ -47,7 +49,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Intermediate </span>
+          <span class="ml-3"> {{ $t('Intermediate') }} </span>
         </div>
 
         <div>
@@ -65,7 +67,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Advance </span>
+          <span class="ml-3"> {{ $t('Advanced') }} </span>
         </div>
 
         <div>
@@ -82,7 +84,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Any Level </span>
+          <span class="ml-3"> {{ $t('All Level') }} </span>
         </div>
 
         <div>
@@ -100,7 +102,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <h3
           class="text-xs font-extrabold uppercase text-gray-800 py-3 mb-3 border-b border-b-gray-300"
         >
-          Course With
+          {{ $t('Course With') }}
         </h3>
       </div>
 
@@ -110,7 +112,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Resources </span>
+          <span class="ml-3"> {{ $t('Resources') }} </span>
         </div>
 
         <div>
@@ -128,7 +130,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <h3
           class="text-xs font-extrabold uppercase text-gray-800 py-3 mb-3 border-b border-b-gray-300"
         >
-          Publish Date
+          {{ $t('Publish Date') }}
         </h3>
       </div>
 
@@ -138,7 +140,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Radio />
 
-          <span class="ml-3"> All Time </span>
+          <span class="ml-3"> {{ $t('All Time') }} </span>
         </div>
 
         <div>
@@ -156,7 +158,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Radio />
 
-          <span class="ml-3"> Past Week </span>
+          <span class="ml-3"> {{ $t('Past Week') }} </span>
         </div>
 
         <div>
@@ -174,7 +176,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Radio />
 
-          <span class="ml-3"> Past Month </span>
+          <span class="ml-3"> {{ $t('Past Month') }} </span>
         </div>
 
         <div>
@@ -192,7 +194,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Radio />
 
-          <span class="ml-3"> Past Three Months </span>
+          <span class="ml-3"> {{ $t('Past Three Months') }} </span>
         </div>
 
         <div>
@@ -210,7 +212,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Radio />
 
-          <span class="ml-3"> Past Year </span>
+          <span class="ml-3"> {{ $t('Past Year') }} </span>
         </div>
 
         <div>
@@ -228,7 +230,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <h3
           class="text-xs font-extrabold uppercase text-gray-800 py-3 mb-3 border-b border-b-gray-300"
         >
-          Course Duration
+          {{ $t('Course Duration') }}
         </h3>
       </div>
 
@@ -238,7 +240,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Under 1 hour</span>
+          <span class="ml-3"> {{ $t('Under 1 hour') }}</span>
         </div>
 
         <div>
@@ -256,7 +258,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> 1 to 3 hours </span>
+          <span class="ml-3"> {{ $t('1 to 3 hours') }} </span>
         </div>
 
         <div>
@@ -274,7 +276,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> 3 to 5 hours </span>
+          <span class="ml-3"> {{ $t('3 to 5 hours') }} </span>
         </div>
 
         <div>
@@ -292,7 +294,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <div>
           <Checkbox />
 
-          <span class="ml-3"> Over 5 hours </span>
+          <span class="ml-3"> {{ $t('Over 5 hours') }} </span>
         </div>
 
         <div>
@@ -310,7 +312,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <h3
           class="text-xs font-extrabold uppercase text-gray-800 py-3 mb-3 border-b border-b-gray-300"
         >
-          Course Language
+          {{ $t('Course Language') }}
         </h3>
       </div>
 
@@ -464,7 +466,7 @@ import FiveStarRating from '~/components/Ratings/FiveStarRating.vue'
         <h3
           class="text-xs font-extrabold uppercase text-gray-800 py-3 mb-3 border-b border-b-gray-300"
         >
-          Course Rating
+          {{ $t('Course Rating') }}
         </h3>
       </div>
 

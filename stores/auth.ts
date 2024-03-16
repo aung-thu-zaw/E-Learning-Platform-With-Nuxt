@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', () => {
   const status = ref<string>('')
   const isAuthenticated = ref<boolean>(false)
   const router = useRouter()
+  const localePath = useLocalePath()
 
   /* composable */
   const { generateCsrfToken, generateCaptchaToken } = useToken()
@@ -49,7 +50,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       status.value = response.data.status
 
-      router.push({ path: '/auth/sign-in' })
+      router.push({ path: localePath('/auth/sign-in') })
     } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
@@ -120,7 +121,7 @@ export const useAuthStore = defineStore('auth', () => {
 
       isAuthenticated.value = true
 
-      router.push({ path: '/' })
+      router.push({ path: localePath('/') })
     } catch (error: any) {
       errors.value = error.response?.data?.errors
     }
@@ -142,7 +143,7 @@ export const useAuthStore = defineStore('auth', () => {
     await $axios.post('/logout')
     user.value = null
     isAuthenticated.value = false
-    router.push({ path: '/' })
+    router.push({ path: localePath('/') })
   }
 
   const authenticateWithSocial = (service: string) => {

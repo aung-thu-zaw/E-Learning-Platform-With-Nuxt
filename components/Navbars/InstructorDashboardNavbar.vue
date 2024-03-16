@@ -38,7 +38,7 @@ const route = useRoute()
           >
             <div class="hs-collapse-open:hidden">
               <div class="flex items-center space-x-1">
-                <span> Menu </span>
+                <span> {{ $t('Menu') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ const route = useRoute()
             </div>
             <div class="hs-collapse-open:block hidden">
               <div class="flex items-center space-x-1">
-                <span> Close </span>
+                <span> {{ $t('Close') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"

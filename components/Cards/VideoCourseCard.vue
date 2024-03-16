@@ -7,7 +7,7 @@ const props = defineProps<{ course: Course }>()
 const isSaved = ref<boolean>(false)
 const store = useMyCourseStore()
 
-const { $axiosApi, $toast } = useNuxtApp()
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
 const { courses } = storeToRefs(store)
 
 const savedCourseToList = async (courseUUID: string) => {
@@ -16,7 +16,7 @@ const savedCourseToList = async (courseUUID: string) => {
 
     isSaved.value = true
 
-    $toast.success(data.message)
+    $toast.success($i18n.t(data.message))
   } catch (error: any) {
     if (error.response?.status === 401) {
       return useRouter().push({ path: '/auth/sign-in' })
@@ -36,7 +36,7 @@ const removeCourseFromList = async (courseUUID: string) => {
 
     isSaved.value = false
 
-    $toast.success(data.message)
+    $toast.success($i18n.t(data.message))
   } catch (error: any) {
     if (error.response?.status === 401) {
       return useRouter().push({ path: '/auth/sign-in' })

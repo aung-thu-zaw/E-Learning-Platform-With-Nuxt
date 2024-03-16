@@ -46,7 +46,9 @@ const handleUpdatedData = (data: any) => {
       <div class="flex flex-col items-start">
         <div class="space-y-5 mb-6">
           <h1 class="font-bold text-3xl text-gray-800">{{ query }}</h1>
-          <p class="text-sm font-semibold text-gray-700">{{ courses?.meta?.total }} Results</p>
+          <p class="text-sm font-semibold text-gray-700">
+            {{ courses?.meta?.total }} {{ $t('Results') }}
+          </p>
         </div>
 
         <div class="flex items-center">

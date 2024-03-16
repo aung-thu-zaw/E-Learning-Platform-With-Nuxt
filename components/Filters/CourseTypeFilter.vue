@@ -10,7 +10,7 @@ const query = useRoute().query?.query?.toString()
       type="button"
       class="hs-dropdown-toggle py-3 px-6 inline-flex items-center gap-x-2 text-sm font-semibold text-white disabled:opacity-50 disabled:pointer-events-none border bg-yellow-500 border-yellow-500 rounded-full"
     >
-      Type
+      {{ $t('Type') }}
       <svg
         class="hs-dropdown-open:rotate-180 size-2.5"
         width="16"
@@ -36,21 +36,23 @@ const query = useRoute().query?.query?.toString()
         :to="localePath(`/search?query=${query}`)"
         class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
       >
-        <span class="mt-1 block text-sm font-semibold text-gray-800"> All </span>
+        <span class="mt-1 block text-sm font-semibold text-gray-800"> {{ $t('All') }} </span>
       </NuxtLink>
 
       <NuxtLink
         :to="localePath(`/search/courses?query=${query}`)"
         class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
       >
-        <span class="mt-1 block text-sm font-semibold text-gray-800"> Courses </span>
+        <span class="mt-1 block text-sm font-semibold text-gray-800"> {{ $t('Courses') }} </span>
       </NuxtLink>
 
       <NuxtLink
         :to="localePath(`/search/learning-paths?query=${query}`)"
         class="relative flex items-start py-2 px-3 rounded-lg hover:bg-gray-100"
       >
-        <span class="mt-1 block text-sm font-semibold text-gray-800"> Learning Paths </span>
+        <span class="mt-1 block text-sm font-semibold text-gray-800">
+          {{ $t('Learning Paths') }}
+        </span>
       </NuxtLink>
     </div>
   </div>

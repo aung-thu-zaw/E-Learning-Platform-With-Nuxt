@@ -55,7 +55,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-chalkboard-user"></i>
-        Instructor
+        {{ $t('Instructor') }}
       </NuxtLink>
 
       <NuxtLink
@@ -64,39 +64,39 @@ onMounted(async () => await store.getAuthenticatedUser())
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-tv"></i>
-        Go To Admin Dashboard
+        {{ $t('Go To Admin Dashboard') }}
       </NuxtLink>
 
       <NuxtLink
-        to="/my-courses/saved-courses"
+        :to="localePath('/my-courses/saved-courses')"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-book"></i>
-        My Courses
+        {{ $t('My Courses') }}
       </NuxtLink>
 
       <NuxtLink
+        :to="localePath('/settings/profile-information')"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="/settings/profile-information"
       >
         <i class="fa-solid fa-user-gear"></i>
-        Account Setting
+        {{ $t('Account Setting') }}
       </NuxtLink>
 
       <NuxtLink
-        to="/settings/referrals"
+        :to="localePath('/settings/referrals')"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-share"></i>
-        Refer a Friend
+        {{ $t('Refer a Friend') }}
       </NuxtLink>
 
       <NuxtLink
-        to="/settings/referrals"
+        :to="$t('/settings/referrals')"
         class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
       >
         <i class="fa-solid fa-credit-card"></i>
-        My Membership
+        {{ $t('My Membership') }}
       </NuxtLink>
 
       <a
@@ -104,7 +104,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         href="#"
       >
         <i class="fa-solid fa-circle-question"></i>
-        Help
+        {{ $t('Help') }}
       </a>
       <button
         type="button"
@@ -112,7 +112,7 @@ onMounted(async () => await store.getAuthenticatedUser())
         @click="store.logout()"
       >
         <i class="fa-solid fa-right-from-bracket"></i>
-        Sign Out
+        {{ $t('Sign Out') }}
       </button>
     </div>
   </div>

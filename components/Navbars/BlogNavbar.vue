@@ -23,7 +23,7 @@ const handleSearchBox = () => emit('updatedSearch')
       aria-label="Global"
     >
       <div class="flex items-center justify-between md:w-auto min-w-[200px] w-full">
-        <NuxtLink to="/blogs" class="flex-none text-xl font-bold text-gray-800">
+        <NuxtLink :to="localePath('/blogs')" class="flex-none text-xl font-bold text-gray-800">
           Learning Blog
         </NuxtLink>
         <div class="md:hidden flex items-center space-x-3">
@@ -49,7 +49,7 @@ const handleSearchBox = () => emit('updatedSearch')
           >
             <div class="hs-collapse-open:hidden">
               <div class="flex items-center space-x-1">
-                <span> Menu </span>
+                <span> {{ $t('Menu') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -70,7 +70,7 @@ const handleSearchBox = () => emit('updatedSearch')
             </div>
             <div class="hs-collapse-open:block hidden">
               <div class="flex items-center space-x-1">
-                <span> Close </span>
+                <span> {{ $t('Close') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@ const handleSearchBox = () => emit('updatedSearch')
                 class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
               >
                 <i class="fa-solid fa-home mr-1"></i>
-                Go Back To Home
+                {{ $t('Go Back To Home') }}
               </NuxtLink>
             </div>
           </div>

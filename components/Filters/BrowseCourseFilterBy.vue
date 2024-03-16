@@ -31,7 +31,7 @@ watch(
       class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-[0.8rem] font-semibold rounded-md border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
     >
       <i class="fa-solid fa-filter"></i>
-      Filters
+      {{ $t('Filters') }}
       <svg
         class="hs-dropdown-open:rotate-180 size-2.5"
         width="16"

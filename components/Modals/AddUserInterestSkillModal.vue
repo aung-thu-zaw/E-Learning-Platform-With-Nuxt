@@ -119,7 +119,7 @@ watch(
   <div v-show="store.isAuthenticated">
     <button
       type="button"
-      class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press inline-block w-[120px]"
+      class="px-5 py-2.5 border border-gray-400 rounded-md text-xs font-bold text-gray-700 hover:bg-yellow-500 hover:text-white hover:border-yellow-500 duration-200 transition-all active:animate-press inline-block min-w-[180px] w-full"
       @click="confirmAddMoreInterest"
     >
       <i class="fa-solid fa-plus mr-1"></i>
@@ -131,7 +131,7 @@ watch(
         <div class="flex items-center justify-between">
           <h2 class="text-md font-bold text-gray-800">
             <i class="fa-solid fa-tag"></i>
-            Follow Skills
+            {{ $t('Follow Skills') }}
           </h2>
 
           <button
@@ -145,7 +145,9 @@ watch(
 
         <hr class="my-5" />
 
-        <h2 class="text-xs font-extrabold uppercase text-gray-800">Skills You Follow</h2>
+        <h2 class="text-xs font-extrabold uppercase text-gray-800">
+          {{ $t('Skills You Follow') }}
+        </h2>
 
         <div>
           <div v-if="followedTags?.length" class="flex items-center flex-wrap my-5">
@@ -163,7 +165,7 @@ watch(
           </div>
 
           <p v-else class="text-xs font-bold text-gray-600 text-center my-10">
-            There are no skill tags you followed.
+            {{ $t('There are no skill tags you followed.') }}
           </p>
         </div>
 
@@ -174,7 +176,7 @@ watch(
             v-model="search"
             type="text"
             name="skill"
-            placeholder="Search you interest skill"
+            placeholder="Search you interest skills"
           />
         </div>
 
@@ -205,7 +207,7 @@ watch(
 
         <div class="mt-6 flex justify-end space-x-5">
           <NormalButton class="bg-yellow-500 hover:bg-yellow-600 text-white" @click="closeModal">
-            Done
+            {{ $t('Done') }}
           </NormalButton>
         </div>
       </div>

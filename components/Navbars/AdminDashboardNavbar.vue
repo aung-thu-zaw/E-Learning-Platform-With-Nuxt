@@ -4,6 +4,8 @@ import LanguageDropdown from '~/components/Dropdowns/LanguageDropdown.vue'
 
 const emit = defineEmits(['updateCollapseShow'])
 
+const localePath = useLocalePath()
+
 const toggle = () => emit('updateCollapseShow')
 </script>
 
@@ -13,7 +15,7 @@ const toggle = () => emit('updateCollapseShow')
   >
     <div class="flex items-center space-x-10 w-full">
       <NuxtLink
-        to="/"
+        :to="localePath('/')"
         class="md:block text-gray-700 mr-0 inline-block whitespace-nowrap px-0 py-1.5 text-center font-extrabold text-lg"
       >
         E-Learning Platform

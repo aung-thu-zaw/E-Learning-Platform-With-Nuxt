@@ -7,7 +7,7 @@
       type="button"
       class="hs-dropdown-toggle py-3.5 px-4 inline-flex items-center gap-x-2 text-[0.8rem] font-semibold rounded-md text-gray-700 disabled:opacity-50 disabled:pointer-events-none"
     >
-      Sort By
+      {{ $t('Sort By') }}
       <svg
         class="hs-dropdown-open:rotate-180 size-2.5"
         width="16"

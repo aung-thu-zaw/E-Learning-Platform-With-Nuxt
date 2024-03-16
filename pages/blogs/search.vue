@@ -43,7 +43,7 @@ watch(
           class="text-2xl md:text-3xl text-gray-700 [text-shadow:_1.5px_0.5px_1.5px_rgb(0_0_0_/_40%)] flex items-center"
         >
           <i class="fa-solid fa-magnifying-glass text-xl mr-2"></i>
-          Search Result : &nbsp;
+          {{ $t('Search Result') }} : &nbsp;
           <span class="[text-shadow:0]">{{ route?.query?.query }} </span>
         </h1>
 
@@ -72,7 +72,7 @@ watch(
         <div v-else class="py-10">
           <p class="text-center font-bold text-lg text-yellow-600">
             <i class="fa-solid fa-magnifying-glass"></i>
-            We're sorry we can't find any matches for your search term.
+            {{ $t("We're sorry we can't find any matches for your search term.") }}
           </p>
         </div>
       </div>

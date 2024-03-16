@@ -3,12 +3,13 @@ const route = useRoute()
 const router = useRouter()
 const search = ref<string | undefined>(route.query?.query as string | undefined)
 const emit = defineEmits(['updatedSearch'])
+const localePath = useLocalePath()
 
 const handleSearch = () => {
   if (search.value) {
-    router.push({ path: '/blogs/search', query: { page: 1, query: search.value } })
+    router.push({ path: localePath('/blogs/search'), query: { page: 1, query: search.value } })
   } else {
-    router.push({ path: '/blogs' })
+    router.push({ path: localePath('/blogs') })
   }
   emit('updatedSearch')
 }
@@ -41,14 +42,14 @@ const handleSearch = () => {
         v-model="search"
         type="text"
         class="block w-full p-5 pl-10 text-sm text-gray-800 font-semibold border border-gray-300 rounded-lg bg-gray-50 focus:ring-0 focus:outline-none focus:border-gray-300"
-        placeholder="What do you want to learn about?"
+        :placeholder="$t('What do you want to learn about?')"
         autocomplete="off"
       />
       <button
         type="submit"
         class="text-white absolute right-2.5 bottom-2 bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-200 font-medium rounded-lg text-sm px-5 py-3 duration-200 active:animate-press"
       >
-        Search
+        {{ $t('Search') }}
       </button>
     </div>
   </form>

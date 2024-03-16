@@ -6,7 +6,7 @@ const props = defineProps<{ learningPath: LearningPath }>()
 const isSaved = ref<boolean>(false)
 const store = useMyCourseStore()
 
-const { $axiosApi, $toast } = useNuxtApp()
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
 const { learningPaths } = storeToRefs(store)
 
 const savedLearningPathToList = async (slug: string) => {
@@ -15,7 +15,7 @@ const savedLearningPathToList = async (slug: string) => {
 
     isSaved.value = true
 
-    $toast.success(data.message)
+    $toast.success($i18n.t(data.message))
   } catch (error: any) {
     if (error.response?.status === 401) {
       return useRouter().push({ path: '/auth/sign-in' })
@@ -35,7 +35,7 @@ const removeLearningPathFromList = async (slug: string) => {
 
     isSaved.value = false
 
-    $toast.success(data.message)
+    $toast.success($i18n.t(data.message))
   } catch (error: any) {
     if (error.response?.status === 401) {
       return useRouter().push({ path: '/auth/sign-in' })

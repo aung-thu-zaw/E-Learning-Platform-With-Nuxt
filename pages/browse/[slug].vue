@@ -146,7 +146,7 @@ watch(
         <div v-else class="py-20">
           <p class="text-center font-bold text-md text-yellow-600">
             <i class="fa-solid fa-file-circle-xmark"></i>
-            "We're sorry we can't find any matches for your filter term.
+            {{ $t("We're sorry we can't find any matches for your filter term.") }}
           </p>
         </div>
 

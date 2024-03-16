@@ -38,7 +38,7 @@ onMounted(async () => await store.getBrowsingResources())
           >
             <div class="hs-collapse-open:hidden">
               <div class="flex items-center space-x-1">
-                <span> Menu </span>
+                <span> {{ $t('Menu') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -59,7 +59,7 @@ onMounted(async () => await store.getBrowsingResources())
             </div>
             <div class="hs-collapse-open:block hidden">
               <div class="flex items-center space-x-1">
-                <span> Close </span>
+                <span> {{ $t('Close') }} </span>
                 <svg
                   class="flex-shrink-0 w-4 h-4"
                   xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +157,7 @@ onMounted(async () => await store.getBrowsingResources())
                       v-for="subcategory in subcategories"
                       v-show="subcategory.category_id === category.id"
                       :key="subcategory.id"
-                      :to="`/browse/${subcategory.slug}`"
+                      :to="localePath(`/browse/${subcategory.slug}`)"
                       class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-[0.85rem] hover:bg-gray-100 focus:ring-0 font-medium text-gray-700 hover:text-gray-600"
                     >
                       {{ subcategory?.name }}

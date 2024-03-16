@@ -65,7 +65,7 @@ defineExpose({ focus: () => textarea.value.focus() })
         'pl-12': icon
       }"
       :value="modelValue"
-      :placeholder="placeholder"
+      :placeholder="$t(placeholder)"
       :disabled="disabled"
       :required="required"
       @input="$emit('update:modelValue', $event.target.value)"
