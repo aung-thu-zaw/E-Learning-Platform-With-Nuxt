@@ -7,47 +7,91 @@ import FileInput from '@/components/Forms/Fields/FileInput.vue'
 import FormButton from '@/components/Buttons/FormButton.vue'
 import SettingSideTabs from '~/components/Tabs/SettingSideTabs.vue'
 import { useAuthStore } from '~/stores/auth'
+import { useImagePreview } from '~/composables/useImagePreview'
 
 useHead({ title: 'Profile Information' })
 
-definePageMeta({ layout: 'app-layout' })
+definePageMeta({ layout: 'app-layout', middleware: 'auth' })
+
+interface Error {
+  display_name: string
+  headline: string
+  about_me: string
+  facebook_url: string
+  twitter_url: string
+  instagram_url: string
+  pinterest_url: string
+  youtube_url: string
+  github_url: string
+  personal_website_url: string
+  avatar: string
+  captcha_token: string
+}
 
 const store = useAuthStore()
-
-const { user, errors } = storeToRefs(store)
-
+const profileInformationForm = ref<HTMLFormElement | null>(null)
+const errors = ref<Error | null>(null)
 const form = reactive({
-  display_name: user.value?.display_name,
-  headline: user.value?.headline,
-  about_me: user.value?.about_me,
-  facebook_url: user.value?.facebook_url,
-  twitter_url: user.value?.twitter_url,
-  instagram_url: user.value?.instagram_url,
-  pinterest_url: user.value?.pinterest_url,
-  youtube_url: user.value?.youtube_url,
-  github_url: user.value?.github_url,
-  personal_website_url: user.value?.personal_website_url,
-  avatar: user.value?.avatar
+  display_name: '',
+  headline: '',
+  about_me: '',
+  facebook_url: '',
+  twitter_url: '',
+  instagram_url: '',
+  pinterest_url: '',
+  youtube_url: '',
+  github_url: '',
+  personal_website_url: '',
+  avatar: ''
 })
 
-watch(
-  () => user.value,
-  () => {
-    form.display_name = user.value?.display_name
-    form.headline = user.value?.headline
-    form.about_me = user.value?.about_me
-    form.facebook_url = user.value?.facebook_url
-    form.twitter_url = user.value?.twitter_url
-    form.instagram_url = user.value?.instagram_url
-    form.pinterest_url = user.value?.pinterest_url
-    form.youtube_url = user.value?.youtube_url
-    form.github_url = user.value?.github_url
-    form.personal_website_url = user.value?.personal_website_url
-    form.avatar = user.value?.avatar
-  }
-)
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
+const { generateCaptchaToken } = useToken()
+const { user } = storeToRefs(useAuthStore())
 
-const handleUpdateInformation = async () => await store.getAuthenticatedUser()
+onMounted(() => {
+  form.display_name = user.value?.display_name ?? ''
+  form.headline = user.value?.headline ?? ''
+  form.about_me = user.value?.about_me ?? ''
+  form.facebook_url = user.value?.facebook_url ?? ''
+  form.twitter_url = user.value?.twitter_url ?? ''
+  form.instagram_url = user.value?.instagram_url ?? ''
+  form.pinterest_url = user.value?.pinterest_url ?? ''
+  form.youtube_url = user.value?.youtube_url ?? ''
+  form.github_url = user.value?.github_url ?? ''
+  form.personal_website_url = user.value?.personal_website_url ?? ''
+  form.avatar = user.value?.avatar ?? ''
+})
+
+const { previewImage, setImagePreview } = useImagePreview(user.value?.avatar ?? '')
+
+const handleUpdateProfileInformation = async () => {
+  try {
+    const captchaToken = await generateCaptchaToken('update_profile_information')
+
+    const { data } = await $axiosApi.post(
+      '/user/profile-information',
+      {
+        ...form,
+        _method: 'PUT',
+        captcha_token: captchaToken
+      },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }
+    )
+
+    if (data.message) errors.value = null
+
+    store.getAuthenticatedUser()
+
+    $toast.success($i18n.t(data.message))
+  } catch (error: any) {
+    errors.value = error.response?.data?.errors
+  }
+}
 </script>
 
 <template>
@@ -62,7 +106,7 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
             <div>
               <div class="flex flex-col items-center overflow-hidden py-5 space-y-3">
                 <img
-                  :src="user?.avatar"
+                  :src="previewImage"
                   alt="avatar"
                   class="rounded-full border border-slate-400 ring-2 ring-slate-200 w-32 h-32 object-cover"
                 />
@@ -72,7 +116,11 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
                 </div>
               </div>
 
-              <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateInformation">
+              <form
+                ref="profileInformationForm"
+                class="space-y-4 md:space-y-6"
+                @submit.prevent="handleUpdateProfileInformation"
+              >
                 <div>
                   <InputLabel label="Display Name" required />
 
@@ -220,10 +268,13 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
                     v-model="form.avatar"
                     name="avatar"
                     text="PNG, JPG or JPEG ( Max File Size : 1.5 MB )"
+                    @update:model-value="setImagePreview"
                   />
 
                   <InputError :message="errors?.avatar" />
                 </div>
+
+                <InputError :message="errors?.captcha_token" />
 
                 <div class="w-[250px] ml-auto">
                   <FormButton> {{ $t('Save Changes') }} </FormButton>

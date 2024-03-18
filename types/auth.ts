@@ -49,6 +49,8 @@ export interface User {
   youtube_url: string | null
   github_url: string | null
   personal_website_url: string | null
+  profile_private:boolean
+  remove_from_search:boolean
   created_at: string
   updated_at: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

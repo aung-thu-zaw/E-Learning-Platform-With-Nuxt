@@ -4,46 +4,49 @@ import InputError from '@/components/Forms/Fields/InputError.vue'
 import InputField from '@/components/Forms/Fields/InputField.vue'
 import FormButton from '@/components/Buttons/FormButton.vue'
 import SettingSideTabs from '~/components/Tabs/SettingSideTabs.vue'
-import { useAuthStore } from '~/stores/auth'
+import { useToken } from '~/composables/useToken'
 
 useHead({ title: 'Change Password' })
 
-definePageMeta({ layout: 'app-layout' })
+definePageMeta({ layout: 'app-layout', middleware: 'auth' })
 
-const store = useAuthStore()
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
+const { generateCaptchaToken } = useToken()
 
-const { user, errors } = storeToRefs(store)
+interface Error {
+  current_password: string
+  password: string
+  captcha_token: string
+}
 
+const errors = ref<Error | null>(null)
 const form = reactive({
-  display_name: user.value?.display_name,
-  headline: user.value?.headline,
-  about_me: user.value?.about_me,
-  facebook_url: user.value?.facebook_url,
-  twitter_url: user.value?.twitter_url,
-  instagram_url: user.value?.instagram_url,
-  pinterest_url: user.value?.pinterest_url,
-  youtube_url: user.value?.youtube_url,
-  github_url: user.value?.github_url,
-  personal_website_url: user.value?.personal_website_url,
-  avatar: user.value?.avatar
+  current_password: '',
+  password: '',
+  password_confirmation: ''
 })
 
-watch(
-  () => user.value,
-  () => {
-    form.display_name = user.value?.display_name
-    form.headline = user.value?.headline
-    form.about_me = user.value?.about_me
-    form.facebook_url = user.value?.facebook_url
-    form.twitter_url = user.value?.twitter_url
-    form.instagram_url = user.value?.instagram_url
-    form.pinterest_url = user.value?.pinterest_url
-    form.youtube_url = user.value?.youtube_url
-    form.github_url = user.value?.github_url
-    form.personal_website_url = user.value?.personal_website_url
-    form.avatar = user.value?.avatar
+const handleChangePassword = async () => {
+  try {
+    const captchaToken = await generateCaptchaToken('change_password')
+
+    const { data } = await $axiosApi.put('/user/change-password', {
+      ...form,
+      captcha_token: captchaToken
+    })
+
+    if (data.message) {
+      errors.value = null
+      form.current_password = ''
+      form.password = ''
+      form.password_confirmation = ''
+    }
+
+    $toast.success($i18n.t(data.message))
+  } catch (error: any) {
+    errors.value = error.response?.data?.errors
   }
-)
+}
 </script>
 
 <template>
@@ -56,15 +59,15 @@ watch(
         <div class="w-full md:w-9/12">
           <div class="bg-white border border-gray-300 p-10 rounded-md">
             <div>
-              <form @submit.prevent="" class="space-y-4 md:space-y-6">
+              <form class="space-y-4 md:space-y-6" @submit.prevent="handleChangePassword">
                 <div>
                   <InputLabel label="Current Password" required />
 
                   <InputField
+                    v-model="form.current_password"
                     type="password"
                     name="current-password"
                     icon="fa-lock"
-                    v-model="form.current_password"
                     placeholder="Enter Your Current Password"
                   />
 
@@ -74,10 +77,10 @@ watch(
                   <InputLabel label="New Password" required />
 
                   <InputField
+                    v-model="form.password"
                     type="password"
                     name="new-password"
                     icon="fa-lock"
-                    v-model="form.password"
                     placeholder="Enter New Password"
                   />
 
@@ -88,15 +91,15 @@ watch(
                   <InputLabel label="Confirm Password" required />
 
                   <InputField
+                    v-model="form.password_confirmation"
                     type="password"
                     name="password-confirmation"
                     icon="fa-lock"
-                    v-model="form.password_confirmation"
                     placeholder="Retype Password"
                   />
-
-                  <InputError :message="errors?.password_confirmation" />
                 </div>
+
+                <InputError :message="errors?.captcha_token" />
 
                 <div class="w-[250px] ml-auto">
                   <FormButton> {{ $t('Save Changes') }} </FormButton>

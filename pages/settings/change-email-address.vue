@@ -2,52 +2,61 @@
 import InputLabel from '@/components/Forms/Fields/InputLabel.vue'
 import InputError from '@/components/Forms/Fields/InputError.vue'
 import InputField from '@/components/Forms/Fields/InputField.vue'
-import TextAreaField from '@/components/Forms/Fields/TextAreaField.vue'
-import FileInput from '@/components/Forms/Fields/FileInput.vue'
 import FormButton from '@/components/Buttons/FormButton.vue'
 import SettingSideTabs from '~/components/Tabs/SettingSideTabs.vue'
 import { useAuthStore } from '~/stores/auth'
+import { useToken } from '~/composables/useToken'
 
 useHead({ title: 'Change Email Address' })
 
-definePageMeta({ layout: 'app-layout' })
+definePageMeta({ layout: 'app-layout', middleware: 'auth' })
 
 const store = useAuthStore()
 
-const { user, errors } = storeToRefs(store)
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
+const { user, status } = storeToRefs(store)
+const { generateCaptchaToken } = useToken()
 
+interface Error {
+  current_email: string
+  email: string
+  email_confirmation: string
+  captcha_token: string
+}
+
+const errors = ref<Error | null>(null)
 const form = reactive({
-  display_name: user.value?.display_name,
-  headline: user.value?.headline,
-  about_me: user.value?.about_me,
-  facebook_url: user.value?.facebook_url,
-  twitter_url: user.value?.twitter_url,
-  instagram_url: user.value?.instagram_url,
-  pinterest_url: user.value?.pinterest_url,
-  youtube_url: user.value?.youtube_url,
-  github_url: user.value?.github_url,
-  personal_website_url: user.value?.personal_website_url,
-  avatar: user.value?.avatar
+  current_email: '',
+  email: '',
+  email_confirmation: ''
 })
 
-watch(
-  () => user.value,
-  () => {
-    form.display_name = user.value?.display_name
-    form.headline = user.value?.headline
-    form.about_me = user.value?.about_me
-    form.facebook_url = user.value?.facebook_url
-    form.twitter_url = user.value?.twitter_url
-    form.instagram_url = user.value?.instagram_url
-    form.pinterest_url = user.value?.pinterest_url
-    form.youtube_url = user.value?.youtube_url
-    form.github_url = user.value?.github_url
-    form.personal_website_url = user.value?.personal_website_url
-    form.avatar = user.value?.avatar
-  }
-)
+const handleUpdateEmailAddress = async () => {
+  try {
+    const captchaToken = await generateCaptchaToken('change_email')
 
-const handleUpdateInformation = async () => await store.getAuthenticatedUser()
+    const { data } = await $axiosApi.put('/user/change-email', {
+      ...form,
+      captcha_token: captchaToken
+    })
+
+    if (data.message) {
+      errors.value = null
+      form.email = ''
+      form.email_confirmation = ''
+    }
+
+    await store.getAuthenticatedUser()
+
+    form.current_email = user.value?.email ?? form.current_email
+
+    $toast.success($i18n.t(data.message))
+  } catch (error: any) {
+    errors.value = error.response?.data?.errors
+  }
+}
+
+onMounted(() => (form.current_email = user.value?.email ?? ''))
 </script>
 
 <template>
@@ -59,7 +68,7 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
         </div>
         <div class="w-full md:w-9/12">
           <div class="bg-white border border-gray-300 p-10 rounded-md">
-            <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateInformation">
+            <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateEmailAddress">
               <div>
                 <InputLabel label="Current Email Address" />
 
@@ -94,15 +103,35 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
                   <InputLabel label="Confirm New Email Address" required />
 
                   <InputField
-                    v-model="form.confirm_email"
+                    v-model="form.email_confirmation"
                     type="email"
                     name="confirm_email"
                     icon="fa-envelope"
                     placeholder="Enter Confirm New Email Address"
                     required
                   />
+                </div>
+              </div>
 
-                  <InputError :message="errors?.email" />
+              <InputError :message="errors?.captcha_token" />
+
+              <div v-show="user?.email_verified_at === null" class="text-center">
+                <p class="text-sm mt-2 text-main-orange">
+                  Your email address is unverified.
+                  <button
+                    type="button"
+                    class="underline text-sm font-semibold text-yellow-600 hover:text-yellow-500"
+                    @click="store.sendVerificationEmail()"
+                  >
+                    Click here to re-send the verification email.
+                  </button>
+                </p>
+
+                <div
+                  v-show="status === 'verification-link-sent'"
+                  class="mt-2 font-medium text-sm text-green-600"
+                >
+                  A new verification link has been sent to your email address.
                 </div>
               </div>
 

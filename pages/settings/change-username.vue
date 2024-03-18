@@ -5,48 +5,50 @@ import InputField from '@/components/Forms/Fields/InputField.vue'
 import Checkbox from '@/components/Forms/Fields/Checkbox.vue'
 import FormButton from '@/components/Buttons/FormButton.vue'
 import SettingSideTabs from '~/components/Tabs/SettingSideTabs.vue'
+import { useToken } from '~/composables/useToken'
 import { useAuthStore } from '~/stores/auth'
 
 useHead({ title: 'Change Username' })
 
-definePageMeta({ layout: 'app-layout' })
+definePageMeta({ layout: 'app-layout', middleware: 'auth' })
 
-const store = useAuthStore()
-
-const { user, errors } = storeToRefs(store)
-
+interface Error {
+  username: string
+  captcha_token: string
+}
+const errors = ref<Error | null>(null)
 const form = reactive({
-  display_name: user.value?.display_name,
-  headline: user.value?.headline,
-  about_me: user.value?.about_me,
-  facebook_url: user.value?.facebook_url,
-  twitter_url: user.value?.twitter_url,
-  instagram_url: user.value?.instagram_url,
-  pinterest_url: user.value?.pinterest_url,
-  youtube_url: user.value?.youtube_url,
-  github_url: user.value?.github_url,
-  personal_website_url: user.value?.personal_website_url,
-  avatar: user.value?.avatar
+  username: '',
+  profile_private: false,
+  remove_from_search: false
 })
 
-watch(
-  () => user.value,
-  () => {
-    form.display_name = user.value?.display_name
-    form.headline = user.value?.headline
-    form.about_me = user.value?.about_me
-    form.facebook_url = user.value?.facebook_url
-    form.twitter_url = user.value?.twitter_url
-    form.instagram_url = user.value?.instagram_url
-    form.pinterest_url = user.value?.pinterest_url
-    form.youtube_url = user.value?.youtube_url
-    form.github_url = user.value?.github_url
-    form.personal_website_url = user.value?.personal_website_url
-    form.avatar = user.value?.avatar
-  }
-)
+const { $axiosApi, $toast, $i18n } = useNuxtApp()
+const { generateCaptchaToken } = useToken()
+const { user } = storeToRefs(useAuthStore())
 
-const handleUpdateInformation = async () => await store.getAuthenticatedUser()
+onMounted(() => {
+  form.username = user.value?.username ?? ''
+  form.profile_private = user.value?.profile_private ?? false
+  form.remove_from_search = user.value?.remove_from_search ?? false
+})
+
+const handleUpdateProfile = async () => {
+  try {
+    const captchaToken = await generateCaptchaToken('update_profile')
+
+    const { data } = await $axiosApi.put('/user/profile', {
+      ...form,
+      captcha_token: captchaToken
+    })
+
+    if (data.message) errors.value = null
+
+    $toast.success($i18n.t(data.message))
+  } catch (error: any) {
+    errors.value = error.response?.data?.errors
+  }
+}
 </script>
 
 <template>
@@ -58,41 +60,40 @@ const handleUpdateInformation = async () => await store.getAuthenticatedUser()
         </div>
         <div class="w-full md:w-9/12">
           <div class="bg-white border border-gray-300 p-10 rounded-md">
-            <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateInformation">
+            <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateProfile">
               <div>
                 <InputLabel label="Username" />
 
                 <p class="text-xs font-semibold text-gray-700 mb-3">
-                  {{ $t('Your Profile URL') }}: https://www.skillshare.com/en/user/aung_thu_zaw
+                  {{ $t('Your Profile URL') }}: https://www.skillshare.com/en/user/{{
+                    form.username
+                  }}
                 </p>
 
-                <InputField
-                  v-model="form.current_email"
-                  type="text"
-                  name="username"
-                  icon="fa-user"
-                />
+                <InputField v-model="form.username" type="text" name="username" icon="fa-user" />
 
-                <InputError :message="errors?.current_email" />
+                <InputError :message="errors?.username" />
               </div>
 
               <div class="space-y-3">
                 <h1 class="font-bold text-md text-gray-700">{{ $t('Privacy') }}</h1>
 
                 <div class="space-x-3 flex items-start">
-                  <Checkbox />
+                  <Checkbox v-model:checked="form.profile_private" />
                   <h3 class="font-semibold text-sm text-gray-700">
                     {{ $t('Make my profile private') }}
                   </h3>
                 </div>
 
                 <div class="space-x-3 flex items-start">
-                  <Checkbox />
+                  <Checkbox v-model:checked="form.remove_from_search" />
                   <h3 class="font-semibold text-sm text-gray-700">
                     {{ $t('Remove my profile from web search results') }}
                   </h3>
                 </div>
               </div>
+
+              <InputError :message="errors?.captcha_token" />
 
               <div class="w-[250px] ml-auto">
                 <FormButton> {{ $t('Save Changes') }} </FormButton>

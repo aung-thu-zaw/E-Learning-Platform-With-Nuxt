@@ -4,7 +4,7 @@ import { useCopy } from '~/composables/useCopy'
 
 useHead({ title: 'Referrals' })
 
-definePageMeta({ layout: 'app-layout' })
+definePageMeta({ layout: 'app-layout', middleware: 'auth' })
 
 const referralCode = ref<string>('')
 
