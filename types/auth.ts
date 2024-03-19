@@ -25,8 +25,7 @@ export interface ResetPasswordForm {
   email: string
   password: string
   password_confirmation: string
-  captcha_token?: string | 
-  
+  captcha_token?: string | null
 }
 
 export interface User {
@@ -49,8 +48,11 @@ export interface User {
   youtube_url: string | null
   github_url: string | null
   personal_website_url: string | null
-  profile_private:boolean
-  remove_from_search:boolean
+  profile_private: boolean
+  remove_from_search: boolean
+  enabled_two_factor: boolean
+  two_factor_code: string | null
+  two_factor_expires_at: string | null
   created_at: string
   updated_at: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

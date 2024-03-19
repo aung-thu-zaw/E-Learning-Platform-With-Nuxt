@@ -248,5 +248,22 @@
     "Password updated successfully.": "စကားဝှက်ကို အောင်မြင်စွာ မွမ်းမံပြီးပါပြီ။",
     "Profile updated successfully.": "ပရိုဖိုင်ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ခဲ့သည်။",
     "Profile information updated successfully.": "ပရိုဖိုင်အချက်အလက်ကို အောင်မြင်စွာ မွမ်းမံပြီးပါပြီ။",
-    "Email change verification link sent successfully.": "အီးမေးလ်ပြောင်းလဲမှု အတည်ပြုခြင်းလင့်ခ်ကို အောင်မြင်စွာ ပို့လိုက်ပါပြီ။"
+    "Email change verification link sent successfully.": "အီးမေးလ်ပြောင်းလဲမှု အတည်ပြုခြင်းလင့်ခ်ကို အောင်မြင်စွာ ပို့လိုက်ပါပြီ။",
+    "Two-factor Authentication": "နှစ်ဆင့်ခံ အထောက်အထားစိစစ်ခြင်း",
+    "The two-factor code you have entered does not match.": "သင်ထည့်သွင်းထားသော နှစ်ဆင့်ခံကုဒ်သည် တူညီမှုမရှိပါ။",
+    "A new two-factor code has been sent to your email address.": "နှစ်ဆင့်ခံကုဒ်အသစ်တစ်ခု သင့်အီးမေးလ်လိပ်စာသို့ ပို့လိုက်ပါပြီ။",
+    "The two-factor code has expired. Please login again.": "နှစ်ဆင့်ခံကုဒ် သည် သက်တမ်းကုန်သွားပါပြီ။ ထပ်မံဝင်ရောက်ပါ။",
+    "Increase your account security by requiring that a code emailed to you be entered when you log in.": "သင်ဝင်ရောက်သောအခါတွင် သင့်ထံသို့ အီးမေးလ်ပို့သည့်ကုဒ်ကို ထည့်သွင်းရန် လိုအပ်ခြင်းဖြင့် သင့်အကောင့်လုံခြုံရေးကို တိုးမြှင့်လိုက်ပါ။",
+    "Enable": "ဖွင့်ပါ",
+    "Disable": "ပိတ်ပါ",
+    "Confirm": "အတည်ပြုပါ",
+    "Cancel": "ပယ်ဖျက်ပါ",
+    "Enable two-factor authentication": "နှစ်ဆင့်ခံ အထောက်အထားစိစစ်ခြင်းကို ဖွင့်ပါ။",
+    "Disable two-factor authentication": "နှစ်ဆင့်ခံ အထောက်အထားစိစစ်ခြင်းကို ပိတ်ပါ။",
+    "Enabling two-factor authentication will log you out of our platform from all currently logged-in devices.": "နှစ်ဆင့်ခံ အထောက်အထားစိစစ်ခြင်းကို ဖွင့်ခြင်းဖြင့် လက်ရှိအကောင့်ဝင်ထားသည့် စက်များအားလုံးမှ သင့်အား ကျွန်ုပ်တို့၏ ပလပ်ဖောင်းမှ ထွက်ပါမည်။",
+    "Disabling two-factor authentication will log you out of our platform from all currently logged-in devices.": "နှစ်ဆင့်ခံ အထောက်အထားစိစစ်ခြင်းကို ပိတ်ခြင်းဖြင့် လက်ရှိအကောင့်ဝင်ထားသည့် စက်များအားလုံးမှ သင့်အား ကျွန်ုပ်တို့၏ ပလပ်ဖောင်းမှ ထွက်ပါမည်။",
+    "Check your inbox, we've sent you a 6-digit code.": "သင့်ဝင်စာပုံးကို စစ်ဆေးပါ၊ သင့်အား ဂဏန်း 6 လုံးကုဒ်တစ်ခု ပေးပို့ထားပါသည်။",
+    "Don't get a code?": "ကုဒ်ကို မရဘူးလား?",
+    "Resend Code": "ကုဒ်ပြန်ပို့ပါ",
+    "6-Digit Code": "ဂဏန်း 6 လုံး"
 }

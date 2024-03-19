@@ -248,5 +248,22 @@
     "Password updated successfully.": "Password updated successfully.",
     "Profile updated successfully.": "Profile updated successfully.",
     "Profile information updated successfully.": "Profile information updated successfully.",
-    "Email change verification link sent successfully.": "Email change verification link sent successfully."
+    "Email change verification link sent successfully.": "Email change verification link sent successfully.",
+    "Two-factor Authentication": "Two-factor Authentication",
+    "The two-factor code you have entered does not match.": "The two-factor code you have entered does not match.",
+    "A new two-factor code has been sent to your email address.": "A new two-factor code has been sent to your email address.",
+    "The two-factor code has expired. Please login again.": "The two-factor code has expired. Please login again.",
+    "Increase your account security by requiring that a code emailed to you be entered when you log in.": "Increase your account security by requiring that a code emailed to you be entered when you log in.",
+    "Enable": "Enable",
+    "Disable": "Disable",
+    "Confirm": "Confirm",
+    "Cancel": "Cancel",
+    "Enable two-factor authentication": "Enable two-factor authentication",
+    "Disable two-factor authentication": "Disable two-factor authentication",
+    "Enabling two-factor authentication will log you out of our platform from all currently logged-in devices.": "Enabling two-factor authentication will log you out of our platform from all currently logged-in devices.",
+    "Disabling two-factor authentication will log you out of our platform from all currently logged-in devices.": "Disabling two-factor authentication will log you out of our platform from all currently logged-in devices.",
+    "Check your inbox, we've sent you a 6-digit code.": "Check your inbox, we've sent you a 6-digit code.",
+    "Don't get a code?": "Don't get a code?",
+    "Resend Code": "Resend Code",
+    "6-Digit Code": "6-Digit Code"
 }

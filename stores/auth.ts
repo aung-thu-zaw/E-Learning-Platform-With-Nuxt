@@ -101,7 +101,7 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = data
       }
     } catch (error: any) {
-      console.error('Failed to get authenticated user:', error)
+      console.error(error)
     }
   }
 

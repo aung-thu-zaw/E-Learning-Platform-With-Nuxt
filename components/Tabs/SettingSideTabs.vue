@@ -68,6 +68,18 @@ const localePath = useLocalePath()
       </NuxtLink>
 
       <NuxtLink
+        :to="localePath('/settings/two-factor-authentication')"
+        class="text-gray-800 font-semibold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all focus:ring-0"
+        :class="{
+          'bg-yellow-500 text-white hover:bg-yellow-600': route.path.endsWith(
+            '/settings/two-factor-authentication'
+          )
+        }"
+      >
+        {{ $t('Two-factor Authentication') }}
+      </NuxtLink>
+
+      <NuxtLink
         :to="localePath('/settings/email-and-notifications')"
         class="text-gray-800 font-semibold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all focus:ring-0"
         :class="{
