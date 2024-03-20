@@ -8,7 +8,7 @@ const { user } = storeToRefs(useAuthStore())
 </script>
 
 <template>
-  <div>
+  <div class="bg-white p-5 border border-gray-200 rounded-md">
     <div class="pl-5">
       <h1 class="font-bold text-gray-700 text-md pb-3.5 mb-3.5 border-b border-b-gray-400">
         {{ $t('Account Settings') }}

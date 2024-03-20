@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useMyCourseStore } from '~/stores/user/myCourse'
+import { useMyLearningStore } from '~/stores/user/myLearning'
 import type { Course } from '~/types/browsing'
 
 const props = defineProps<{ course: Course }>()
 
 const isSaved = ref<boolean>(false)
-const store = useMyCourseStore()
+const store = useMyLearningStore()
 const localePath = useLocalePath()
 
 const { $axiosApi, $toast, $i18n } = useNuxtApp()
@@ -82,7 +82,7 @@ watch(
             :src="course?.instructor?.avatar"
             alt="Instructor Avatar"
           />
-          <span class="text-xs font-semibold text-gray-500">
+          <span class="text-xs font-semibold text-gray-600">
             {{ course?.instructor?.name }}
           </span>
         </NuxtLink>
@@ -119,3 +119,4 @@ watch(
     </div>
   </div>
 </template>
+~/stores/user/myLearning

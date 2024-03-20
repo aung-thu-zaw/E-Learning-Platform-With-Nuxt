@@ -52,67 +52,100 @@ onMounted(async () => await store.getAuthenticatedUser())
       <NuxtLink
         v-show="user?.role === 'instructor'"
         :to="localePath('/instructor/overview')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-chalkboard-user"></i>
-        {{ $t('Instructor') }}
+        <span>
+          <i class="fa-solid fa-chalkboard-user"></i>
+        </span>
+        <span>
+          {{ $t('Instructor') }}
+        </span>
       </NuxtLink>
 
       <NuxtLink
         v-show="user?.role === 'admin'"
         :to="localePath('/admin/dashboard')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-tv"></i>
-        {{ $t('Go To Admin Dashboard') }}
+        <span>
+          <i class="fa-solid fa-tv"></i>
+        </span>
+        <span>
+          {{ $t('Go To Admin Dashboard') }}
+        </span>
       </NuxtLink>
 
       <NuxtLink
-        :to="localePath('/my-courses/saved-courses')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        :to="localePath('/my-learning/saved-courses')"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-book"></i>
-        {{ $t('My Courses') }}
+        <span>
+          <i class="fa-solid fa-bookmark mr-2"></i>
+        </span>
+        <span>
+          {{ $t('Saved Courses') }}
+        </span>
       </NuxtLink>
 
       <NuxtLink
         :to="localePath('/settings/profile-information')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-user-gear"></i>
-        {{ $t('Account Setting') }}
+        <span>
+          <i class="fa-solid fa-user-gear"></i>
+        </span>
+        <span>
+          {{ $t('Account Setting') }}
+        </span>
       </NuxtLink>
 
       <NuxtLink
         :to="localePath('/settings/referrals')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-share"></i>
-        {{ $t('Refer a Friend') }}
+        <span>
+          <i class="fa-solid fa-share"></i>
+        </span>
+        <span>
+          {{ $t('Refer a Friend') }}
+        </span>
       </NuxtLink>
 
       <NuxtLink
-        :to="$t('/settings/referrals')"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
+        :to="localePath('/settings/my-membership')"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-credit-card"></i>
-        {{ $t('My Membership') }}
+        <span>
+          <i class="fa-solid fa-credit-card"></i>
+        </span>
+        <span>
+          {{ $t('My Membership') }}
+        </span>
       </NuxtLink>
 
-      <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100"
-        href="#"
+      <NuxtLink
+        :to="localePath('/settings/my-membership')"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 space-x-3"
       >
-        <i class="fa-solid fa-circle-question"></i>
-        {{ $t('Help') }}
-      </a>
+        <span>
+          <i class="fa-solid fa-circle-question"></i>
+        </span>
+        <span>
+          {{ $t('Help') }}
+        </span>
+      </NuxtLink>
+
       <button
         type="button"
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 w-full"
+        class="flex items-center py-2 px-3 rounded-lg text-sm focus:outline-none text-gray-700 hover:bg-gray-100 w-full space-x-3"
         @click="store.logout()"
       >
-        <i class="fa-solid fa-right-from-bracket"></i>
-        {{ $t('Sign Out') }}
+        <span>
+          <i class="fa-solid fa-right-from-bracket"></i>
+        </span>
+        <span>
+          {{ $t('Sign Out') }}
+        </span>
       </button>
     </div>
   </div>

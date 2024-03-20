@@ -15,7 +15,7 @@ definePageMeta({ layout: 'app-layout', middleware: 'auth' })
           <SettingSideTabs />
         </div>
         <div class="w-full md:w-9/12">
-          <div class="bg-white border border-gray-300 p-10 rounded-md space-y-5">
+          <div class="bg-white border border-gray-200 p-10 rounded-md space-y-5">
             <h1 class="font-bold text-lg text-gray-800">{{ $t('Two-factor Authentication') }}</h1>
             <p class="text-sm">
               {{

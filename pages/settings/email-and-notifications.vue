@@ -57,7 +57,7 @@ onMounted(async () => await getEmailNotifications())
           <SettingSideTabs />
         </div>
         <div class="w-full md:w-9/12">
-          <div class="bg-white border border-gray-300 p-10 rounded-md space-y-10">
+          <div class="bg-white border border-gray-200 p-10 rounded-md space-y-10">
             <div>
               <h1 class="font-bold text-xl text-gray-800 mb-8">{{ $t('Email Notifications') }}</h1>
 

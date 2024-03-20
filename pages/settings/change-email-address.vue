@@ -67,7 +67,7 @@ onMounted(() => (form.current_email = user.value?.email ?? ''))
           <SettingSideTabs />
         </div>
         <div class="w-full md:w-9/12">
-          <div class="bg-white border border-gray-300 p-10 rounded-md">
+          <div class="bg-white border border-gray-200 p-10 rounded-md">
             <form class="space-y-4 md:space-y-6" @submit.prevent="handleUpdateEmailAddress">
               <div>
                 <InputLabel label="Current Email Address" />

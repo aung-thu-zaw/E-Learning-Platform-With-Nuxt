@@ -2,6 +2,7 @@
 import { useRoute, useRouter } from 'vue-router'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import axios from 'axios'
+import { useToken } from '~/composables/useToken'
 
 defineProps<{ data: any }>()
 
@@ -9,12 +10,23 @@ const route = useRoute()
 const router = useRouter()
 const emit = defineEmits(['updatedData'])
 const { getParameter } = useQueryGenerator()
+const { generateCsrfToken } = useToken()
 
 const fetchData = async (url: string) => {
   try {
+    await generateCsrfToken()
+
     const currentPage = getParameter(url, 'page') || 1
 
-    const response = await axios.get(url)
+    const response = await axios.get(url, {
+      withCredentials: true,
+      withXSRFToken: true,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
 
     if (!response) throw new Error('Response Not Found!')
 
@@ -22,7 +34,7 @@ const fetchData = async (url: string) => {
 
     emit('updatedData', response.data)
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
 }
 </script>

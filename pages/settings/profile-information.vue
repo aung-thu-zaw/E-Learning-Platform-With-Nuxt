@@ -103,7 +103,7 @@ const handleUpdateProfileInformation = async () => {
           <SettingSideTabs />
         </div>
         <div class="w-full md:w-9/12">
-          <div class="bg-white border border-gray-300 p-10 rounded-md">
+          <div class="bg-white border border-gray-200 p-10 rounded-md">
             <div>
               <div class="flex flex-col items-center overflow-hidden py-5 space-y-3">
                 <img
@@ -300,3 +300,17 @@ const handleUpdateProfileInformation = async () => {
     </div>
   </section>
 </template>
+
+<style scoped lang="css">
+:deep(.ql-editor) {
+  min-height: 200px;
+}
+:deep(.ql-toolbar.ql-snow) {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+:deep(.ql-container.ql-snow) {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+</style>

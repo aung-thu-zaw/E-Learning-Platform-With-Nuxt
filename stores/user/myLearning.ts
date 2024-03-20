@@ -4,7 +4,7 @@ import type { CoursePaginate } from '~/types/browsing'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import type { myCourseQuery } from '~/types/query'
 
-export const useMyCourseStore = defineStore('my-course', () => {
+export const useMyLearningStore = defineStore('my-learning', () => {
   const courses = ref<CoursePaginate | null>(null)
   const learningPaths = ref<LearningPathPaginate | null>(null)
 

@@ -1,10 +1,11 @@
 <script setup lang="ts">
+import { useMyLearningStore } from '~/stores/user/myLearning'
 import type { LearningPath } from '~/types/learningPath'
 
 const props = defineProps<{ learningPath: LearningPath }>()
 
 const isSaved = ref<boolean>(false)
-const store = useMyCourseStore()
+const store = useMyLearningStore()
 
 const { $axiosApi, $toast, $i18n } = useNuxtApp()
 const { learningPaths } = storeToRefs(store)

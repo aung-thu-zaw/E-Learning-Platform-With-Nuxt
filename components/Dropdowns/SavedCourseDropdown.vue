@@ -1,11 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="hs-dropdown relative inline-flex">
+  <div class="hs-dropdown relative inline-flex [--placement:bottom-right]">
     <button
       id="hs-dropdown-custom-icon-trigger"
       type="button"
-      class="hs-dropdown-toggle text-sm font-semibold text-gray-800"
+      class="hs-dropdown-toggle flex justify-center items-center size-7 text-sm font-semibold rounded-sm bg-white text-gray-800 hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none"
     >
       <svg
         class="flex-none size-4 text-gray-600"
@@ -26,30 +26,30 @@
     </button>
 
     <div
-      class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden min-w-60 bg-white shadow-md rounded-lg p-2 mt-2 z-30"
+      class="hs-dropdown-menu transition-[opacity,margin] duration hs-dropdown-open:opacity-100 opacity-0 hidden z-30 min-w-60 bg-white shadow-md rounded-lg p-2 mt-2"
       aria-labelledby="hs-dropdown-custom-icon-trigger"
     >
       <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
         href="#"
       >
         <i class="fa-solid fa-circle-check"></i>
 
-        Mark as complete
+        {{ $t('Mark As Complete') }}
       </a>
       <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
         href="#"
       >
         <i class="fa-solid fa-clipboard-list"></i>
-        Add to Another List
+        {{ $t('Add To Another List') }}
       </a>
       <a
-        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-sm text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        class="flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
         href="#"
       >
         <i class="fa-solid fa-trash-can"></i>
-        Remove
+        {{ $t('Remove From Saved') }}
       </a>
     </div>
   </div>
