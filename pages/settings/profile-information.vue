@@ -2,12 +2,13 @@
 import InputLabel from '@/components/Forms/Fields/InputLabel.vue'
 import InputError from '@/components/Forms/Fields/InputError.vue'
 import InputField from '@/components/Forms/Fields/InputField.vue'
-import TextAreaField from '@/components/Forms/Fields/TextAreaField.vue'
 import FileInput from '@/components/Forms/Fields/FileInput.vue'
 import FormButton from '@/components/Buttons/FormButton.vue'
 import SettingSideTabs from '~/components/Tabs/SettingSideTabs.vue'
 import { useAuthStore } from '~/stores/auth'
 import { useImagePreview } from '~/composables/useImagePreview'
+import { QuillEditor } from '@vueup/vue-quill'
+import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
 useHead({ title: 'Profile Information' })
 
@@ -152,11 +153,23 @@ const handleUpdateProfileInformation = async () => {
                 <div>
                   <InputLabel label="About" />
 
-                  <TextAreaField
-                    v-model="form.about_me"
-                    name="about_me"
-                    placeholder="Enter About You"
-                  />
+                  <ClientOnly>
+                    <QuillEditor
+                      v-model:content="form.about_me"
+                      theme="snow"
+                      content-type="html"
+                      :toolbar="[
+                        [{ header: [1, 2, 3, 4, 5, 6, false] }, { font: [] }],
+                        ['bold', 'italic', 'underline', 'strike'],
+                        [{ color: [] }, { background: [] }],
+                        ['blockquote', 'code-block'],
+                        ['link', 'image', 'video'],
+                        [{ align: [] }, { list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+                        [{ indent: '-1' }, { indent: '+1' }],
+                        [{ direction: 'rtl' }]
+                      ]"
+                    />
+                  </ClientOnly>
 
                   <InputError :message="errors?.about_me" />
                 </div>

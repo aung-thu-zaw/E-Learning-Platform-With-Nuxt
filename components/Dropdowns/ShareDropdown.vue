@@ -4,6 +4,8 @@ import { useCopy } from '~/composables/useCopy'
 
 const { shareToFacebook, shareToTwitter, shareToLinkedIn, shareByEmail } = useSocialShare()
 const { copyShareLink } = useCopy()
+
+const route = useRoute()
 </script>
 
 <template>
@@ -18,7 +20,8 @@ const { copyShareLink } = useCopy()
     <button
       id="hs-dropdown-auto-close-inside"
       type="button"
-      class="hs-dropdown-toggle inline-flex items-center gap-x-2 disabled:opacity-50 disabled:pointer-events-none border border-gray-300 hover:bg-gray-200 duration-200 px-5 py-2.5 rounded-md text-sm font-semibold text-gray-700"
+      class="hs-dropdown-toggle inline-flex items-center gap-x-2 disabled:opacity-50 disabled:pointer-events-none border border-gray-300 hover:bg-gray-200 duration-200 px-5 rounded-md font-semibold text-gray-700 py-2.5 text-sm"
+      :class="{ 'text-xs py-2': /\/user\//.test(route.path) }"
     >
       <i class="fa-solid fa-share-nodes"></i>
       Share

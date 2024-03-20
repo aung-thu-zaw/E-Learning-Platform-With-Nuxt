@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/stores/auth'
+
 const route = useRoute()
 const localePath = useLocalePath()
+
+const { user } = storeToRefs(useAuthStore())
 </script>
 
 <template>
@@ -13,7 +17,7 @@ const localePath = useLocalePath()
 
     <div class="space-y-1.5">
       <NuxtLink
-        :to="localePath('/')"
+        :to="localePath(`/user/${user?.username}`)"
         class="text-gray-800 font-semibold w-full px-5 py-3 rounded-md text-left text-sm hover:bg-gray-200 block duration-200 transition-all focus:ring-0"
       >
         {{ $t('View Profile') }}

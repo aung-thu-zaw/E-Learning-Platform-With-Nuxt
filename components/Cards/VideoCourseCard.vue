@@ -77,7 +77,7 @@ watch(
       <div class="flex items-center justify-between my-5">
         <div class="space-x-2">
           <img
-            class="inline-block h-[2.375rem] w-[2.375rem] rounded-full"
+            class="inline-block h-[2.375rem] w-[2.375rem] rounded-full object-cover"
             :src="course?.instructor?.avatar"
             alt="Instructor Avatar"
           />
