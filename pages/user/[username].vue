@@ -2,21 +2,59 @@
 import SocialLinkTab from '~/components/Tabs/SocialLinkTab.vue'
 import VideoCourseCard from '~/components/Cards/VideoCourseCard.vue'
 import ShareDropdown from '~/components/Dropdowns/ShareDropdown.vue'
+import { useAuthStore } from '~/stores/auth'
 
 definePageMeta({ layout: 'app-layout' })
 
 const userInformation = ref<any>(null)
 const currentUsername = useRoute().params.username.toString()
 
-const { $axiosApi } = useNuxtApp()
+const { $axiosApi, $toast } = useNuxtApp()
+const { user, isAuthenticated } = storeToRefs(useAuthStore())
 
 const getUserInformation = async (username: string) => {
   try {
-    const { data } = await $axiosApi.get(`/users/${username}/information`)
+    const { data } = await $axiosApi.get(`/user/${username}/information`)
 
     if (!data) throw new Error('Response Data Not Found!')
 
     userInformation.value = data
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const handleFollowUser = async (userId: number) => {
+  try {
+    const { data } = await $axiosApi.post(`/user/${userId}/follow`)
+
+    if (!data) throw new Error('Response Data Not Found!')
+
+    await getUserInformation(currentUsername)
+
+    $toast.success(`You're now following ${userInformation.value.display_name}.`)
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
+
+const handleUnFollowUser = async (userId: number) => {
+  try {
+    const { data } = await $axiosApi.post(`/user/${userId}/unfollow`)
+
+    if (!data) throw new Error('Response Data Not Found!')
+
+    await getUserInformation(currentUsername)
+
+    $toast.success(`You've unfollowed ${userInformation.value.display_name}.`)
   } catch (error: any) {
     showError({
       statusCode: error.response?.status,
@@ -87,11 +125,23 @@ watch(
 
               <div class="space-x-5">
                 <button
+                  v-show="user?.id !== userInformation?.id && isAuthenticated"
                   type="button"
                   class="text-yellow-500 border border-yellow-500 duration-200 px-5 py-2 rounded-md text-xs font-semibold active:animate-press hover:bg-yellow-500 hover:text-white"
+                  @click="
+                    userInformation?.is_followed
+                      ? handleUnFollowUser(userInformation.id)
+                      : handleFollowUser(userInformation.id)
+                  "
                 >
-                  <i class="fa-solid fa-plus"></i>
-                  Follow
+                  <span v-if="!userInformation?.is_followed">
+                    <i class="fa-solid fa-plus"></i>
+                    Follow
+                  </span>
+                  <span v-else>
+                    <i class="fa-solid fa-check"></i>
+                    Following
+                  </span>
                 </button>
 
                 <ShareDropdown />

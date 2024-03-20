@@ -37,6 +37,7 @@ export interface Course {
   language: string
   published_at: string
   instructor: {
+    username: string
     name: string
     avatar: string
   }

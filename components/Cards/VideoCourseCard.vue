@@ -6,6 +6,7 @@ const props = defineProps<{ course: Course }>()
 
 const isSaved = ref<boolean>(false)
 const store = useMyCourseStore()
+const localePath = useLocalePath()
 
 const { $axiosApi, $toast, $i18n } = useNuxtApp()
 const { courses } = storeToRefs(store)
@@ -75,7 +76,7 @@ watch(
       </h3>
 
       <div class="flex items-center justify-between my-5">
-        <div class="space-x-2">
+        <NuxtLink :to="localePath(`/user/${course.instructor.username}`)" class="space-x-2">
           <img
             class="inline-block h-[2.375rem] w-[2.375rem] rounded-full object-cover"
             :src="course?.instructor?.avatar"
@@ -84,7 +85,7 @@ watch(
           <span class="text-xs font-semibold text-gray-500">
             {{ course?.instructor?.name }}
           </span>
-        </div>
+        </NuxtLink>
 
         <div>
           <button
