@@ -33,28 +33,30 @@ const handleUpdatedData = (data: any) => {
 </script>
 
 <template>
-  <div v-if="learningPaths?.data.length">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <LearningPathCollectionCard
-        v-for="learningPath in learningPaths.data"
-        :key="learningPath.id"
-        :learning-path="learningPath"
-      />
-    </div>
+  <div>
+    <div v-if="learningPaths?.data.length">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <LearningPathCollectionCard
+          v-for="learningPath in learningPaths.data"
+          :key="learningPath.id"
+          :learning-path="learningPath"
+        />
+      </div>
 
-    <div v-if="learningPaths" class="mt-20">
-      <Pagination :data="learningPaths" @updated-data="handleUpdatedData" />
+      <div v-if="learningPaths" class="mt-20">
+        <Pagination :data="learningPaths" @updated-data="handleUpdatedData" />
+      </div>
     </div>
-  </div>
-  <div v-else class="text-center py-20 space-y-10">
-    <p class="font-bold text-gray-700">{{ $t("You haven't saved any Learning Paths yet.") }}</p>
+    <div v-else class="text-center py-20 space-y-10">
+      <p class="font-bold text-gray-700">{{ $t("You haven't saved any Learning Paths yet.") }}</p>
 
-    <NuxtLink
-      :to="localePath('/learning-paths')"
-      class="px-5 py-3 inline-block text-xs font-semibold bg-yellow-500 rounded-md hover:bg-yellow-600 text-white active:animate-press duration-150"
-    >
-      {{ $t('View All Learning Paths') }}
-      <i class="fa-solid fa-arrow-right ml-3"></i>
-    </NuxtLink>
+      <NuxtLink
+        :to="localePath('/learning-paths')"
+        class="px-5 py-3 inline-block text-xs font-semibold bg-yellow-500 rounded-md hover:bg-yellow-600 text-white active:animate-press duration-150"
+      >
+        {{ $t('View All Learning Paths') }}
+        <i class="fa-solid fa-arrow-right ml-3"></i>
+      </NuxtLink>
+    </div>
   </div>
 </template>

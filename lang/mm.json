@@ -275,5 +275,7 @@
     "Mark As Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားပြုပါ။",
     "Add To Another List": "အခြားစာရင်းသို့ထည့်ပါ။",
     "Remove From Saved": "သိမ်းဆည်းထားသောနေရာမှ ဖယ်ရှားပါ။",
-    "You haven't saved any Learning Paths yet.": "သင်သည် မည်သည့် သင်ယူမှုလမ်းကြောင်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။"
+    "You haven't saved any Learning Paths yet.": "သင်သည် မည်သည့် သင်ယူမှုလမ်းကြောင်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။",
+    "You haven't saved any courses yet.": "သင်သည် မည်သည့် သင်တန်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။",
+    "Browse Courses": "သင်တန်းများကိုကြည့်ရှုပါ"
 }

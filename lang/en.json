@@ -276,5 +276,7 @@
     "Mark As Complete": "Mark As Complete",
     "Add To Another List": "Add To Another List",
     "Remove From Saved": "Remove From Saved",
-    "You haven't saved any Learning Paths yet.": "You haven't saved any Learning Paths yet."
+    "You haven't saved any Learning Paths yet.": "You haven't saved any Learning Paths yet.",
+    "You haven't saved any courses yet.": "You haven't saved any courses yet.",
+    "Browse Courses": "Browse Courses"
 }
