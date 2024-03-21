@@ -7,18 +7,143 @@ import NormalButton from '~/components/Buttons/NormalButton.vue'
 import Modal from '~/components/ModalContainer.vue'
 import VueDatePicker from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
+import type { Form, Reminder, Course } from '~/types/reminder'
+import { useReminderStore } from '~/stores/user/reminder'
+import { useFormatFunctions } from '@/composables/useFormatFunctions'
 
-defineProps<{ mode: string }>()
+const props = defineProps<{ mode: string; reminder?: Reminder }>()
+
 const step = ref(1)
-const frequency = ref('daily')
-
+const searchableCourses = ref<Course[] | null>(null)
+const search = ref<string>('')
+const delayedSearch = ref<NodeJS.Timeout | null>(null)
 const confirmingAddReminder = ref(false)
+const store = useReminderStore()
+
+const days = [
+  { label: 'Su', value: 'sunday' },
+  { label: 'Mo', value: 'monday' },
+  { label: 'Tu', value: 'tuesday' },
+  { label: 'We', value: 'wednesday' },
+  { label: 'Th', value: 'thursday' },
+  { label: 'Fr', value: 'friday' },
+  { label: 'Sa', value: 'saturday' }
+]
+
+const { formatDate } = useFormatFunctions()
+const { errors, reminder: currentReminder, courses } = storeToRefs(store)
 
 const confirmAddReminder = () => (confirmingAddReminder.value = true)
 
 const closeModal = () => (confirmingAddReminder.value = false)
 
-const date = ref('')
+const form: Form = reactive({
+  message: '',
+  frequency: 'daily',
+  date: '',
+  time: '',
+  google_calendar_synced: false,
+  days: [],
+  course_id: null
+})
+
+onUpdated(async () => {
+  await store.getResources()
+
+  if (props.mode === 'edit' && props.reminder) {
+    await store.getReminder(props.reminder?.id)
+
+    form.message = currentReminder.value?.message ?? ''
+    form.frequency = currentReminder.value?.frequency ?? 'daily'
+    form.date = currentReminder.value?.date ?? ''
+    form.time = currentReminder.value?.time ? formatTimeObject(currentReminder.value?.time) : ''
+    form.google_calendar_synced = currentReminder.value?.google_calendar_synced ?? false
+    form.days = currentReminder.value?.days ?? []
+    form.course_id = currentReminder.value?.course?.id ?? null
+  }
+})
+
+const toggleDay = (selectedDay: string) => {
+  const index = form.days.indexOf(selectedDay)
+  if (index === -1) {
+    form.days.push(selectedDay)
+  } else {
+    form.days.splice(index, 1)
+  }
+}
+
+const isSelected = (day: string) => form.days.includes(day)
+
+const filteredCourses = (keyword: string) => {
+  if (delayedSearch.value) {
+    clearTimeout(delayedSearch.value)
+  }
+  delayedSearch.value = setTimeout(() => {
+    if (!keyword || !courses.value) {
+      searchableCourses.value = []
+      return
+    }
+    const regex = new RegExp(keyword, 'i')
+    searchableCourses.value = courses.value.filter((course) => regex.test(course.title))
+  }, 400)
+}
+
+const formatTimeObject = (timeString: string) => {
+  const [hours, minutes, seconds] = timeString.split(':').map(Number)
+  return { hours, minutes, seconds }
+}
+
+watch(
+  () => search.value,
+  (newKeyword) => filteredCourses(newKeyword)
+)
+
+watch(
+  () => form.date,
+  (newDate) => (form.date = formatDate(newDate) ?? '')
+)
+
+watch(
+  () => form.frequency,
+  () => {
+    form.days = []
+    form.date = ''
+    form.time = ''
+  }
+)
+
+const handleReminder = async () => {
+  if (props.mode === 'add') {
+    const successMessage = await store.createReminder(form)
+
+    if (successMessage) {
+      step.value = 1
+      form.message = ''
+      form.frequency = 'daily'
+      form.date = ''
+      form.time = ''
+      form.google_calendar_synced = false
+      form.days = []
+      form.course_id = null
+
+      closeModal()
+
+      await store.getAllReminder()
+    }
+  } else {
+    if (props.reminder) {
+      const successMessage = await store.updateReminder(form, props.reminder?.id)
+
+      if (successMessage) {
+        step.value = 1
+
+        closeModal()
+
+        await store.getAllReminder()
+      }
+    }
+  }
+}
 </script>
 
 <template>
@@ -28,6 +153,7 @@ const date = ref('')
       class="text-white bg-yellow-500 hover:bg-yellow-600"
       @click="confirmAddReminder"
     >
+      <i class="fa-solid fa-plus"></i>
       {{ $t('Add A New Reminder') }}
     </NormalButton>
 
@@ -59,100 +185,90 @@ const date = ref('')
         </div>
 
         <form
-          ref="createForm"
           class="space-y-4 md:space-y-6 flex flex-col items-end w-full min-h-[600px] justify-between h-full"
-          @submit.prevent=""
+          @submit.prevent="handleReminder"
         >
           <div class="w-full">
             <!-- Step One -->
             <div v-show="step === 1" class="space-y-6">
               <div>
-                <InputLabel label="Reminder Name" required />
+                <InputLabel label="Reminder Message" required />
 
                 <InputField
+                  v-model="form.message"
                   type="text"
-                  name="name"
-                  placeholder="Enter Reminder Name ( eg. Learning Reminder )"
+                  name="message"
+                  placeholder="Enter Reminder Message ( eg. Learning Reminder )"
                   required
                 />
 
-                <InputError message="" />
+                <InputError :message="errors?.message" />
               </div>
 
               <div>
                 <InputLabel label="Attach content" required />
 
-                <p class="text-xs font-medium mb-3">Most recent courses or labs:</p>
-
-                <div class="mb-5">
-                  <ul class="space-y-3">
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-                    <li class="flex items-start space-x-2">
-                      <Radio />
-                      <p class="text-sm line-clamp-1">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, iusto
-                        quae necessitatibus illo qui perferendis nihil iste magnam dicta officia
-                        temporibus minima totam, recusandae amet magni eaque ex reprehenderit.
-                        Rerum!
-                      </p>
-                    </li>
-                  </ul>
-                </div>
-
                 <InputField
+                  v-model="search"
                   type="text"
                   name="name"
                   placeholder="Search by course title from your enrolled courses"
                   required
                 />
 
-                <InputError message="" />
+                <InputError :message="errors?.course_id" />
+              </div>
+
+              <div class="mb-5">
+                <h1 class="font-bold text-xs text-gray-800 mb-5">
+                  {{ $t('Your Enrolled Courses') }}
+                </h1>
+
+                <ul v-if="!search" class="space-y-3">
+                  <li v-for="course in courses" :key="course.id" class="flex items-start space-x-2">
+                    <Radio
+                      :id="'course' + course?.id"
+                      v-model:checked="form.course_id"
+                      :value="course.id"
+                      name="course"
+                    />
+                    <p class="text-sm font-semibold text-gray-800 line-clamp-1">
+                      {{ course?.title }}
+                    </p>
+                  </li>
+                </ul>
+
+                <ul v-else-if="search && searchableCourses?.length" class="space-y-3">
+                  <li
+                    v-for="course in searchableCourses"
+                    :key="course.id"
+                    class="flex items-start space-x-2"
+                  >
+                    <Radio
+                      :id="'course' + course?.id"
+                      v-model="form.course_id"
+                      :value="course.id"
+                      name="course"
+                    />
+                    <p class="text-sm font-semibold text-gray-800 line-clamp-1">
+                      {{ course?.title }}
+                    </p>
+                  </li>
+                </ul>
+
+                <div v-else-if="search && !searchableCourses?.length" class="py-20">
+                  <p class="text-center font-bold text-xs text-yellow-600">
+                    <i class="fa-solid fa-file-circle-xmark"></i>
+                    {{ $t("We're sorry we can't find any matches for your filter term.") }}
+                  </p>
+                </div>
+
+                <div v-else class="py-20">
+                  <p class="text-center font-bold text-xs text-yellow-600">
+                    <i class="fa-solid fa-file-circle-xmark"></i>
+                    {{ $t("You don't have any enrolled course.") }}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -165,94 +281,80 @@ const date = ref('')
                   <button
                     type="button"
                     class="text-xs font-bold border px-5 py-2 rounded-sm border-gray-400"
-                    :class="{ 'border-gray-700 bg-gray-700 text-white': frequency === 'daily' }"
-                    @click="frequency = 'daily'"
+                    :class="{
+                      'border-gray-700 bg-gray-700 text-white': form.frequency === 'daily'
+                    }"
+                    @click="form.frequency = 'daily'"
                   >
-                    Daily
+                    {{ $t('Daily') }}
                   </button>
+
                   <button
                     type="button"
                     class="text-xs font-bold border px-5 py-2 rounded-sm border-gray-400"
-                    :class="{ 'border-gray-700 bg-gray-700 text-white': frequency === 'weekly' }"
-                    @click="frequency = 'weekly'"
+                    :class="{
+                      'border-gray-700 bg-gray-700 text-white': form.frequency === 'weekly'
+                    }"
+                    @click="form.frequency = 'weekly'"
                   >
-                    Weekly
+                    {{ $t('Weekly') }}
                   </button>
+
                   <button
                     type="button"
                     class="text-xs font-bold border px-5 py-2 rounded-sm border-gray-400"
-                    :class="{ 'border-gray-700 bg-gray-700 text-white': frequency === 'once' }"
-                    @click="frequency = 'once'"
+                    :class="{ 'border-gray-700 bg-gray-700 text-white': form.frequency === 'once' }"
+                    @click="form.frequency = 'once'"
                   >
-                    Once
+                    {{ $t('Once') }}
                   </button>
                 </div>
               </div>
 
-              <div v-if="frequency === 'once'">
+              <div v-if="form.frequency === 'once'">
                 <InputLabel label="Date" required />
 
                 <VueDatePicker
-                  v-model="date"
+                  v-model="form.date"
                   text-input
                   :enable-time-picker="false"
                   placeholder="Select Date"
                 />
-              </div>
 
-              <div v-if="frequency === 'weekly'" class="flex items-center space-x-3">
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border font-bold text-sm border-gray-700 bg-gray-700 text-white"
-                >
-                  Su
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  Mo
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  Tu
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  We
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  Th
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  Fr
-                </button>
-                <button
-                  type="button"
-                  class="w-10 h-10 rounded-full border border-gray-500 font-bold text-gray-700 text-sm"
-                >
-                  Sa
-                </button>
-              </div>
-
-              <div v-if="frequency === 'daily' || frequency === 'weekly'">
-                <InputLabel label="Time" required />
-
-                <VueDatePicker v-model="date" required time-picker placeholder="Select Time" />
+                <InputError :message="errors?.date" />
               </div>
 
               <div>
-                <InputLabel label="Add To Calendar" required />
+                <div v-if="form.frequency === 'weekly'" class="flex items-center space-x-3">
+                  <button
+                    v-for="day in days"
+                    :key="day.value"
+                    type="button"
+                    class="w-10 h-10 rounded-full border"
+                    :class="{
+                      'font-bold text-sm border-gray-700 bg-gray-700 text-white': isSelected(
+                        day.value
+                      ),
+                      'border-gray-500 font-bold text-gray-700 text-sm': !isSelected(day.value)
+                    }"
+                    @click="toggleDay(day.value)"
+                  >
+                    {{ day.label }}
+                  </button>
+                </div>
+                <InputError :message="errors?.frequency" />
+              </div>
+
+              <div>
+                <InputLabel label="Time" required />
+
+                <VueDatePicker v-model="form.time" required time-picker placeholder="Select Time" />
+
+                <InputError :message="errors?.time" />
+              </div>
+
+              <div>
+                <InputLabel label="Add To Calendar" />
 
                 <div>
                   <button
@@ -303,10 +405,11 @@ const date = ref('')
                 {{ $t('Next') }}
                 <i class="fa-solid fa-angles-right"></i>
               </NormalButton>
+
               <NormalButton
                 v-if="step === 2"
                 class="bg-yellow-500 hover:bg-yellow-600 text-white"
-                @click="closeModal"
+                @click="handleReminder"
               >
                 {{ $t('Confirm') }}
               </NormalButton>

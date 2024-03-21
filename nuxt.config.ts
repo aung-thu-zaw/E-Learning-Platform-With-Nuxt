@@ -32,7 +32,7 @@ export default defineNuxtConfig({
   },
   css: ['plyr/dist/plyr.css'],
   plugins: [
-    '~/plugins/preline.client.ts',
+    // '~/plugins/preline.client.ts',
     '~/plugins/axios.ts',
     '~/plugins/toastify.ts',
     '~/plugins/sweetalert.ts',

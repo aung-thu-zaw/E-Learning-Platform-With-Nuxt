@@ -1,21 +1,47 @@
 <script setup lang="ts">
 import ReminderDropdown from '~/components/Dropdowns/ReminderDropdown.vue'
+import type { Reminder } from '~/types/reminder'
+
+defineProps<{ reminder: Reminder }>()
 </script>
 
 <template>
   <div class="bg-white border border-gray-300 rounded-md p-6 space-y-5">
     <div class="flex items-start justify-between">
-      <h1 class="font-bold text-lg text-gray-800">Learning New Things</h1>
+      <h1 class="font-bold text-lg text-gray-800">{{ reminder?.message }}</h1>
 
-      <ReminderDropdown />
+      <ReminderDropdown :reminder="reminder" />
     </div>
 
     <div class="flex items-center space-x-5 text-xs font-semibold text-gray-700">
-      <p><i class="fa-solid fa-clock mr-2"></i>12:00 PM</p>
-      <p><i class="fa-solid fa-calendar mr-2"></i>Daily</p>
+      <p>
+        <i class="fa-solid fa-clock mr-2"></i>
+        {{ $t('Time') }} - {{ reminder?.time }}
+      </p>
+
+      <p>
+        <i class="fa-solid fa-calendar mr-2"></i>
+        {{ $t('Frequency') }} -
+
+        <span v-if="reminder?.frequency === 'daily'">
+          {{ $t('Daily') }}
+        </span>
+        <span v-if="reminder?.frequency === 'weekly'">
+          <span v-for="(day, index) in reminder.days" :key="index" class="capitalize">
+            {{ $t(day) }}
+            <template v-if="reminder.days && index !== reminder.days?.length - 1">, </template>
+          </span>
+        </span>
+        <span v-if="reminder?.frequency === 'once'">
+          {{ reminder?.date }}
+        </span>
+      </p>
     </div>
 
-    <div class="flex items-center space-x-2 text-sm font-normal text-gray-800">
+    <div
+      v-if="reminder?.google_calendar_synced"
+      class="flex items-center space-x-2 text-sm font-normal text-gray-800"
+    >
       <svg class="w-4 h-auto mr-2" width="46" height="47" viewBox="0 0 46 47" fill="none">
         <path
           d="M46 24.0287C46 22.09 45.8533 20.68 45.5013 19.2112H23.4694V27.9356H36.4069C36.1429 30.1094 34.7347 33.37 31.5957 35.5731L31.5663 35.8669L38.5191 41.2719L38.9885 41.3306C43.4477 37.2181 46 31.1669 46 24.0287Z"
@@ -35,11 +61,11 @@ import ReminderDropdown from '~/components/Dropdowns/ReminderDropdown.vue'
         />
       </svg>
 
-      Added To Google Calendar
+      {{ $t('Added To Google Calendar') }}
     </div>
 
     <p class="font-bold text-sm text-gray-800">
-      Course Title : Complete React Native Bootcamp (with Hooks)
+      {{ $t('Course Title') }} : {{ reminder?.course?.title }}
     </p>
   </div>
 </template>

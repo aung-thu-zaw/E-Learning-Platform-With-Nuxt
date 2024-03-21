@@ -89,17 +89,6 @@ onMounted(async () => {
               </NuxtLink>
 
               <NuxtLink
-                :to="localePath('/my-learning/watch-history')"
-                class="border-b-4 text-gray-800 font-semibold text-sm pb-3 duration-150 transition-all"
-                :class="{
-                  'border-b-yellow-400': route.path.endsWith('/my-learning/watch-history'),
-                  'border-b-transparent': !route.path.endsWith('/my-learning/watch-history')
-                }"
-              >
-                {{ $t('Watch History') }}
-              </NuxtLink>
-
-              <NuxtLink
                 :to="localePath('/my-learning/learning-reminders')"
                 class="border-b-4 text-gray-800 font-semibold text-sm pb-3 duration-150 transition-all"
                 :class="{
