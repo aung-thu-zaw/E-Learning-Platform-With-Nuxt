@@ -277,5 +277,12 @@
     "Remove From Saved": "သိမ်းဆည်းထားသောနေရာမှ ဖယ်ရှားပါ။",
     "You haven't saved any Learning Paths yet.": "သင်သည် မည်သည့် သင်ယူမှုလမ်းကြောင်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။",
     "You haven't saved any courses yet.": "သင်သည် မည်သည့် သင်တန်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။",
-    "Browse Courses": "သင်တန်းများကိုကြည့်ရှုပါ"
+    "Browse Courses": "သင်တန်းများကိုကြည့်ရှုပါ",
+    "You haven't created any lists yet.": "သင်သည် မည်သည့်စာရင်းကိုမျှ မဖန်တီးရသေးပါ။",
+    "Learning Reminders": "သင်ယူမှု သတိပေးချက်များ",
+    "Learning a little each day adds up. Research shows that students who make learning a habit are more likely to reach their goals. Set time aside to learn and get reminders using your learning scheduler.": "နေ့တိုင်း နည်းနည်းလေ့လာသင်ယူတာက ပိုများတယ်။ အလေ့အကျင့်တစ်ခုပြုလုပ်သော ကျောင်းသားများသည် ၎င်းတို့၏ ပန်းတိုင်သို့ အရောက်လှမ်းနိုင်ခြေ ပိုများကြောင်း သုတေသနပြုချက်များအရ သိရသည်။ သင်၏သင်ယူမှုအချိန်ဇယားကို အသုံးပြု၍ သင်ယူရန်နှင့် သတိပေးချက်များရယူရန် ဘေးဖယ်ထားလိုက်ပါ။",
+    "Sync Again": "ထပ်မံ၍ ထပ်တူပြုပါ",
+    "Add A New Reminder": "သတိပေးချက်အသစ်တစ်ခု ထည့်ပါ",
+    "Previous": "နောက်သို့",
+    "Next": "ရှေ့သို့"
 }
