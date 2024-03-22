@@ -310,5 +310,7 @@
     "Your Enrolled Courses": "Your Enrolled Courses",
     "A new reminder added successfully!": "A new reminder added successfully!",
     "Reminder updated successfully!": "Reminder updated successfully!",
-    "Reminder deleted successfully!": "Reminder deleted successfully!"
+    "Reminder deleted successfully!": "Reminder deleted successfully!",
+    "Sync To Google Calendar": "Sync To Google Calendar",
+    "Event added to Google Calendar successfully.": "Event added to Google Calendar successfully."
 }

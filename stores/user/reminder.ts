@@ -7,6 +7,7 @@ export const useReminderStore = defineStore('reminder', () => {
   const reminder = ref<Reminder | null>(null)
   const courses = ref<Course[] | null>(null)
   const errors = ref<Error | null>(null)
+  const processing = ref(false)
 
   const { generateCaptchaToken } = useToken()
   const { $axiosApi, $toast, $i18n } = useNuxtApp()
@@ -115,16 +116,42 @@ export const useReminderStore = defineStore('reminder', () => {
     }
   }
 
+  const syncToGoogleCalendar = async (reminderId: number): Promise<void> => {
+    try {
+      processing.value = true
+
+      const { data } = await $axiosApi.post(`/user/sync/reminders/${reminderId}/google-calendar`)
+
+      if (!data) throw new Error('Response Data Not Found!')
+
+      console.log(data)
+
+      $toast.success($i18n.t(data.message))
+    } catch (error: any) {
+      if (error.response?.status === 401) {
+        const { backendBaseUrl } = useRuntimeConfig().public
+
+        window.location.href = `${backendBaseUrl}/google/authenticate`
+      } else {
+        $toast.error($i18n.t(error))
+      }
+    } finally {
+      processing.value = false
+    }
+  }
+
   return {
     reminders,
     courses,
     reminder,
     errors,
+    processing,
     getAllReminder,
     getReminder,
     getResources,
     createReminder,
     updateReminder,
-    deleteReminder
+    deleteReminder,
+    syncToGoogleCalendar
   }
 })

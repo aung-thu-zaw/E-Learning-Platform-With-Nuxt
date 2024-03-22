@@ -40,7 +40,7 @@ defineProps<{ reminder: Reminder }>()
 
     <div
       v-if="reminder?.google_calendar_synced"
-      class="flex items-center space-x-2 text-sm font-normal text-gray-800"
+      class="flex items-center space-x-2 text-sm font-medium text-gray-800"
     >
       <svg class="w-4 h-auto mr-2" width="46" height="47" viewBox="0 0 46 47" fill="none">
         <path

@@ -309,5 +309,7 @@
     "Your Enrolled Courses": "သင်စာရင်းသွင်းထားသော သင်တန်းများ",
     "A new reminder added successfully!": "သတိပေးချက်အသစ်ကို အောင်မြင်စွာ ထည့်သွင်းလိုက်ပါပြီ။",
     "Reminder updated successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ထားသည်။",
-    "Reminder deleted successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ ဖျက်လိုက်ပါပြီ။"
+    "Reminder deleted successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ ဖျက်လိုက်ပါပြီ။",
+    "Sync To Google Calendar": "Google ပြက္ခဒိန်သို့ စင့်ခ်လုပ်ပါ",
+    "Event added to Google Calendar successfully.": "အစီအစဉ်ကို Google Calendar တွင် အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။"
 }

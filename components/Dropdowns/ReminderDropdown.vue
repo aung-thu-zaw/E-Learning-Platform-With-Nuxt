@@ -40,6 +40,7 @@ const store = useReminderStore()
       <button
         type="button"
         class="w-full flex items-center gap-x-3.5 py-2 px-3 rounded-lg text-xs font-semibold text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100"
+        @click="store.syncToGoogleCalendar(reminder?.id)"
       >
         <i class="fa-brands fa-google"></i>
         {{ $t('Sync Again') }}
