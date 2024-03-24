@@ -311,5 +311,6 @@
     "Reminder updated successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ အပ်ဒိတ်လုပ်ထားသည်။",
     "Reminder deleted successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ ဖျက်လိုက်ပါပြီ။",
     "Sync To Google Calendar": "Google ပြက္ခဒိန်သို့ စင့်ခ်လုပ်ပါ",
-    "Event added to Google Calendar successfully.": "အစီအစဉ်ကို Google Calendar တွင် အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။"
+    "Event added to Google Calendar successfully.": "အစီအစဉ်ကို Google Calendar တွင် အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။",
+    "You haven't enrolled any courses yet.": "မည်သည့်သင်တန်းကိုမှ စာရင်းမသွင်းရသေးပါ။"
 }

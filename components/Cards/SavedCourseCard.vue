@@ -54,7 +54,7 @@ const localePath = useLocalePath()
       </div>
 
       <div>
-        <CourseCardProgressBar />
+        <CourseCardProgressBar :enrollment="course?.enrollment ?? null" />
       </div>
     </div>
   </div>

@@ -43,6 +43,12 @@ export interface Course {
   }
   total_lesson: string
   duration: string
+  enrollment: {
+    id: number
+    enrolled_at: string
+    completed_at: string
+    progress: number
+  } | null
 }
 
 export interface CoursePaginate {
