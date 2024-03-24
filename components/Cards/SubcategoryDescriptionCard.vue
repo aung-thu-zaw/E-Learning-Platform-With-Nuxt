@@ -27,12 +27,5 @@ defineProps<{ subcategory: Subcategory | null }>()
       <i class="fa-solid fa-crown"></i>
       Get Premium
     </button>
-
-    <!-- <button
-      class="bg-yellow-600 px-5 py-3 rounded-md text-white text-xs font-semibold hover:bg-yellow-500 duration-200 transition-all"
-    >
-      <i class="fa-solid fa-flag"></i>
-      Start For Free
-    </button> -->
   </div>
 </template>

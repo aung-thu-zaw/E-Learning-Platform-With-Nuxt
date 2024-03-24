@@ -21,7 +21,7 @@ const localePath = useLocalePath()
         </h3>
 
         <div class="flex items-center justify-between">
-          <NuxtLink :to="localePath(`/`)" class="space-x-2">
+          <NuxtLink :to="localePath(`/user/${course.instructor.username}`)" class="space-x-2">
             <img
               class="inline-block h-[2.375rem] w-[2.375rem] rounded-full object-cover"
               :src="course?.instructor?.avatar"

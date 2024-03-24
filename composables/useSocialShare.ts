@@ -1,38 +1,45 @@
 export function useSocialShare() {
+  const openNewTab = (url: string) => {
+    const anchor = document.createElement('a')
+    anchor.href = url
+    anchor.target = '_blank'
+    anchor.click()
+  }
+
   const shareToFacebook = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank')
+    openNewTab(`https://www.facebook.com/sharer/sharer.php?u=${url}`)
   }
 
   const shareToTwitter = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://twitter.com/intent/tweet?url=${url}`, '_blank')
+    openNewTab(`https://twitter.com/intent/tweet?url=${url}`)
   }
 
   const shareToLinkedIn = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank')
+    openNewTab(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)
   }
 
   const shareToReddit = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://www.reddit.com/submit?url=${url}`, '_blank')
+    openNewTab(`https://www.reddit.com/submit?url=${url}`)
   }
 
   const shareToTelegram = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://t.me/share/url?url=${url}`, '_blank')
+    openNewTab(`https://t.me/share/url?url=${url}`)
   }
 
   const shareToWhatsApp = () => {
     const url = encodeURIComponent(window.location.href)
-    window.open(`https://api.whatsapp.com/send?text=${url}`, '_blank')
+    openNewTab(`https://api.whatsapp.com/send?text=${url}`)
   }
 
   const shareByEmail = () => {
     const subject = encodeURIComponent('Check out this link')
     const body = encodeURIComponent(window.location.href)
-    window.open(`mailto:?subject=${subject}&body=${body}`)
+    openNewTab(`mailto:?subject=${subject}&body=${body}`)
   }
 
   return {

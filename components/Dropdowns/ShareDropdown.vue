@@ -10,13 +10,6 @@ const route = useRoute()
 
 <template>
   <div class="mt-1 mx-1 sm:mt-1 hs-dropdown relative sm:inline-flex z-20 [--auto-close:inside]">
-    <!-- <button
-      class="border border-gray-300 hover:bg-gray-200 duration-200 px-5 py-2.5 rounded-md text-sm font-semibold text-gray-700"
-    >
-      <i class="fa-solid fa-share-nodes"></i>
-      Share
-    </button> -->
-
     <button
       id="hs-dropdown-auto-close-inside"
       type="button"
