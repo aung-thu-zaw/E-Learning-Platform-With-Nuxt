@@ -3,11 +3,13 @@ import AppNavbar from '~/components/Navbars/AppNavbar.vue'
 import AppFooter from '~/components/Footers/AppFooter.vue'
 import NavTopInviteBanner from '~/components/Banners/NavTopInviteBanner.vue'
 import { useAuthStore } from '~/stores/auth'
-import { useMyLearningStore } from '~/stores/user/myLearning'
+import { useSavedCourseStore } from '~/stores/e-learning/savedCourse'
+import { useSavedLearningPathStore } from '~/stores/e-learning/savedLearningPath'
 import { useURLQueryString } from '~/composables/useURLQueryString'
 
 const authStore = useAuthStore()
-const myLearningStore = useMyLearningStore()
+const savedCourseStore = useSavedCourseStore()
+const savedLearningPathStore = useSavedLearningPathStore()
 
 const { myCourseQueryString } = useURLQueryString()
 
@@ -16,8 +18,8 @@ onMounted(async () => {
 
   if (authStore.isAuthenticated) {
     await new Promise((resolve) => setTimeout(resolve, 500))
-    await myLearningStore.getAllSavedCourse({ ...myCourseQueryString.value })
-    await myLearningStore.getAllSavedLearningPath({ ...myCourseQueryString.value })
+    await savedCourseStore.getAllSavedCourse({ ...myCourseQueryString.value })
+    await savedLearningPathStore.getAllSavedLearningPath({ ...myCourseQueryString.value })
   }
 })
 </script>
@@ -46,4 +48,4 @@ onMounted(async () => {
   opacity: 0;
 }
 </style>
-~/stores/user/myLearning
+~/stores/user/myLearning~/stores/e-learning/savedCourse~/stores/e-learning/savedLearningPath

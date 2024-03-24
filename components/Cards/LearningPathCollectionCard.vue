@@ -1,69 +1,21 @@
 <script setup lang="ts">
-import { useMyLearningStore } from '~/stores/user/myLearning'
+import { useSavedLearningPathStore } from '~/stores/e-learning/savedLearningPath'
 import type { LearningPath } from '~/types/learningPath'
 
 const props = defineProps<{ learningPath: LearningPath }>()
 
-const isSaved = ref<boolean>(false)
-const store = useMyLearningStore()
+const isSaved = ref<boolean>(props.learningPath.is_saved)
+const store = useSavedLearningPathStore()
 
-const { $axiosApi, $toast, $i18n } = useNuxtApp()
-const { learningPaths } = storeToRefs(store)
-
-const savedLearningPathToList = async (slug: string) => {
-  try {
-    const { data } = await $axiosApi.post(`/learning-paths/${slug}/save`)
-
-    isSaved.value = true
-
-    $toast.success($i18n.t(data.message))
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      return useRouter().push({ path: '/auth/sign-in' })
-    } else {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
-    }
+const toggleSavedLearningPath = async () => {
+  if (isSaved.value) {
+    await store.removeLearningPathFromList(props.learningPath?.slug)
+  } else {
+    await store.savedLearningPathToList(props.learningPath?.slug)
   }
+
+  isSaved.value = !isSaved.value
 }
-
-const removeLearningPathFromList = async (slug: string) => {
-  try {
-    const { data } = await $axiosApi.delete(`/learning-paths/${slug}/remove`)
-
-    isSaved.value = false
-
-    $toast.success($i18n.t(data.message))
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      return useRouter().push({ path: '/auth/sign-in' })
-    } else {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
-    }
-  }
-}
-
-const checkLearningPathIsSaved = (learningPathId: number): boolean | void => {
-  if (!learningPaths.value?.data?.length) return false
-
-  isSaved.value = learningPaths.value?.data?.some(
-    (learningPath) => learningPath.id === learningPathId
-  )
-}
-
-onMounted(() => checkLearningPathIsSaved(props.learningPath?.id))
-
-watch(
-  () => learningPaths.value,
-  () => checkLearningPathIsSaved(props.learningPath?.id)
-)
 </script>
 
 <template>
@@ -96,14 +48,7 @@ watch(
           </p>
         </div>
         <div>
-          <button
-            type="button"
-            @click="
-              isSaved
-                ? removeLearningPathFromList(learningPath?.slug)
-                : savedLearningPathToList(learningPath?.slug)
-            "
-          >
+          <button type="button" @click="toggleSavedLearningPath">
             <span v-if="isSaved" class="text-yellow-500">
               <i class="fa-solid fa-bookmark"></i>
             </span>

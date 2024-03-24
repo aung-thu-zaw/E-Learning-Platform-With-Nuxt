@@ -3,25 +3,12 @@ import AppNavbar from '~/components/Navbars/AppNavbar.vue'
 import AppFooter from '~/components/Footers/AppFooter.vue'
 import NavTopInviteBanner from '~/components/Banners/NavTopInviteBanner.vue'
 import { useAuthStore } from '~/stores/auth'
-import { useMyLearningStore } from '~/stores/user/myLearning'
-import { useURLQueryString } from '~/composables/useURLQueryString'
 
 const route = useRoute()
 const localePath = useLocalePath()
 const authStore = useAuthStore()
-const myCourseStore = useMyLearningStore()
 
-const { myCourseQueryString } = useURLQueryString()
-
-onMounted(async () => {
-  await authStore.getAuthenticatedUser()
-
-  if (authStore.isAuthenticated) {
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    await myCourseStore.getAllSavedCourse({ ...myCourseQueryString.value })
-    await myCourseStore.getAllSavedLearningPath({ ...myCourseQueryString.value })
-  }
-})
+onMounted(async () => await authStore.getAuthenticatedUser())
 </script>
 
 <template>

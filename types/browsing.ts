@@ -36,6 +36,7 @@ export interface Course {
   status: string
   language: string
   published_at: string
+  is_saved: boolean
   instructor: {
     username: string
     name: string

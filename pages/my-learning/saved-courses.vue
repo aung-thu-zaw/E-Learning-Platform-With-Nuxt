@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import SavedCourseCard from '~/components/Cards/SavedCourseCard.vue'
-import { useMyLearningStore } from '~/stores/user/myLearning'
 import Pagination from '~/components/Paginations/AppPagination.vue'
 import { useURLQueryString } from '~/composables/useURLQueryString'
 import type { CoursePaginate } from '~/types/browsing'
+import { useSavedCourseStore } from '~/stores/e-learning/savedCourse'
 
 useHead({ title: 'Saved Courses' })
 
@@ -11,7 +11,7 @@ definePageMeta({ layout: 'my-learning-layout', middleware: 'auth' })
 
 const route = useRoute()
 const localePath = useLocalePath()
-const store = useMyLearningStore()
+const store = useSavedCourseStore()
 
 const { courses } = storeToRefs(store)
 const { myCourseQueryString } = useURLQueryString()
@@ -30,6 +30,8 @@ const handleUpdatedData = (data: any) => {
     behavior: 'smooth'
   })
 }
+
+onMounted(async () => await store.getAllSavedCourse({ ...myCourseQueryString.value }))
 </script>
 
 <template>
@@ -56,3 +58,4 @@ const handleUpdatedData = (data: any) => {
     </div>
   </div>
 </template>
+~/stores/e-learning/savedCourse

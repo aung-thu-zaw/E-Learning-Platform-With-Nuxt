@@ -10,6 +10,7 @@ export interface LearningPath {
   creator_id: string
   total_course: string
   total_duration: string
+  is_saved: boolean
   creator: {
     name: string
     avatar: string

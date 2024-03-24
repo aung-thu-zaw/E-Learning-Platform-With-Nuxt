@@ -1,68 +1,22 @@
 <script setup lang="ts">
-import { useMyLearningStore } from '~/stores/user/myLearning'
+import { useSavedCourseStore } from '~/stores/e-learning/savedCourse'
 import type { Course } from '~/types/browsing'
 
 const props = defineProps<{ course: Course }>()
 
-const isSaved = ref<boolean>(false)
-const store = useMyLearningStore()
+const isSaved = ref<boolean>(props.course.is_saved)
+const store = useSavedCourseStore()
 const localePath = useLocalePath()
 
-const { $axiosApi, $toast, $i18n } = useNuxtApp()
-const { courses } = storeToRefs(store)
-
-const savedCourseToList = async (courseUUID: string) => {
-  try {
-    const { data } = await $axiosApi.post(`/courses/${courseUUID}/save`)
-
-    isSaved.value = true
-
-    $toast.success($i18n.t(data.message))
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      return useRouter().push({ path: '/auth/sign-in' })
-    } else {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
-    }
+const toggleSavedCourse = async () => {
+  if (isSaved.value) {
+    await store.removeCourseFromList(props.course?.uuid)
+  } else {
+    await store.savedCourseToList(props.course?.uuid)
   }
+
+  isSaved.value = !isSaved.value
 }
-
-const removeCourseFromList = async (courseUUID: string) => {
-  try {
-    const { data } = await $axiosApi.delete(`/courses/${courseUUID}/remove`)
-
-    isSaved.value = false
-
-    $toast.success($i18n.t(data.message))
-  } catch (error: any) {
-    if (error.response?.status === 401) {
-      return useRouter().push({ path: '/auth/sign-in' })
-    } else {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
-    }
-  }
-}
-
-const checkCourseIsSaved = (courseId: number): boolean | void => {
-  if (!courses.value?.data?.length) return false
-
-  isSaved.value = courses.value?.data?.some((course) => course.id === courseId)
-}
-
-onMounted(() => checkCourseIsSaved(props.course?.id))
-
-watch(
-  () => courses.value,
-  () => checkCourseIsSaved(props.course?.id)
-)
 </script>
 
 <template>
@@ -88,10 +42,7 @@ watch(
         </NuxtLink>
 
         <div>
-          <button
-            type="button"
-            @click="isSaved ? removeCourseFromList(course?.uuid) : savedCourseToList(course?.uuid)"
-          >
+          <button type="button" @click="toggleSavedCourse">
             <span v-if="isSaved" class="text-yellow-500">
               <i class="fa-solid fa-bookmark"></i>
             </span>
