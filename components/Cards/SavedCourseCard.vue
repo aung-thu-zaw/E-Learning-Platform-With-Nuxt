@@ -33,7 +33,7 @@ const localePath = useLocalePath()
           </NuxtLink>
 
           <div class="absolute top-8 right-8">
-            <SavedCourseDropdown />
+            <SavedCourseDropdown :course="course" />
           </div>
         </div>
 

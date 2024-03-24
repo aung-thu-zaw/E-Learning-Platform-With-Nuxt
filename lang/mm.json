@@ -312,5 +312,11 @@
     "Reminder deleted successfully!": "သတိပေးချက်ကို အောင်မြင်စွာ ဖျက်လိုက်ပါပြီ။",
     "Sync To Google Calendar": "Google ပြက္ခဒိန်သို့ စင့်ခ်လုပ်ပါ",
     "Event added to Google Calendar successfully.": "အစီအစဉ်ကို Google Calendar တွင် အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။",
-    "You haven't enrolled any courses yet.": "မည်သည့်သင်တန်းကိုမှ စာရင်းမသွင်းရသေးပါ။"
+    "You haven't enrolled any courses yet.": "မည်သည့်သင်တန်းကိုမှ စာရင်းမသွင်းရသေးပါ။",
+    "Remove From Enrolled Courses": "စာရင်းသွင်းထားသော သင်တန်းများမှ ဖယ်ရှားပါ",
+    "Unmark as Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားမှထုတ်ပါ။",
+    "Remove From Saved Courses": "သိမ်းဆည်းထားသော သင်တန်းများမှ ဖယ်ရှားပါ",
+    "Course marked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားပြုပါသည်။",
+    "Course unmarked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားမှ ဖြုတ်လိုက်ပါသည်။",
+    "Successfully unenrolled from the course": "စာရင်းသွင်းထားသောသင်တန်းကိုအောင်မြင်စွာဖြုတ်လိုက်ပါပြီ။"
 }

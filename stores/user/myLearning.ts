@@ -5,29 +5,10 @@ import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import type { myCourseQuery } from '~/types/query'
 
 export const useMyLearningStore = defineStore('my-learning', () => {
-  const enrolledCourses = ref<CoursePaginate | null>(null)
   const courses = ref<CoursePaginate | null>(null)
   const learningPaths = ref<LearningPathPaginate | null>(null)
 
   const { $axiosApi } = useNuxtApp()
-
-  const getAllEnrolledCourse = async (query: myCourseQuery): Promise<void> => {
-    try {
-      const { generateQueryString } = useQueryGenerator()
-
-      const { data } = await $axiosApi.get(`/user/enrolled-courses?${generateQueryString(query)}`)
-
-      if (!data) throw new Error('Response Data Not Found!')
-
-      enrolledCourses.value = data
-    } catch (error: any) {
-      showError({
-        statusCode: error.response?.status,
-        statusMessage: error.response?.statusText,
-        message: error.response?.data?.message
-      })
-    }
-  }
 
   const getAllSavedCourse = async (query: myCourseQuery): Promise<void> => {
     try {
@@ -70,8 +51,6 @@ export const useMyLearningStore = defineStore('my-learning', () => {
   return {
     learningPaths,
     courses,
-    enrolledCourses,
-    getAllEnrolledCourse,
     getAllSavedCourse,
     getAllSavedLearningPath
   }

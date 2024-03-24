@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import CourseCardProgressBar from '~/components/ProgressBars/CourseCardProgressBar.vue'
+import EnrolledCourseDropdown from '~/components/Dropdowns/EnrolledCourseDropdown.vue'
 import type { Course } from '~/types/browsing'
 
 defineProps<{ course: Course }>()
@@ -38,6 +39,10 @@ const localePath = useLocalePath()
             <i class="fa-solid fa-star"></i>
             Leave a rating
           </button>
+
+          <div class="absolute top-8 right-8">
+            <EnrolledCourseDropdown :course="course" />
+          </div>
         </div>
 
         <div class="flex items-center justify-between font-medium">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import EnrolledCourseCard from '~/components/Cards/EnrolledCourseCard.vue'
 import Pagination from '~/components/Paginations/AppPagination.vue'
-import { useMyLearningStore } from '~/stores/user/myLearning'
+import { useEnrolledCourse } from '~/stores/user/enrolledCourse'
 import { useURLQueryString } from '~/composables/useURLQueryString'
 import type { CoursePaginate } from '~/types/browsing'
 
@@ -11,9 +11,9 @@ definePageMeta({ layout: 'my-learning-layout', middleware: 'auth' })
 
 const route = useRoute()
 const localePath = useLocalePath()
-const store = useMyLearningStore()
+const store = useEnrolledCourse()
 
-const { enrolledCourses } = storeToRefs(store)
+const { courses } = storeToRefs(store)
 const { myCourseQueryString } = useURLQueryString()
 
 onMounted(async () => await store.getAllEnrolledCourse({ ...myCourseQueryString.value }))
@@ -26,7 +26,7 @@ watch(
 )
 
 const handleUpdatedData = (data: any) => {
-  store.$patch({ enrolledCourses: data as CoursePaginate })
+  store.$patch({ courses: data as CoursePaginate })
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
@@ -36,17 +36,13 @@ const handleUpdatedData = (data: any) => {
 
 <template>
   <div>
-    <div v-if="enrolledCourses?.data.length">
+    <div v-if="courses?.data.length">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        <EnrolledCourseCard
-          v-for="course in enrolledCourses.data"
-          :key="course.id"
-          :course="course"
-        />
+        <EnrolledCourseCard v-for="course in courses.data" :key="course.id" :course="course" />
       </div>
 
-      <div v-if="enrolledCourses" class="mt-20">
-        <Pagination :data="enrolledCourses" @updated-data="handleUpdatedData" />
+      <div v-if="courses" class="mt-20">
+        <Pagination :data="courses" @updated-data="handleUpdatedData" />
       </div>
     </div>
 

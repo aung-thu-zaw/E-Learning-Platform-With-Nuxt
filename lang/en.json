@@ -313,5 +313,11 @@
     "Reminder deleted successfully!": "Reminder deleted successfully!",
     "Sync To Google Calendar": "Sync To Google Calendar",
     "Event added to Google Calendar successfully.": "Event added to Google Calendar successfully.",
-    "You haven't enrolled any courses yet.": "You haven't enrolled any courses yet."
+    "You haven't enrolled any courses yet.": "You haven't enrolled any courses yet.",
+    "Remove From Enrolled Courses": "Remove From Enrolled Courses",
+    "Unmark as Complete": "Unmark as Complete",
+    "Remove From Saved Courses": "Remove From Saved Courses",
+    "Course marked as complete": "Course marked as complete",
+    "Course unmarked as complete": "Course unmarked as complete",
+    "Successfully unenrolled from the course": "Successfully unenrolled from the course"
 }
