@@ -21,6 +21,19 @@ export interface Tag {
   slug: string
 }
 
+export interface Section {
+  title: string
+  slug: string
+  lessons: {
+    title: string
+    slug: string
+    video_path: string
+    duration: number
+    description: string
+    is_completed: boolean
+  }[]
+}
+
 export interface Course {
   id: number
   uuid: string
@@ -45,6 +58,7 @@ export interface Course {
     avatar: string
   }
   total_lesson: string
+  sections: Section[]
   duration: string
   enrollment: {
     id: number

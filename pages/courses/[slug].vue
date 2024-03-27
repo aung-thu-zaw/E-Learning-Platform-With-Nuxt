@@ -3,35 +3,49 @@ import CourseOutlineAccordion from '~/components/Accordions/CourseOutlineAccordi
 import NormalButton from '~/components/Buttons/NormalButton.vue'
 import VideoPlayerBox from '~/components/VideoPlayerBox.vue'
 import { useCourseStore } from '~/stores/e-learning/course'
+import { useSavedCourseStore } from '~/stores/e-learning/savedCourse'
 
 useHead({ title: 'Home' })
 
 definePageMeta({ layout: 'app-layout' })
 
-const store = useCourseStore()
+const slug = useRoute().params.slug.toString()
+
+const courseStore = useCourseStore()
+const savedCourseStore = useSavedCourseStore()
 const localePath = useLocalePath()
 
-const { course } = storeToRefs(store)
+const { course } = storeToRefs(courseStore)
 
 onMounted(async () => {
-  await store.getCourse(useRoute().params.slug.toString())
+  await courseStore.getCourse(slug)
 
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
   })
 })
+
+const toggleCourseSave = async () => {
+  if (course.value) {
+    course.value?.is_saved
+      ? await savedCourseStore.removeCourseFromList(course?.value?.uuid)
+      : await savedCourseStore.savedCourseToList(course?.value?.uuid)
+  }
+
+  await courseStore.getCourse(slug)
+}
 </script>
 
 <template>
   <div>
     <section v-if="course">
-      <div class="container mx-auto py-10 space-y-10">
+      <div class="container mx-auto px-5 py-10 space-y-10">
         <NormalButton class="text-white bg-yellow-500 hover:bg-yellow-600">
           <i class="fa-solid fa-arrow-left mr-2"></i>
           {{ $t('Browse Courses') }}
         </NormalButton>
-        <div class="flex flex-col md:flex-row items-start justify-center space-x-5">
+        <div class="flex flex-col md:flex-row items-start justify-center space-y-10 md:space-x-5">
           <div class="w-full md:w-7/12 space-y-8">
             <div class="overflow-hidden rounded-md">
               <VideoPlayerBox />
@@ -70,10 +84,13 @@ onMounted(async () => {
                 <button
                   type="button"
                   class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
+                  @click="courseStore.enrollCourse(course.slug)"
                 >
-                  <span v-if="course?.is_enrolled">
+                  <span v-if="course?.is_enrolled && course?.enrollment">
                     <i class="fa-solid fa-play mr-1"></i>
-                    {{ $t('Watch Now') }}
+                    {{
+                      course?.enrollment.progress > 0 ? $t('Continue Watching') : $t('Watch Now')
+                    }}
                   </span>
                   <span v-else>
                     <i class="fa-solid fa-square-plus mr-1"></i>
@@ -84,10 +101,11 @@ onMounted(async () => {
                 <button
                   type="button"
                   class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
+                  @click="toggleCourseSave"
                 >
                   <span v-if="course?.is_saved">
                     <i class="fa-solid fa-bookmark mr-1"></i>
-                    {{ $t('Remove From Save List') }}
+                    {{ $t('Remove From Saved List') }}
                   </span>
                   <span v-else>
                     <i class="fa-solid fa-bookmark mr-1"></i>
@@ -117,12 +135,13 @@ onMounted(async () => {
           <div class="w-full md:w-5/12 space-y-5">
             <h3 class="font-bold text-xl">{{ $t('Course Outlines') }}</h3>
 
-            <div class="space-y-2.5">
-              <CourseOutlineAccordion />
-              <CourseOutlineAccordion />
-              <CourseOutlineAccordion />
-              <CourseOutlineAccordion />
-              <CourseOutlineAccordion />
+            <div class="space-y-2.5 w-full flex flex-col items-center justify-center">
+              <CourseOutlineAccordion
+                v-for="(section, index) in course.sections"
+                v-show="section?.lessons?.length"
+                :key="index"
+                :section="section"
+              />
             </div>
           </div>
         </div>

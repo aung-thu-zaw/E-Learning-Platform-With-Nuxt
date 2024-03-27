@@ -1,15 +1,19 @@
+<script setup lang="ts">
+import type { Section } from '~/types/browsing'
+
+defineProps<{ section: Section }>()
+</script>
+
 <template>
-  <div class="hs-accordion-group">
+  <div class="hs-accordion-group w-full">
     <div id="hs-basic-with-arrow-heading-one" class="hs-accordion">
       <button
-        class="hs-accordion-toggle hs-accordion-active:bg-yellow-500 hs-accordion-active:text-white p-5 rounded-md inline-flex flex-col items-start justify-between gap-x-3 w-full font-semibold text-start text-gray-700 disabled:opacity-50 disabled:pointer-events-none bg-gray-200"
+        class="hs-accordion-toggle hs-accordion-active:bg-yellow-500 hs-accordion-active:text-white p-5 rounded-md inline-flex flex-col items-start justify-between w-full font-semibold text-start text-gray-700 disabled:opacity-50 disabled:pointer-events-none bg-gray-200"
         aria-controls="hs-basic-with-arrow-collapse-one"
       >
         <div class="w-full flex items-start justify-between">
           <div class="line-clamp-1 font-semibold text-sm max-w-[450px]">
-            Chapter-1 - Fundemental Controller Lorem ipsum dolor sit amet consectetur adipisicing
-            elit. Nam vel culpa error, est, iusto consectetur autem odit maiores voluptate quas
-            excepturi. Optio cumque maxime sint eligendi numquam assumenda quam aperiam!
+            {{ section?.title }}
           </div>
 
           <svg
@@ -48,7 +52,7 @@
         aria-labelledby="hs-basic-with-arrow-heading-one"
         :data-hs-accordion-always-open="false"
       >
-        <div v-for="index in 8" :key="index" class="text-gray-10">
+        <div v-for="(lesson, index) in section.lessons" :key="index" class="text-gray-10">
           <div class="p-3 rounded-md flex items-start space-x-3 transition-all">
             <div
               class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-xs text-gray-600 border border-gray-300"
@@ -60,12 +64,11 @@
                 href="#"
                 class="line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all"
               >
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore excepturi ab quam
-                fuga illo debitis?
+                {{ lesson?.title }}
               </a>
               <span class="text-[.7rem] my-1 font-normal text-gray-600">
                 <i class="fa-solid fa-clock mr-2"> </i>
-                24min
+                {{ lesson?.duration }}
               </span>
             </div>
           </div>

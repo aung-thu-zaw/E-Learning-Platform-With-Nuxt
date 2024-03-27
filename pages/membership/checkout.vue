@@ -9,6 +9,8 @@ import SubscriptionSummary from '~/components/SubscriptionSummary.vue'
 
 useHead({ title: 'Checkout' })
 
+definePageMeta({ middleware: 'auth' })
+
 const localePath = useLocalePath()
 
 const selectedPlan = ref<string | null>(null)

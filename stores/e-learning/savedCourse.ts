@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import type { CoursePaginate } from '~/types/browsing'
 import { useQueryGenerator } from '~/composables/useQueryGenerator'
 import type { myCourseQuery } from '~/types/query'
+import type { NavigationFailure } from 'vue-router'
 
 export const useSavedCourseStore = defineStore('saved-course', () => {
   const courses = ref<CoursePaginate | null>(null)
@@ -26,7 +27,7 @@ export const useSavedCourseStore = defineStore('saved-course', () => {
     }
   }
 
-  const savedCourseToList = async (courseUUID: string) => {
+  const savedCourseToList = async (courseUUID: string): Promise<void | NavigationFailure> => {
     try {
       const { data } = await $axiosApi.post(`/courses/${courseUUID}/save`)
 
@@ -44,7 +45,7 @@ export const useSavedCourseStore = defineStore('saved-course', () => {
     }
   }
 
-  const removeCourseFromList = async (courseUUID: string) => {
+  const removeCourseFromList = async (courseUUID: string): Promise<void | NavigationFailure> => {
     try {
       const { data } = await $axiosApi.delete(`/courses/${courseUUID}/remove`)
 
