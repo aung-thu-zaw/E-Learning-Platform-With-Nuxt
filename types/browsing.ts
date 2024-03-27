@@ -37,6 +37,8 @@ export interface Course {
   language: string
   published_at: string
   is_saved: boolean
+  is_enrolled: boolean
+  total_student: number
   instructor: {
     username: string
     name: string

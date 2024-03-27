@@ -318,5 +318,18 @@
     "Remove From Saved Courses": "သိမ်းဆည်းထားသော သင်တန်းများမှ ဖယ်ရှားပါ",
     "Course marked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားပြုပါသည်။",
     "Course unmarked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားမှ ဖြုတ်လိုက်ပါသည်။",
-    "Successfully unenrolled from the course": "စာရင်းသွင်းထားသောသင်တန်းကိုအောင်မြင်စွာဖြုတ်လိုက်ပါပြီ။"
+    "Successfully unenrolled from the course": "စာရင်းသွင်းထားသောသင်တန်းကိုအောင်မြင်စွာဖြုတ်လိုက်ပါပြီ။",
+    "Watch Now": "ယခု ကြည့်ရှုပါ",
+    "Save Course": "သင်တန်းသိမ်းပါ",
+    "Join Premium": "ပရီမီယံ ပါဝင်ပါ",
+    "About This Course": "ဒီသင်တန်းအကြောင်း",
+    "Enroll Course": "သင်တန်းစာရင်းပေးသွင်းပါ",
+    "Course Outlines": "သင်တန်းအညွှန်းများ",
+    "beginner": "အစပြုသူ",
+    "intermediate": "အလယ်အလတ်",
+    "advanced": "အဆင့်မြင့်",
+    "all_level": "အဆင့်အားလုံး",
+    "Student": "ကျောင်းသား",
+    "Students": "ကျောင်းသားများ",
+    "Lessons": "သင်ခန်းစာများ"
 }

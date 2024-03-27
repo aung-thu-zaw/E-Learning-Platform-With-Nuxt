@@ -25,9 +25,12 @@ const toggleSavedCourse = async () => {
   >
     <img class="w-full h-auto rounded-xl" :src="course?.thumbnail" alt="Course Thumbnail" />
     <div class="p-4 md:p-5">
-      <h3 class="text-md font-bold text-gray-700 line-clamp-2">
+      <NuxtLink
+        :to="localePath(`/courses/${course.slug}`)"
+        class="text-md font-bold text-gray-700 line-clamp-2 hover:text-yellow-500 transition-all"
+      >
         {{ course?.title }}
-      </h3>
+      </NuxtLink>
 
       <div class="flex items-center justify-between my-5">
         <NuxtLink :to="localePath(`/user/${course.instructor.username}`)" class="space-x-2">
