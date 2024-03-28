@@ -15,7 +15,7 @@ const courseStore = useCourseStore()
 const savedCourseStore = useSavedCourseStore()
 const localePath = useLocalePath()
 
-const { course } = storeToRefs(courseStore)
+const { course, introVideo } = storeToRefs(courseStore)
 
 onMounted(async () => {
   await courseStore.getCourse(courseSlug)
@@ -35,6 +35,13 @@ const toggleCourseSave = async () => {
 
   await courseStore.getCourse(courseSlug)
 }
+
+watch(
+  () => course.value,
+  async (newValue) => {
+    await courseStore.getCourseIntroVideo(newValue.intro_video_name)
+  }
+)
 </script>
 
 <template>
@@ -49,8 +56,8 @@ const toggleCourseSave = async () => {
           class="flex flex-col md:flex-row items-start justify-center space-y-10 md:space-y-0 md:space-x-5"
         >
           <div class="w-full md:w-7/12 space-y-8">
-            <div class="overflow-hidden rounded-md">
-              <VideoPlayerBox :video-url="course?.intro_video_path" />
+            <div v-if="introVideo" class="overflow-hidden rounded-md">
+              <VideoPlayerBox :video="introVideo" />
             </div>
 
             <h1 class="font-bold text-3xl text-gray-800">
@@ -87,7 +94,7 @@ const toggleCourseSave = async () => {
                   v-if="course?.is_enrolled && course?.enrollment"
                   :to="
                     localePath(
-                      `/courses/${courseSlug}/${course?.sections[0].slug}/${course?.sections[0].lessons[0].slug}`
+                      `/courses/${courseSlug}/${course?.sections[0].slug}/${course?.sections[0].lessons[0].uuid}`
                     )
                   "
                   class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"

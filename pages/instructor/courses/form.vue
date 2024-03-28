@@ -4,6 +4,7 @@ import VideoLessons from '~/components/Course/VideoLessons.vue'
 import CourseResources from '~/components/Course/CourseResources.vue'
 import CourseFormTab from '~/components/Tabs/CourseFormTab.vue'
 import FormButton from '~/components/Buttons/FormButton.vue'
+import { useCourseStore } from '~/stores/dashboard/instructor/course'
 import type { Form } from '~/types/course'
 
 useHead({ title: 'Create Course' })

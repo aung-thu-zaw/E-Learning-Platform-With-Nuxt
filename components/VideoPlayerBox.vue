@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import Plyr from 'plyr'
 
-defineProps<{ videoUrl: string }>()
+defineProps<{ video: any }>()
+const emit = defineEmits(['progressUpdate'])
 
-onMounted(() => {
-  new Plyr(document.getElementById('player'), {
+const videoPlayer = ref<HTMLVideoElement | null>(null)
+
+onMounted(async () => {
+  const player = new Plyr('#player', {
     controls: [
       'play-large',
       'play',
@@ -21,13 +24,21 @@ onMounted(() => {
     ],
     settings: ['captions', 'quality', 'speed', 'loop']
   })
+
+  player.on('timeupdate', () => {
+    if (videoPlayer.value) {
+      const progress = 100 - (videoPlayer.value.currentTime / videoPlayer.value.duration) * 100
+      const formattedProgress = progress.toFixed(2)
+      emit('progressUpdate', formattedProgress)
+    }
+  })
 })
 </script>
 
 <template>
   <div>
-    <video id="player" playsinline controls data-poster="assets/images/no-image.jpeg">
-      <source :src="videoUrl" type="video/mp4" />
+    <video id="player" ref="videoPlayer" playsinline controls>
+      <source :src="video" type="video/mp4" />
     </video>
   </div>
 </template>

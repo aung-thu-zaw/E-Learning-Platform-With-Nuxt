@@ -3,7 +3,7 @@ import VideoPlayerBox from '~/components/VideoPlayerBox.vue'
 import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 import CourseProgressBar from '~/components/ProgressBars/CourseProgressBar.vue'
 import CourseSectionAccordion from '~/components/Accordions/CourseSectionAccordion.vue'
-import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
+// import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
 import { useCourseStore } from '~/stores/e-learning/course'
 
 useHead({ title: 'Home' })
@@ -13,19 +13,27 @@ definePageMeta({ layout: 'app-layout' })
 const store = useCourseStore()
 
 const courseSlug = useRoute().params.course_slug?.toString()
-// const sectionSlug = useRoute().params.section_slug.toString()
-// const lessonSlug = useRoute().params.lesson_slug.toString()
+const sectionSlug = useRoute().params.section_slug.toString()
+const lessonUUId = useRoute().params.lesson_uuid.toString()
+const progress = ref<number>(0)
 
-const { course } = storeToRefs(store)
+const { course, lesson, lessonVideo } = storeToRefs(store)
 
 onMounted(async () => {
   await store.getCourse(courseSlug)
+
+  if (course.value) {
+    await store.getLessonMetaData(lessonUUId)
+    await store.getLessonVideo(course.value.uuid, sectionSlug, lessonUUId)
+  }
 
   window.scrollTo({
     top: 0,
     behavior: 'smooth'
   })
 })
+
+const updateProgressPercent = (percent: number) => (progress.value = percent)
 </script>
 
 <template>
@@ -35,13 +43,13 @@ onMounted(async () => {
         <div class="">
           <div class="w-full flex flex-col md:flex-row items-start justify-between">
             <div class="w-full md:w-9/12">
-              <div class="rounded-md overflow-hidden">
-                <VideoPlayerBox />
+              <div v-if="lessonVideo" class="rounded-md overflow-hidden border border-gray-200">
+                <VideoPlayerBox :video="lessonVideo" @progress-update="updateProgressPercent" />
               </div>
 
-              <div class="my-5">
+              <div class="my-10">
                 <h1 class="font-bold text-3xl text-gray-800">
-                  Moving Validation to Form Request Class
+                  {{ lesson?.title }}
                 </h1>
               </div>
 
@@ -52,7 +60,7 @@ onMounted(async () => {
                     class="text-white bg-yellow-500 hover:bg-yellow-600 transition-all px-3 py-3 shadow-sm rounded-md text-xs"
                   >
                     <i class="fa-solid fa-circle-check"></i>
-                    {{ false ? $t('Mark As Complete') : $t('Unmark as Complete') }}
+                    {{ !lesson?.is_completed ? $t('Mark As Complete') : $t('Unmark as Complete') }}
                   </button>
 
                   <button
@@ -79,7 +87,7 @@ onMounted(async () => {
               </div>
 
               <!-- Progress -->
-              <CourseProgressBar :enrollment="course?.enrollment" />
+              <CourseProgressBar :enrollment="course?.enrollment ?? null" />
               <!-- End Progress -->
 
               <div class="px-3 h-[600px] overflow-auto">
@@ -90,6 +98,8 @@ onMounted(async () => {
                   :key="index"
                   :section="section"
                   :is-enrolled="course?.is_enrolled"
+                  :current-lesson="lesson ?? null"
+                  :lesson-progress="progress"
                 />
               </div>
             </div>

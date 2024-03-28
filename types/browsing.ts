@@ -21,19 +21,23 @@ export interface Tag {
   slug: string
 }
 
+export interface Lesson {
+  section_id: number
+  title: string
+  uuid: string
+  video_file_name: string
+  duration: string
+  description: string
+  is_completed: boolean
+}
+
 export interface Section {
+  id: number
   title: string
   slug: string
   duration: string
   total_completed_lessons_count: number
-  lessons: {
-    title: string
-    slug: string
-    video_path: string
-    duration: string
-    description: string
-    is_completed: boolean
-  }[]
+  lessons: Lesson[]
 }
 
 export interface Course {
@@ -54,7 +58,7 @@ export interface Course {
   is_saved: boolean
   is_enrolled: boolean
   total_student: number
-  intro_video_path: string
+  intro_video_name: string
   instructor: {
     username: string
     name: string
@@ -68,6 +72,7 @@ export interface Course {
     enrolled_at: string
     completed_at: string
     progress: number
+    last_watched_lesson_uuid: string
   } | null
 }
 
