@@ -67,12 +67,19 @@ export default defineNuxtConfig({
         {
           rel: 'stylesheet',
           href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap'
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://cdn.plyr.io/3.7.8/plyr.css'
         }
       ],
       script: [
         {
           src: 'https://kit.fontawesome.com/18c274e5f3.js',
           crossorigin: 'anonymous'
+        },
+        {
+          src: 'https://cdn.plyr.io/3.7.8/plyr.js'
         }
       ]
     }

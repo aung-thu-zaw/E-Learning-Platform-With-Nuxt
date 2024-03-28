@@ -38,8 +38,8 @@ const proxyChecked = computed({
 
 <template>
   <div class="flex items-center">
-    <label v-if="label" for="hs-xs-switch" class="text-xs font-semibold text-white me-3 0">
-      {{ label }}
+    <label v-if="label" for="hs-xs-switch" class="text-xs font-semibold text-gray-700 me-3 0">
+      {{ $t(label) }}
     </label>
 
     <input

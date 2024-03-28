@@ -1,10 +1,19 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Enrollment {
+  id: number
+  enrolled_at: string
+  completed_at: string
+  progress: number
+}
+
+defineProps<{ enrollment: Enrollment | null }>()
+</script>
 
 <template>
-  <div class="w-full px-3 my-5">
+  <div v-if="enrollment" class="w-full px-3 my-5 text-gray-700 font-semibold">
     <div class="mb-2 flex justify-between items-center">
-      <h3 class="text-sm font-semibold text-white">Progress</h3>
-      <span class="text-sm text-white">25%</span>
+      <h3 class="text-sm">{{ $t('Progress') }}</h3>
+      <span class="text-sm">{{ enrollment.progress }}%</span>
     </div>
     <div
       class="flex w-full h-2 bg-gray-200 rounded-full overflow-hidden"
@@ -14,11 +23,13 @@
       aria-valuemax="100"
     >
       <div
-        class="flex flex-col justify-center rounded-full overflow-hidden bg-yellow-500 text-xs text-white text-center whitespace-nowrap transition duration-500"
-        style="width: 25%"
+        class="flex flex-col justify-center rounded-full overflow-hidden bg-yellow-500 text-xs text-center whitespace-nowrap transition duration-500"
+        :style="{ width: enrollment.progress + '%' }"
       ></div>
     </div>
 
-    <span class="block text-xs text-right ml-auto mt-3"> Time left in the course: 1 h 04 min </span>
+    <span class="block text-xs text-right ml-auto mt-3">
+      {{ $t('Time left in the course') }} : 1 h 04 min
+    </span>
   </div>
 </template>

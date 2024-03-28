@@ -9,7 +9,7 @@ useHead({ title: 'Home' })
 
 definePageMeta({ layout: 'app-layout' })
 
-const slug = useRoute().params.slug.toString()
+const courseSlug = useRoute().params?.course_slug?.toString()
 
 const courseStore = useCourseStore()
 const savedCourseStore = useSavedCourseStore()
@@ -18,7 +18,7 @@ const localePath = useLocalePath()
 const { course } = storeToRefs(courseStore)
 
 onMounted(async () => {
-  await courseStore.getCourse(slug)
+  await courseStore.getCourse(courseSlug)
 
   window.scrollTo({
     top: 0,
@@ -33,7 +33,7 @@ const toggleCourseSave = async () => {
       : await savedCourseStore.savedCourseToList(course?.value?.uuid)
   }
 
-  await courseStore.getCourse(slug)
+  await courseStore.getCourse(courseSlug)
 }
 </script>
 
@@ -45,10 +45,12 @@ const toggleCourseSave = async () => {
           <i class="fa-solid fa-arrow-left mr-2"></i>
           {{ $t('Browse Courses') }}
         </NormalButton>
-        <div class="flex flex-col md:flex-row items-start justify-center space-y-10 md:space-x-5">
+        <div
+          class="flex flex-col md:flex-row items-start justify-center space-y-10 md:space-y-0 md:space-x-5"
+        >
           <div class="w-full md:w-7/12 space-y-8">
             <div class="overflow-hidden rounded-md">
-              <VideoPlayerBox />
+              <VideoPlayerBox :video-url="course?.intro_video_path" />
             </div>
 
             <h1 class="font-bold text-3xl text-gray-800">
@@ -81,21 +83,27 @@ const toggleCourseSave = async () => {
 
             <div class="flex items-center justify-between">
               <div class="space-x-5">
+                <NuxtLink
+                  v-if="course?.is_enrolled && course?.enrollment"
+                  :to="
+                    localePath(
+                      `/courses/${courseSlug}/${course?.sections[0].slug}/${course?.sections[0].lessons[0].slug}`
+                    )
+                  "
+                  class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
+                >
+                  <i class="fa-solid fa-play mr-1"></i>
+                  {{ course?.enrollment.progress > 0 ? $t('Continue Watching') : $t('Watch Now') }}
+                </NuxtLink>
+
                 <button
+                  v-else
                   type="button"
                   class="text-xs rounded-md font-semibold bg-yellow-500 px-4 py-2.5 text-white hover:bg-yellow-400 transition-all"
                   @click="courseStore.enrollCourse(course.slug)"
                 >
-                  <span v-if="course?.is_enrolled && course?.enrollment">
-                    <i class="fa-solid fa-play mr-1"></i>
-                    {{
-                      course?.enrollment.progress > 0 ? $t('Continue Watching') : $t('Watch Now')
-                    }}
-                  </span>
-                  <span v-else>
-                    <i class="fa-solid fa-square-plus mr-1"></i>
-                    {{ $t('Enroll Course') }}
-                  </span>
+                  <i class="fa-solid fa-square-plus mr-1"></i>
+                  {{ $t('Enroll Course') }}
                 </button>
 
                 <button
@@ -132,15 +140,16 @@ const toggleCourseSave = async () => {
               <p v-html="course?.course_description" class="text-sm font-medium text-gray-700"></p>
             </div>
           </div>
-          <div class="w-full md:w-5/12 space-y-5">
+          <div class="w-full md:w-5/12 space-y-8">
             <h3 class="font-bold text-xl">{{ $t('Course Outlines') }}</h3>
 
             <div class="space-y-2.5 w-full flex flex-col items-center justify-center">
               <CourseOutlineAccordion
-                v-for="(section, index) in course.sections"
+                v-for="(section, index) in course?.sections"
                 v-show="section?.lessons?.length"
                 :key="index"
                 :section="section"
+                :is-enrolled="course?.is_enrolled"
               />
             </div>
           </div>

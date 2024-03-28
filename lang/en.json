@@ -334,5 +334,10 @@
     "Students": "Students",
     "Lessons": "Lessons",
     "Continue Watching": "Continue Watching",
-    "Remove From Saved List": "Remove From Saved List"
+    "Remove From Saved List": "Remove From Saved List",
+    "Autoplay": "Autoplay",
+    "Progress": "Progress",
+    "Time left in the course": "Time left in the course",
+    "Download Video": "Download Video",
+    "Get notified when participating": "Get notified when participating"
 }

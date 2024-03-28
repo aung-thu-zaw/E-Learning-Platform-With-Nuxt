@@ -272,7 +272,7 @@
     "My Lists": "ကျွန်ုပ်၏စာရင်းများ",
     "Watch History": "စောင့်ကြည့်မှတ်တမ်း",
     "Enrolled Courses": "စာရင်းသွင်းသင်တန်းများ",
-    "Mark As Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားပြုပါ။",
+    "Mark As Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားပြုပါ",
     "Add To Another List": "အခြားစာရင်းသို့ထည့်ပါ။",
     "Remove From Saved": "သိမ်းဆည်းထားသောနေရာမှ ဖယ်ရှားပါ။",
     "You haven't saved any Learning Paths yet.": "သင်သည် မည်သည့် သင်ယူမှုလမ်းကြောင်း ကိုမျှ မသိမ်းဆည်းရသေးပါ။",
@@ -314,7 +314,7 @@
     "Event added to Google Calendar successfully.": "အစီအစဉ်ကို Google Calendar တွင် အောင်မြင်စွာ ထည့်သွင်းခဲ့သည်။",
     "You haven't enrolled any courses yet.": "မည်သည့်သင်တန်းကိုမှ စာရင်းမသွင်းရသေးပါ။",
     "Remove From Enrolled Courses": "စာရင်းသွင်းထားသော သင်တန်းများမှ ဖယ်ရှားပါ",
-    "Unmark as Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားမှထုတ်ပါ။",
+    "Unmark as Complete": "ပြီးမြောက်ကြောင်း အမှတ်အသားမှထုတ်ပါ",
     "Remove From Saved Courses": "သိမ်းဆည်းထားသော သင်တန်းများမှ ဖယ်ရှားပါ",
     "Course marked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားပြုပါသည်။",
     "Course unmarked as complete": "သင်တန်းပြီးဆုံးကြောင်း အမှတ်အသားမှ ဖြုတ်လိုက်ပါသည်။",
@@ -333,5 +333,10 @@
     "Students": "ကျောင်းသားများ",
     "Lessons": "သင်ခန်းစာများ",
     "Continue Watching": "ဆက်လက်ကြည့်ရှုပါ",
-    "Remove From Saved List": "သိမ်းဆည်းထားသော စာရင်းမှ ဖယ်ရှားပါ"
+    "Remove From Saved List": "သိမ်းဆည်းထားသော စာရင်းမှ ဖယ်ရှားပါ",
+    "Autoplay": "အလိုအလျောက်ဖွင့်ပါ",
+    "Progress": "တိုးတက်မှု",
+    "Time left in the course": "သင်တန်းမှာ အချိန်ကျန်သေးတယ်",
+    "Download Video": "ဗီဒီယိုကို ဒေါင်းလုဒ်လုပ်ပါ",
+    "Get notified when participating": "ပါဝင်သည့်အခါ အကြောင်းကြားချက်ရယူပါ"
 }

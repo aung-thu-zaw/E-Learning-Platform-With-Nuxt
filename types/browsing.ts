@@ -24,11 +24,13 @@ export interface Tag {
 export interface Section {
   title: string
   slug: string
+  duration: string
+  total_completed_lessons_count: number
   lessons: {
     title: string
     slug: string
     video_path: string
-    duration: number
+    duration: string
     description: string
     is_completed: boolean
   }[]
@@ -52,6 +54,7 @@ export interface Course {
   is_saved: boolean
   is_enrolled: boolean
   total_student: number
+  intro_video_path: string
   instructor: {
     username: string
     name: string
