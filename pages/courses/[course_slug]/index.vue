@@ -39,7 +39,7 @@ const toggleCourseSave = async () => {
 watch(
   () => course.value,
   async (newValue) => {
-    await courseStore.getCourseIntroVideo(newValue.intro_video_name)
+    if (newValue) await courseStore.getCourseIntroVideo(newValue.intro_video_name)
   }
 )
 </script>

@@ -11,13 +11,13 @@ useHead({ title: 'Home' })
 definePageMeta({ layout: 'app-layout' })
 
 const store = useCourseStore()
-
 const courseSlug = useRoute().params.course_slug?.toString()
 const sectionSlug = useRoute().params.section_slug.toString()
 const lessonUUId = useRoute().params.lesson_uuid.toString()
 const progress = ref<number>(0)
 
 const { course, lesson, lessonVideo } = storeToRefs(store)
+const { $axiosApi } = useNuxtApp()
 
 onMounted(async () => {
   await store.getCourse(courseSlug)
@@ -34,10 +34,37 @@ onMounted(async () => {
 })
 
 const updateProgressPercent = (percent: number) => (progress.value = percent)
+
+const handleDownloadLesson = async () => {
+  try {
+    if (course.value && lesson.value) {
+      const { data } = await $axiosApi.get(
+        `courses/${course.value.uuid}/sections/${sectionSlug}/lessons/${lessonUUId}`,
+        {
+          responseType: 'blob'
+        }
+      )
+
+      const url = window.URL.createObjectURL(new Blob([data], { type: 'video/mp4' }))
+
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute('download', sectionSlug + '-' + lesson.value.title)
+      document.body.appendChild(link)
+      link.click()
+    }
+  } catch (error: any) {
+    showError({
+      statusCode: error.response?.status,
+      statusMessage: error.response?.statusText,
+      message: error.response?.data?.message
+    })
+  }
+}
 </script>
 
 <template>
-  <div>
+  <div v-if="lesson">
     <section>
       <header class="pt-5 mt-10 md:mt-0 px-5">
         <div class="">
@@ -58,6 +85,11 @@ const updateProgressPercent = (percent: number) => (progress.value = percent)
                   <button
                     type="button"
                     class="text-white bg-yellow-500 hover:bg-yellow-600 transition-all px-3 py-3 shadow-sm rounded-md text-xs"
+                    @click="
+                      !lesson?.is_completed
+                        ? store.lessonMarkAsComplete(lesson.uuid)
+                        : store.lessonUnmarkAsComplete(lesson.uuid)
+                    "
                   >
                     <i class="fa-solid fa-circle-check"></i>
                     {{ !lesson?.is_completed ? $t('Mark As Complete') : $t('Unmark as Complete') }}
@@ -66,6 +98,7 @@ const updateProgressPercent = (percent: number) => (progress.value = percent)
                   <button
                     type="button"
                     class="text-white bg-yellow-500 hover:bg-yellow-600 transition-all px-3 py-3 shadow-sm rounded-md text-xs"
+                    @click="handleDownloadLesson"
                   >
                     <i class="fa-solid fa-download"></i>
                     {{ $t('Download Video') }}
