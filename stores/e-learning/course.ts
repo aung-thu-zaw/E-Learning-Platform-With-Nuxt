@@ -165,6 +165,36 @@ export const useCourseStore = defineStore('course-lesson', () => {
     }
   }
 
+  const startLesson = async (lessonUUID: string): Promise<void> => {
+    try {
+      const { data } = await $axiosApi.post(`/lessons/${lessonUUID}/start`)
+
+      if (!data) throw new Error('Response Data Not Found!')
+
+      console.log(data.message)
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
+    }
+  }
+
+  const endLesson = async (lessonUUID: string): Promise<void> => {
+    try {
+      const { data } = await $axiosApi.post(`/lessons/${lessonUUID}/end`)
+
+      if (!data) throw new Error('Response Data Not Found!')
+    } catch (error: any) {
+      showError({
+        statusCode: error.response?.status,
+        statusMessage: error.response?.statusText,
+        message: error.response?.data?.message
+      })
+    }
+  }
+
   return {
     course,
     lesson,
@@ -176,6 +206,8 @@ export const useCourseStore = defineStore('course-lesson', () => {
     getLessonVideo,
     getLessonMetaData,
     lessonMarkAsComplete,
-    lessonUnmarkAsComplete
+    lessonUnmarkAsComplete,
+    startLesson,
+    endLesson
   }
 })

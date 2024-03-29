@@ -22,6 +22,7 @@ export interface Tag {
 }
 
 export interface Lesson {
+  id: number
   section_id: number
   title: string
   uuid: string

@@ -3,7 +3,6 @@ import VideoPlayer from '~/components/VideoPlayer.vue'
 import SwitchCheckbox from '~/components/Forms/Fields/SwitchCheckbox.vue'
 import CourseProgressBar from '~/components/ProgressBars/CourseProgressBar.vue'
 import CourseSectionAccordion from '~/components/Accordions/CourseSectionAccordion.vue'
-// import CourseInstructorCard from '~/components/Cards/CourseInstructorCard.vue'
 import { useCourseStore } from '~/stores/e-learning/course'
 
 useHead({ title: 'Home' })
@@ -18,6 +17,7 @@ const sectionSlug = useRoute().params.section_slug.toString()
 const lessonUUId = useRoute().params.lesson_uuid.toString()
 const progress = ref<number>(0)
 let isAutoPlayEnabled = ref(false)
+const accordionContainer = ref<HTMLElement | null>(null)
 
 if (process.client) {
   isAutoPlayEnabled = ref(localStorage.getItem('enabledAutoPlay') === 'true')
@@ -129,6 +129,23 @@ const handleAutoPlay = () => {
     localStorage.setItem('enabledAutoPlay', isAutoPlayEnabled.value.toString())
   }
 }
+
+onMounted(() => {
+  if (sessionStorage.getItem('scrollPosition')) {
+    const savedScrollPosition = parseInt(sessionStorage.getItem('scrollPosition')!)
+    if (accordionContainer.value) {
+      accordionContainer.value.scrollTop = savedScrollPosition
+    }
+  }
+})
+
+const saveScrollPosition = () => {
+  if (accordionContainer.value) {
+    sessionStorage.setItem('scrollPosition', accordionContainer.value.scrollTop.toString())
+  }
+}
+
+watch(() => [course.value, lesson.value], saveScrollPosition, { deep: true })
 </script>
 
 <template>
@@ -138,8 +155,17 @@ const handleAutoPlay = () => {
         <div class="">
           <div class="w-full flex flex-col md:flex-row items-start justify-between">
             <div class="w-full md:w-9/12">
-              <div v-if="lessonVideo" class="rounded-md overflow-hidden border border-gray-200">
-                <VideoPlayer :video="lessonVideo" @progress-update="updateProgressPercent" />
+              <div
+                v-if="lessonVideo && course"
+                class="rounded-md overflow-hidden border border-gray-200"
+              >
+                <VideoPlayer
+                  :video="lessonVideo"
+                  :lesson="lesson"
+                  :course="course"
+                  :is-auto-play-enabled="isAutoPlayEnabled"
+                  @progress-update="updateProgressPercent"
+                />
               </div>
 
               <div class="my-10">
@@ -195,7 +221,12 @@ const handleAutoPlay = () => {
               <CourseProgressBar :enrollment="course?.enrollment ?? null" />
               <!-- End Progress -->
 
-              <div v-if="course" class="px-3 h-[600px] overflow-auto w-full">
+              <div
+                v-if="course"
+                ref="accordionContainer"
+                class="px-3 h-[600px] overflow-y-scroll w-full"
+                @scroll="saveScrollPosition"
+              >
                 <!-- Section -->
                 <CourseSectionAccordion
                   v-for="(section, index) in course?.sections"

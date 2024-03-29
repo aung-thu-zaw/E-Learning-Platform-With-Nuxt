@@ -1,7 +1,13 @@
 <script setup lang="ts">
-import type { Section } from '~/types/browsing'
+import type { Section, Course } from '~/types/browsing'
 
-defineProps<{ section: Section; isEnrolled: boolean }>()
+defineProps<{
+  course: Course
+  section: Section
+  isEnrolled: boolean
+}>()
+
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -51,40 +57,54 @@ defineProps<{ section: Section; isEnrolled: boolean }>()
         class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
         :aria-labelled:by="'hs-outline-' + section.id"
       >
-        <div v-for="(lesson, index) in section.lessons" :key="index" class="text-gray-10">
-          <div class="p-3 rounded-md flex items-start space-x-3 transition-all">
-            <div
-              class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-xs text-gray-600 border border-gray-300"
-            >
-              <span v-if="!isEnrolled">
+        <div>
+          <div v-for="(lesson, index) in section.lessons" :key="index">
+            <div class="p-3 rounded-md flex items-start space-x-3 transition-all">
+              <div
+                v-if="!isEnrolled && !lesson?.is_completed"
+                class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-sm font-bold text-gray-600"
+              >
                 <i class="fa-solid fa-lock"></i>
-              </span>
-              <span v-else>
-                <i class="fa-solid fa-play"></i>
-              </span>
-            </div>
-            <div>
-              <div>
-                <button
-                  v-if="!isEnrolled"
-                  type="button"
-                  class="line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all disabled:cursor-not-allowed"
-                  disabled
-                >
-                  {{ lesson?.title }}
-                </button>
-                <a
-                  v-else
-                  href="#"
-                  class="line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all"
-                >
-                  {{ lesson?.title }}
-                </a>
               </div>
-              <span class="text-[.7rem] my-1 font-normal text-gray-600">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                {{ lesson?.duration }}
-              </span>
+
+              <div
+                v-if="isEnrolled && !lesson.is_completed"
+                class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-sm font-bold text-gray-600"
+              >
+                {{ index + 1 }}
+              </div>
+
+              <div
+                v-if="isEnrolled && lesson.is_completed"
+                class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-yellow-500 text-xs text-white font-bold"
+              >
+                <i class="fa-solid fa-check"></i>
+              </div>
+
+              <div>
+                <div>
+                  <button
+                    v-if="!isEnrolled"
+                    type="button"
+                    class="line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all disabled:cursor-not-allowed"
+                    disabled
+                  >
+                    {{ lesson?.title }}
+                  </button>
+
+                  <NuxtLink
+                    v-else
+                    :to="localePath(`/courses/${course.slug}/${section.slug}/${lesson.uuid}`)"
+                    class="line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all"
+                  >
+                    {{ lesson?.title }}
+                  </NuxtLink>
+                </div>
+                <span class="text-[.7rem] my-1 font-normal text-gray-600">
+                  <i class="fa-solid fa-clock mr-2"> </i>
+                  {{ lesson?.duration }}
+                </span>
+              </div>
             </div>
           </div>
         </div>

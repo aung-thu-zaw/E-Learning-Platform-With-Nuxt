@@ -159,7 +159,7 @@ const toggleCourseSave = async () => {
 
             <div class="space-y-5">
               <h3 class="font-bold text-lg text-gray-800">{{ $t('About This Course') }}</h3>
-              <p v-html="course?.course_description" class="text-sm font-medium text-gray-700"></p>
+              <p class="text-sm font-medium text-gray-700" v-html="course?.course_description"></p>
             </div>
           </div>
           <div class="w-full md:w-5/12 space-y-8">
@@ -171,6 +171,7 @@ const toggleCourseSave = async () => {
                 v-show="section?.lessons?.length"
                 :key="index"
                 :section="section"
+                :course="course"
                 :is-enrolled="course?.is_enrolled"
               />
             </div>
