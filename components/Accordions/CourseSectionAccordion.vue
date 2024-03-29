@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import type { Lesson, Section } from '~/types/browsing'
+import type { Lesson, Section, Course } from '~/types/browsing'
 
-defineProps<{ section: Section; currentLesson: Lesson | null; lessonProgress: number }>()
+defineProps<{
+  course: Course
+  section: Section
+  currentLesson: Lesson | null
+  lessonProgress: number
+}>()
+
+const localePath = useLocalePath()
 </script>
 
 <template>
@@ -58,103 +65,81 @@ defineProps<{ section: Section; currentLesson: Lesson | null; lessonProgress: nu
         :aria-labelled:by="'hs-' + section.slug"
       >
         <div class="text-gray-10">
-          <div
-            v-for="(lesson, index) in section?.lessons"
-            :key="index"
-            class="p-3 rounded-md flex items-start space-x-3 transition-all"
-            :class="{ 'bg-gray-200': lesson.uuid === currentLesson?.uuid }"
-          >
-            <div>
-              <div
-                v-if="lesson?.is_completed"
-                class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-yellow-500 text-xs text-white font-bold"
-              >
-                <i class="fa-solid fa-check"></i>
-              </div>
-
-              <div v-if="lesson.uuid === currentLesson?.uuid" class="relative size-10">
-                <svg
-                  class="size-full"
-                  width="36"
-                  height="36"
-                  viewBox="0 0 36 36"
-                  xmlns="http://www.w3.org/2000/svg"
+          <div v-for="(lesson, index) in section?.lessons" :key="index">
+            <NuxtLink
+              :to="localePath(`/courses/${course.slug}/${section.slug}/${lesson.uuid}`)"
+              class="p-3 rounded-md flex items-start space-x-3 transition-all"
+              :class="{ 'bg-gray-200': lesson.uuid === currentLesson?.uuid }"
+            >
+              <div>
+                <div
+                  v-if="lesson?.is_completed && lesson.uuid !== currentLesson?.uuid"
+                  class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-yellow-500 text-xs text-white font-bold"
                 >
-                  <!-- Background Circle -->
-                  <circle
-                    cx="18"
-                    cy="18"
-                    r="16"
-                    fill="none"
-                    class="stroke-current text-gray-200"
-                    stroke-width="3"
-                  ></circle>
-                  <!-- Progress Circle inside a group with rotation -->
-                  <g class="origin-center -rotate-90 transform">
+                  <i class="fa-solid fa-check"></i>
+                </div>
+
+                <div v-if="lesson.uuid === currentLesson?.uuid" class="relative size-10">
+                  <svg
+                    class="size-full"
+                    width="36"
+                    height="36"
+                    viewBox="0 0 36 36"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <!-- Background Circle -->
                     <circle
                       cx="18"
                       cy="18"
                       r="16"
                       fill="none"
-                      class="stroke-current text-yellow-500"
+                      class="stroke-current text-gray-200"
                       stroke-width="3"
-                      stroke-dasharray="100"
-                      :stroke-dashoffset="lessonProgress"
                     ></circle>
-                  </g>
-                </svg>
-                <!-- Percentage Text -->
-                <div class="absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                  <span class="text-center text-xs font-bold text-yellow-500">
-                    <i class="fa-solid fa-play"></i>
-                  </span>
+                    <!-- Progress Circle inside a group with rotation -->
+                    <g class="origin-center -rotate-90 transform">
+                      <circle
+                        cx="18"
+                        cy="18"
+                        r="16"
+                        fill="none"
+                        class="stroke-current text-yellow-500"
+                        stroke-width="3"
+                        stroke-dasharray="100"
+                        :stroke-dashoffset="lessonProgress === 0 ? 100 : lessonProgress"
+                      ></circle>
+                    </g>
+                  </svg>
+                  <!-- Percentage Text -->
+                  <div
+                    class="absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2"
+                  >
+                    <span class="text-center text-xs font-bold text-yellow-500">
+                      <i class="fa-solid fa-play"></i>
+                    </span>
+                  </div>
+                </div>
+
+                <div
+                  v-if="!lesson?.is_completed && lesson.uuid !== currentLesson?.uuid"
+                  class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-sm font-bold text-gray-600"
+                >
+                  {{ index + 1 }}
                 </div>
               </div>
 
-              <!-- <div
-                v-if="lesson.uuid === currentLesson?.uuid"
-                class="min-w-10 min-h-10 rounded-full flex items-center justify-center text-xs text-yellow-500 border-2 border-yellow-500"
-              >
-                <i class="fa-solid fa-play"></i>
-              </div> -->
-
-              <div
-                v-if="!lesson?.is_completed && lesson.uuid !== currentLesson?.uuid"
-                class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-sm font-bold text-gray-600"
-              >
-                {{ index + 1 }}
+              <div>
+                <p
+                  class="text-[0.8rem] line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all"
+                >
+                  {{ lesson?.title }}
+                </p>
+                <span class="text-[.7rem] my-1 font-normal text-gray-600">
+                  <i class="fa-solid fa-clock mr-2"> </i>
+                  {{ lesson?.duration }}
+                </span>
               </div>
-            </div>
-            <!-- <div
-              class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-yellow-500 text-xs text-white"
-            >
-              class="min-w-10 min-h-10 rounded-full flex items-center justify-center bg-gray-200 text-xs text-gray-600 border border-gray-300"
-              <span v-if="lesson?.is_completed">
-                <i class="fa-solid fa-check"></i>
-              </span>
-              <span v-else>
-                <i class="fa-solid fa-play"></i>
-              </span>
-            </div> -->
-            <!-- <div class="flex">
-              <input
-                id="hs-checked-checkbox"
-                type="checkbox"
-                class="shrink-0 mt-0.5 border-gray-200 rounded text-yellow-500 focus:ring-yellow-500 disabled:opacity-50 disabled:pointer-events-none"
-                :checked="lesson?.is_completed"
-              />
-            </div> -->
-            <div>
-              <p
-                class="text-[0.8rem] line-clamp-2 font-semibold text-sm hover:text-yellow-500 transition-all"
-              >
-                {{ lesson?.title }}
-              </p>
-              <span class="text-[.7rem] my-1 font-normal text-gray-600">
-                <i class="fa-solid fa-clock mr-2"> </i>
-                {{ lesson?.duration }}
-              </span>
-            </div>
+            </NuxtLink>
           </div>
         </div>
       </div>

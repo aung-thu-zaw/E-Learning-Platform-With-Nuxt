@@ -73,6 +73,7 @@ export interface Course {
     completed_at: string
     progress: number
     last_watched_lesson_uuid: string
+    last_watched_section_slug: string
   } | null
 }
 
